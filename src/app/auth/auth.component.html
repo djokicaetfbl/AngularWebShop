@@ -2,4 +2,22 @@
 <div class="card">
     <h2>Prijava korisnika</h2>
     <hr />
+
+    <!-- <form #authForm="ngForm" (ngSubmit)="onSubmit(authForm)" *ngIf="!isLoading" > -->
+    <form #authForm="ngForm" (ngSubmit)="onSubmit(authForm)">
+        <div class="form-group">
+            <label for="email">E-mail</label>
+            <input type="email" id="email" class="form-control" ngModel name="email" required email>
+        </div>
+        <div class="form-group">
+            <!-- to wrap label i input together -->
+            <label for="password">Password</label>
+            <input type="password" id="password" class="form-control" ngModel name="password" required minlength="6">
+        </div>
+        <div> <!-- kada su button-i u istom divu idu jedan pored drugog, a ako su u raz. divovima onda jedan ispod drugog -->
+            <button class="btn btn-primary" type="submit" [disabled]="!authForm.valid" >{{ isLoginMode ? 'Login' : 'Sign Up' }}</button> |
+            <button class="btn btn-primary" type="button" (click)="onSwitchMode()">Switch to {{ isLoginMode ? 'Sign Up': 'Login'}}</button> <!-- obavezno type button , inace ce da posalje suvisan http request , kao da je submit -->
+        </div>
+    </form>
+
 </div>

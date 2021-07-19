@@ -5,8 +5,9 @@ import { CategoriesComponent } from "./categories/categories.component";
 const appRoutes: Routes = [
     { path: '', redirectTo: '/categories', pathMatch: 'full' },
                         // ovo component: CategoriesComponent nije htjelo da radi bez component a valjda uspiejm napravit sa PreloadAllModules sa autentikacijom korisnika
-    { path: 'categories', component: CategoriesComponent, loadChildren: () => import('./categories/categories.module').then( m => m.CategoriesModule) },
+    { path: 'categories', /*component: CategoriesComponent,*/ loadChildren: () => import('./categories/categories.module').then( m => m.CategoriesModule) },
     /*{ path: 'categories', loadChildren: './categories/categories.module#CategoriesModule'}*/
+    { path: 'auth', loadChildren: () => import('./auth/auth.module').then(m => m.AuthModule) },
 ];
 
 @NgModule({             // pretvara normalnu typescript klasu u Angular modul
