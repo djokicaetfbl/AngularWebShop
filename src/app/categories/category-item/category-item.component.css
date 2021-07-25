@@ -1,0 +1,17 @@
+#categorynameStrong {
+    font-size: 24px;
+}
+
+#btnDeleteCategory {
+    font-size: 20px;
+    float: left;
+    margin-left: 5%;
+}
+
+#btnChangeCategory{
+    font-size: 20px;
+    /*margin-left: 3%;*/
+    float: right;
+    margin-right: 5%;
+    color: white;
+}

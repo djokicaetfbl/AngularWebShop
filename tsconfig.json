@@ -19,12 +19,17 @@
     "lib": [
       "es2018",
       "dom"
-    ]
+    ],
+   //"strictPropertyInitialization": false // ja dodao jer mi tipove stavlja undefined ako npr uradim inputExampleProp!: string; sa ovim uzvicnikom u console.log mi stavlja error
   },
   "angularCompilerOptions": {
     "enableI18nLegacyMessageIdFormat": false,
     "strictInjectionParameters": true,
     "strictInputAccessModifiers": true,
-    "strictTemplates": true
+    "strictTemplates": true,
+
+
+
+   // "strictPropertyInitialization ": false, /* NIJE PREPORUCENO ALI JBG  Information: https://www.typescriptlang.org/docs/handbook/release-notes/typescript-2-7.html#strict-class-initialization*/
   }
 }

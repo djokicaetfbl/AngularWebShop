@@ -4,12 +4,13 @@ import { AppRoutingModule } from './app-routing.module';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 
 import { AppComponent } from './app.component';
-import { HeaderComponent } from './header/header.component';
 import { SharedModule } from './shared/shared.module';
 import { CoreModule } from './core.module';
+import { HeaderComponent } from './header/header.component';
 //import { CoreModule } from './core.module';
 //import { AuthComponent } from './auth/auth.component';
 //import { CategoriesComponent } from './categories/categories.component';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 
 @NgModule({
   declarations: [
@@ -22,8 +23,8 @@ import { CoreModule } from './core.module';
     AppRoutingModule,
     HttpClientModule, // communicating with backend services using HTTP,
     SharedModule,
-    CoreModule
-    //CoreModule,
+    CoreModule,
+    FontAwesomeModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

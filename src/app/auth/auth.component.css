@@ -5,3 +5,15 @@
     margin: 2rem auto;
     max-width: 92%
   }
+
+  .labelPassword {
+    font-size: 20px;
+  }
+
+  .labelEmail {
+    font-size: 20px;
+  }
+
+  .btn.btn-primary {
+    font-size: 20px;
+  }

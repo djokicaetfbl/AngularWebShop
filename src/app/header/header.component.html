@@ -1,1 +1,25 @@
-<p>header works!</p>
+<header class="d-flex flex-wrap align-items-center justify-content-center justify-content-md-between py-3 mb-4 border-bottom">
+   <!-- <a href="/" class="d-flex align-items-center col-md-3 mb-2 mb-md-0 text-dark text-decoration-none">
+      <svg class="bi me-2" width="40" height="32" role="img" aria-label="Bootstrap"><use xlink:href="#bootstrap"></use></svg>
+    </a>    -->
+
+    <!-- <ul class="nav col-6 col-md-auto mb-2 justify-content-center mb-md-0" style="list-style-type: none;">
+      <li routerLinkActive="active"><a routerLink="/recipes" class="nav-link px-2 link-secondary"  id="webShopLink">Web Shop</a></li> -->
+      <!-- <li routerLinkActive="active" *ngIf="isAuthenticated"><a routerLink="/recipes">Recipes</a></li>  -->
+      <!-- <li><a href="#" class="nav-link px-2 link-dark">Features</a></li>
+      <li><a href="#" class="nav-link px-2 link-dark">Pricing</a></li>
+      <li><a href="#" class="nav-link px-2 link-dark">FAQs</a></li>
+      <li><a href="#" class="nav-link px-2 link-dark">About</a></li>    -->
+    <!-- </ul>  -->
+
+    
+
+    <div class="col-lg-4 text-end" id="someDiv">
+      <li routerLinkActive="active"><a routerLink="/categories" class="nav-link px-2 link-secondary"  id="webShopLink">Web Shop</a></li>
+      <button type="button" class="btn btn-primary me-2" id="btnLogin" *ngIf="!isAuthenticated" ><a style="text-decoration: none; color: white;" routerLink="/auth">Autentikacija&nbsp;<fa-icon [icon]="faKey"></fa-icon></a></button>
+      <button type="button" class="btn btn-outline-primary me-2" id="btnLogout" *ngIf="isAuthenticated" (click)="onLogout()" >Odjava</button>
+      <!-- <button type="button" class="btn btn-primary" id="btnSignUp" *ngIf="!isAuthenticated">Sign-up</button> -->
+    </div>
+  </header>
+  <button class="btn btn-primary" id="btnCart"><fa-icon [icon]="faShoppingCart"></fa-icon> &nbsp;Korpa</button>
+  <!-- <button class="btn btn-success" id="btnNovaKategorija" *ngIf="isAuthenticated" (click)="onNewCategory()"><fa-icon [icon]="faPlus"></fa-icon> &nbsp;Nova kategorija</button>  -->

@@ -1,3 +1,53 @@
-<p>categories works!</p>
-<h1>asadfsasa</h1>
-<router-outlet></router-outlet>
+<button class="btn btn-success" id="btnNovaKategorija" *ngIf="isAuthenticated" (click)="onNewCategory()"> <fa-icon [icon]="faPlus"> </fa-icon> &nbsp;Nova kategorija</button>
+<div class="row">
+    <div class="column left">
+        <div class="d-flex flex-column align-items-stretch flex-shrink-0 bg-white" style="width: 380px;">
+            <a href="/"
+                class="d-flex align-items-center flex-shrink-0 p-3 link-dark text-decoration-none border-bottom">
+                <svg class="bi me-2" width="30" height="24">
+                    <use xlink:href="#bootstrap"></use>
+                </svg>
+                <span class="fs-5 fw-semibold">
+                    <h2>Kategorije</h2>
+                </span>
+            </a>
+            <div class="list-group list-group-flush border-bottom scrollarea">
+                <app-category-item></app-category-item>
+               <!-- <a href="#" class="list-group-item list-group-item-action py-3 lh-tight">
+                    <div class="d-flex w-100 align-items-center justify-content-between">
+                        <strong class="mb-1">Kucanski aparati</strong>
+                        <small class="text-muted">Tues</small>
+                    </div>
+                    <div class="col-10 mb-1 small">Ovdje mozete pronaci mnogo artikala kako o kucanskim aparatima</div>
+                </a>    -->
+            </div>
+        </div>
+    </div>
+
+    <div class="column right">
+        <div class="row">
+            <div class=" leftLeft">
+                <div class="card" style="width: 150%;">
+                    <img src="https://i.picsum.photos/id/244/200/300.jpg?hmac=wik1JUmLjSI1ujhC7YXckSJhpxTId-Ul5HF5mcALqC8" height="400px" class="card-img-top" alt="...">
+                    <div class="card-body">
+                      <h5 class="card-title">Card title</h5>
+                      <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                      <a href="#" class="btn btn-primary">Go somewhere</a>
+                    </div>
+                  </div>
+            </div>
+            <br>
+            <!-- <div class="column rightLeft">
+                <div class="card" style="width: 18rem;">
+                    <img src="..." class="card-img-top" alt="...">
+                    <div class="card-body">
+                      <h5 class="card-title">Card title</h5>
+                      <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                      <a href="#" class="btn btn-primary">Go somewhere</a>
+                    </div>
+                  </div>
+            </div>  -->
+        </div>
+    </div>
+    <router-outlet></router-outlet> <!-- MORAM DA GA IMAM RADI CHILD RUTA, da su ucita isto vremeno kad i roditeljska rutu na istoj stranici !!! -->
+</div>

@@ -1,0 +1,27 @@
+.column {
+    float: left;
+    padding: 10px;
+    height: 300px; /* Should be removed. Only for demonstration */
+  }
+  
+  .left {
+    width: 30%;
+  }
+  
+  .right {
+    width: 70%;
+  }
+
+  .rightLeft {
+    width: 50%;
+  }
+
+  .leftLeft {
+    width: 50%;
+    margin-left: 3%;
+}
+
+#btnNovaKategorija {
+  font-size: 24px;
+  margin-left: 0.6%;
+}

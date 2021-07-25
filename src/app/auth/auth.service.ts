@@ -81,7 +81,7 @@ export class AuthService {
 
     logout() {
         this.user.next(null);
-        this.router.navigate(['/auth']);
+        this.router.navigate(['/categories']);
         localStorage.removeItem('userData');
 
         if (this.tokenExpirationTimer) { // ako imamo aktivan tajemr to jest jos je ostalo vrmenea za token ,onda ga ponistimo, posto se rucno odjavljujemo
