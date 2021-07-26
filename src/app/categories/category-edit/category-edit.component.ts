@@ -65,8 +65,17 @@ export class CategoryEditComponent implements OnInit {
          this.onCancel();*/
          //console.log("THIS CATEGORY FORM VALUE: "+JSON.stringify(this.categoryForm.value));
          this.categoryService.addCategory(this.categoryForm.value);
-         this.onCancel();
 
+         //UBACIS LOADING SPINNER
+         setTimeout(()=>{                           // <<<---using ()=> syntax
+          this.router.navigate(['']);
+      }, 500);
+
+      //ZAVRSIS LOADING SPINNE
+
+        //this.onCancel();
+        //this.router.navigate(['']); // po default-u me stavlja na categories
+        //this.router.navigate([''] , {relativeTo: this.route});
        }
 
        onDeleteIngredient(index: number){
@@ -79,11 +88,11 @@ export class CategoryEditComponent implements OnInit {
 
       private initForm() {
 
-        let articleName= '';
+        let categoryName= '';
         let file = '';
         let imgSrc = '';
         this.categoryForm = new FormGroup({
-          'articleName': new FormControl(articleName, Validators.required),
+          'categoryName': new FormControl(categoryName, Validators.required),
           'file': new FormControl(file, [Validators.required]),
           'imageSrc': new FormControl(this.imageSrc, /*[Validators.required]*/)
         })

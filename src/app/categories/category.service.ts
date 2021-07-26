@@ -27,6 +27,11 @@ export class CategoryService {
     constructor(private http: HttpClient,/* private slService: ShoppingListService */ /*private dataStorageService: DataStorageService*/) {}
 
     setCategories(categories: Category[]){
+        /*for(var i = 0; i < categories.length; i++){
+            console.log("------------");
+            console.log(categories[i].categoryName);
+            console.log("------------");
+        }*/
         this.categories = categories;
         this.categoriesChanged.next(this.categories.slice());
         /*
@@ -49,28 +54,32 @@ export class CategoryService {
 
         //this.dataStorageService.storeCategories();
 
-        const categories = this.getCategories();
-        this.http.post('https://webshopangulardiplomski-default-rtdb.europe-west1.firebasedatabase.app/categories.json', category) // put overvriduje sve podatke koji su prije bili, dodajemo /recipes.json zbog firebase-a
+        const categories = this.getCategories(); // sa put kao radi :d
+        this.http.post('https://webshopangulardiplomski-default-rtdb.europe-west1.firebasedatabase.app/categories.json', /*categories*/category) // put overvriduje sve podatke koji su prije bili, dodajemo /recipes.json zbog firebase-a
         .subscribe(response => {
-            console.log(response);
-        });      
+            //console.log(response);
+            //this.categoriesChanged.next(this.categories.slice());
+            this.setCategories(this.categories);
+           
+        });
+            
     }
 
     loadCategories() {
-        return this.http.get<Category[]>('https://webshopangulardiplomski-default-rtdb.europe-west1.firebasedatabase.app/categories.json',
-        )
-        .pipe(
-            map(categories => { // ovdje je map kao rxjs operator 
-                return categories.map( category => {
-                    return {...category/*, ingredients: recipe.ingredients ? recipe.ingredients : [] */} // kopiram sve dobijene podatke u recipe, i ako nema ingredients neka taj niz sa ingredients bude prazan,, ovo mogu da vidim u konzoli kao response pa onda znam sta kako 
-                }); // ovde je map poziv javascript metode :D // sa ... rijec je o nizu
-            }), // kako bismo osigurali da svaki put dobijamo i 'ingredients'
-            tap(categories => {
-                this.setCategories(categories);
-            })
-            );
-    }
+        console.log("FAK!");
+        this.http.get<any>('https://webshopangulardiplomski-default-rtdb.europe-west1.firebasedatabase.app/categories.json') // put overvriduje sve podatke koji su prije bili, dodajemo /recipes.json zbog firebase-a
+        .subscribe(response => {
+            //console.log(response);
 
+            for(var i in response){
+                //console.log("RESPONSE: "+JSON.stringify(response[i].categoryName));
+                this.categories.push(response[i]);
+            }
+            //this.categoriesChanged.next(this.categories.slice());  
+            this.setCategories(this.categories);      // mora ovdje u subscribe biti ovo setCategories               
+        }); 
+
+    }
     updateCategory(index: number, newCategory: Category) {
         this.categories[index] = newCategory;
         this.categoriesChanged.next(this.categories.slice());

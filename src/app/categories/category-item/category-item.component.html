@@ -1,9 +1,10 @@
 <div>
 <a href="#" class="list-group-item list-group-item-action active py-3 lh-tight" aria-current="true">
     <div class="d-flex w-100 align-items-center justify-content-between">
-        <strong class="mb-1" id="categorynameStrong">Racunari i racunarska oprema</strong>
+        <strong class="mb-1" id="categorynameStrong">{{ category.categoryName }}</strong>
         <!-- <small>Wed</small> -->
-        <img :src="https://i.picsum.photos/id/244/200/300.jpg?hmac=wik1JUmLjSI1ujhC7YXckSJhpxTId-Ul5HF5mcALqC8" width="100px" height="100px" class="responsive" />
+        <!-- <img :src="https://i.picsum.photos/id/244/200/300.jpg?hmac=wik1JUmLjSI1ujhC7YXckSJhpxTId-Ul5HF5mcALqC8" width="100px" height="100px" class="responsive" /> -->
+        <img [src]="category.imageSrc" alt="{{ category.categoryName }}" width="100px" height="100px" class="responsive" />
     </div>
     <div class="col-10 mb-1 small">Ovdje mozete pronaci mnogo artikala kako o racunarima tako i
         racunarskoj opremi</div>

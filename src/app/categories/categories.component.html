@@ -12,7 +12,7 @@
                 </span>
             </a>
             <div class="list-group list-group-flush border-bottom scrollarea">
-                <app-category-item></app-category-item>
+                <app-category-item *ngFor="let categoryEl of categories; let i = index" [category]="categoryEl" [index]="i"></app-category-item>
                <!-- <a href="#" class="list-group-item list-group-item-action py-3 lh-tight">
                     <div class="d-flex w-100 align-items-center justify-content-between">
                         <strong class="mb-1">Kucanski aparati</strong>
