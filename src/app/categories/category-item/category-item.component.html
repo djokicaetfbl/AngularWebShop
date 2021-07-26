@@ -11,8 +11,8 @@
 </a>
 <!-- <button class="btn btn-success" id="btnNovaKategorija" *ngIf="isAuthenticated" (click)="onNewCategory()"> <fa-icon [icon]="faPlus"> </fa-icon> &nbsp;Nova kategorija</button>  -->
 <br>
-<button class="btn btn-danger" id="btnDeleteCategory" ><fa-icon [icon]="faTrash"> </fa-icon> &nbsp;Ukloni&nbsp;&nbsp;</button>
-<button class="btn btn-info" id="btnChangeCategory" > <fa-icon [icon]="faPencilAlt"> </fa-icon> &nbsp;Izmjeni&nbsp;&nbsp;</button>
+<button class="btn btn-danger" id="btnDeleteCategory" *ngIf="isAuthenticated" (click)="onDeleteCategory()" ><fa-icon [icon]="faTrash"> </fa-icon> &nbsp;Ukloni&nbsp;&nbsp;</button>
+<button class="btn btn-info" id="btnChangeCategory" *ngIf="isAuthenticated" (click)="onUpdateCategory()"   > <fa-icon [icon]="faPencilAlt"> </fa-icon> &nbsp;Izmjeni&nbsp;&nbsp;</button>
 <br>
 <br>
 <hr>

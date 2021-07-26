@@ -43,17 +43,8 @@ export class CategoryEditComponent implements OnInit {
   
 
     ngOnInit(): void {
-        /*
-            this.route.params
-            .subscribe( 
-      (params: Params) => {
-        this.id = +params['id'];
-        this.editMode = params['id'] != null; // bit ce undefined tj. razlit od null samo ako je u edit modu :D ,a ne ovde konkretno u new :D
-        //console.log("DA LI JE EDIT MODE: "+this.editMode)*/
-        this.initForm();
-      /*} 
-      );*/
-         
+        //console.log("THIS ROUTE SNAPSHOT: "+this.route.snapshot.paramMap.get('id'));
+        this.initForm(); //https://stackoverflow.com/questions/44864303/send-data-through-routing-paths-in-angular
     }
 
     onSubmit() {
@@ -64,7 +55,12 @@ export class CategoryEditComponent implements OnInit {
          }
          this.onCancel();*/
          //console.log("THIS CATEGORY FORM VALUE: "+JSON.stringify(this.categoryForm.value));
-         this.categoryService.addCategory(this.categoryForm.value);
+         if(this.route.snapshot.paramMap.get('id')?.toString() !== ''){
+           
+         } else {
+          this.categoryService.addCategory(this.categoryForm.value);
+         }
+
 
          //UBACIS LOADING SPINNER
          setTimeout(()=>{                           // <<<---using ()=> syntax
@@ -91,11 +87,33 @@ export class CategoryEditComponent implements OnInit {
         let categoryName= '';
         let file = '';
         let imgSrc = '';
+        
+        /*if(this.route.snapshot.paramMap.get('id')?.toString() !== '') {
+
+
+          var tmpID = this.route.snapshot.paramMap.get('id')?.toString()!; // ovaj ! u slucajnu da nije assignabile ili null :D
+          console.log("TMPID RUTA: "+tmpID);
+          var category = this.categoryService.getCategory(tmpID);
+          console.log("DANCE: "+JSON.stringify(category));
+          this.categoryForm = new FormGroup({
+            'id': new FormControl(category.id),
+            'categoryName': new FormControl(category.categoryName, Validators.required),
+            'file': new FormControl(category.file, [Validators.required]),
+            'imageSrc': new FormControl(this.imageSrc,),
+            'active': new FormControl(true,)
+          })
+        }
+         else {*/
+            //nova kategorija
         this.categoryForm = new FormGroup({
+          'id': new FormControl('_'+Math.random().toString(36).substr(2,9)),
           'categoryName': new FormControl(categoryName, Validators.required),
           'file': new FormControl(file, [Validators.required]),
-          'imageSrc': new FormControl(this.imageSrc, /*[Validators.required]*/)
+          'imageSrc': new FormControl(this.imageSrc, /*[Validators.required]*/),
+          'active': new FormControl(true,)
         })
+
+      //}
         /*
 
         let recipeName= '';

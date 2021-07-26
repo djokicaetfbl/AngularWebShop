@@ -4,6 +4,7 @@ import { Subject } from "rxjs";
 import { DataStorageService } from "../shared/data-storage.service";
 import { Category } from "./category.model";
 import { map, tap, take, exhaustMap } from "rxjs/operators";
+import { ActivatedRoute, Router } from "@angular/router";
 
 
 /*The @Injectable decorator aims to actually set some metadata about which dependencies to inject into the constructor of the associated class. 
@@ -24,9 +25,10 @@ export class CategoryService {
 
     private categories: Category[] = []; // pazi da inicijalizujes ovdje u nizu :D
 
-    constructor(private http: HttpClient,/* private slService: ShoppingListService */ /*private dataStorageService: DataStorageService*/) {}
+    constructor(private http: HttpClient, private route: ActivatedRoute, private router: Router) { }
 
-    setCategories(categories: Category[]){
+    setCategories(categories: Category[]) {
+        //console.log("POZVAO SET CATEGORIES!");
         /*for(var i = 0; i < categories.length; i++){
             console.log("------------");
             console.log(categories[i].categoryName);
@@ -44,50 +46,100 @@ export class CategoryService {
         return this.categories.slice();
     }
 
-    getCtegory(index: number) {
-        return this.categories[index];
+    getCategory(index: string) {
+        this.loadCategories();
+        //return this.categories[index];
+
+        /*setTimeout(() => {
+            console.log("THIS CAT . LENGTH: "+this.categories.length);
+            for(var i = 0; i < this.categories.length; i++)
+            {
+                if(this.categories[i].id.toString().trim().localeCompare(index) === 0){
+                    return this.categories[i];
+                }
+            }
+        }, 500);*/
+        
+        setTimeout(() => {
+            return this.categories[0];
+        }, 500);
+        
+        
+        /*setTimeout(() => {
+            console.log("THIS CAT . LENGTH: "+this.categories.length);
+        }, 1500);*/
+        
     }
 
     addCategory(category: Category) {
-        this.categories.push(category);
-        this.categoriesChanged.next(this.categories.slice());
-
-        //this.dataStorageService.storeCategories();
-
         const categories = this.getCategories(); // sa put kao radi :d
         this.http.post('https://webshopangulardiplomski-default-rtdb.europe-west1.firebasedatabase.app/categories.json', /*categories*/category) // put overvriduje sve podatke koji su prije bili, dodajemo /recipes.json zbog firebase-a
-        .subscribe(response => {
-            //console.log(response);
-            //this.categoriesChanged.next(this.categories.slice());
-            this.setCategories(this.categories);
-           
-        });
-            
+            .subscribe(response => {
+                var tmpString = JSON.stringify(response).toString();
+                var mySubString = tmpString.substring(
+                    tmpString.lastIndexOf('-') + 1,
+                    tmpString.lastIndexOf('"')
+                );
+
+                var fullID = "-" + mySubString
+                category.id = fullID;
+                this.updateCategoryID(category, fullID);
+                this.categories.push(category);
+                this.categoriesChanged.next(this.categories.slice());
+                this.setCategories(this.categories);
+
+            });
+
+    }
+
+    updateCategoryID(category: Category, tmpID: string) {
+        this.http.put('https://webshopangulardiplomski-default-rtdb.europe-west1.firebasedatabase.app/categories/' + tmpID + '/.json', /*categories*/category) // put overvriduje sve podatke koji su prije bili, dodajemo /recipes.json zbog firebase-a
+            .subscribe(response => {
+                console.log(response);
+            });
     }
 
     loadCategories() {
-        console.log("FAK!");
+        //console.log("POZVAO LOAD CATEGORIES");
         this.http.get<any>('https://webshopangulardiplomski-default-rtdb.europe-west1.firebasedatabase.app/categories.json') // put overvriduje sve podatke koji su prije bili, dodajemo /recipes.json zbog firebase-a
-        .subscribe(response => {
-            //console.log(response);
-
-            for(var i in response){
-                //console.log("RESPONSE: "+JSON.stringify(response[i].categoryName));
-                this.categories.push(response[i]);
-            }
-            //this.categoriesChanged.next(this.categories.slice());  
-            this.setCategories(this.categories);      // mora ovdje u subscribe biti ovo setCategories               
-        }); 
+            .subscribe(response => {
+                //console.log("jjj: "+JSON.stringify(response).toString());
+                for (var i in response) {
+                    //console.log("RESPONSE: "+JSON.stringify(response[i]));
+                    if (response[i].active) {
+                        this.categories.push(response[i]);
+                    }
+                }
+                this.setCategories(this.categories);      // mora ovdje u subscribe biti ovo setCategories               
+            });
 
     }
     updateCategory(index: number, newCategory: Category) {
         this.categories[index] = newCategory;
         this.categoriesChanged.next(this.categories.slice());
+
+        
     }
 
-    deleteCategory(index: number) {
-        this.categories.splice(index,1); // na poziciji index izbrisi 1 element :D
-        this.categoriesChanged.next(this.categories.slice());
+    deleteCategory(category: Category) {
+        this.loadCategories();
+        this.http.put('https://webshopangulardiplomski-default-rtdb.europe-west1.firebasedatabase.app/categories/' + category.id + '/.json', /*categories*/category) // put overvriduje sve podatke koji su prije bili, dodajemo /recipes.json zbog firebase-a
+            .subscribe(response => {
+                console.log(response);
+
+                for (var i = 0; i < this.categories.length; i++) {
+                    if (this.categories[i].id === category.id) {
+                        this.categories.splice(i, 1); // na poziciji index izbrisi 1 element :D
+                        this.categoriesChanged.next(this.categories.slice());
+                    }
+                }
+                this.categoriesChanged.next(this.categories.slice());
+                this.setCategories(this.categories);
+            });
+
+        setTimeout(() => {
+            this.router.navigate(['categories']);
+        }, 500);
     }
 
 }

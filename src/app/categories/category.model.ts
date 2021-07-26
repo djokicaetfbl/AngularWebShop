@@ -4,14 +4,18 @@ export class Category {
     public categoryName: string;
     public imageSrc: string;
     public active: boolean;
+    public id: string;
+    public file: string;
     /*public ingredients: Ingredient[];*/
 
 
-    constructor(/*name: string,*/ categoryName: string, imageSrc: string, active: boolean/*,  ingredients: Ingredient[]*/){
+    constructor(id: string, categoryName: string, imageSrc: string, active: boolean, file: string/*,  ingredients: Ingredient[]*/){
         //this.name = name;
+        this.id = id;
         this.categoryName = categoryName;
         this.imageSrc = imageSrc;
         this.active = active;
+        this.file = file;
         //this.ingredients = ingredients;
     }
 }

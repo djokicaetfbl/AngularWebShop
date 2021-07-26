@@ -13,7 +13,9 @@ const routes: Routes = [
                 { path: 'new', component: CategoryEditComponent }
             ]*/  /* sa childre da se ucita na istoj html stranici kao i father, obavezno <router-outlet> na roditeljskoj html stranici */
     },
-    { path: 'new', component: CategoryEditComponent }
+    { path: 'new', component: CategoryEditComponent, canActivate: [AuthGuard], },
+    { path: 'updateCategory/:id', component: CategoryEditComponent, canActivate: [AuthGuard],
+     }
 ];
 
 @NgModule({
