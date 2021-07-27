@@ -28,12 +28,6 @@ export class CategoryService {
     constructor(private http: HttpClient, private route: ActivatedRoute, private router: Router) { }
 
     setCategories(categories: Category[]) {
-        //console.log("POZVAO SET CATEGORIES!");
-        /*for(var i = 0; i < categories.length; i++){
-            console.log("------------");
-            console.log(categories[i].categoryName);
-            console.log("------------");
-        }*/
         this.categories = categories;
         this.categoriesChanged.next(this.categories.slice());
         /*
@@ -46,29 +40,22 @@ export class CategoryService {
         return this.categories.slice();
     }
 
-    getCategory(index: string) {
-        this.loadCategories();
-        //return this.categories[index];
+    /*async*/ getCategory(index: string) {
+        //console.log("JJUJJUJU");
 
-        /*setTimeout(() => {
-            console.log("THIS CAT . LENGTH: "+this.categories.length);
+            var category = new Category('','','',false,'');
+            //console.log("THIS CAT . LENGTH: "+this.categories.length);
             for(var i = 0; i < this.categories.length; i++)
             {
-                if(this.categories[i].id.toString().trim().localeCompare(index) === 0){
-                    return this.categories[i];
+                //console.log(this.categories[i].categoryName);
+               if(this.categories[i].id.toString().trim().localeCompare(index) === 0){
+                    //return this.categories[i];
+                    //console.log(this.categories[i].categoryName);
+                    category = this.categories[i];
                 }
             }
-        }, 500);*/
-        
-        setTimeout(() => {
-            return this.categories[0];
-        }, 500);
-        
-        
-        /*setTimeout(() => {
-            console.log("THIS CAT . LENGTH: "+this.categories.length);
-        }, 1500);*/
-        
+
+            return category;     
     }
 
     addCategory(category: Category) {
@@ -89,19 +76,18 @@ export class CategoryService {
                 this.setCategories(this.categories);
 
             });
-
     }
 
     updateCategoryID(category: Category, tmpID: string) {
         this.http.put('https://webshopangulardiplomski-default-rtdb.europe-west1.firebasedatabase.app/categories/' + tmpID + '/.json', /*categories*/category) // put overvriduje sve podatke koji su prije bili, dodajemo /recipes.json zbog firebase-a
             .subscribe(response => {
-                console.log(response);
+               // console.log(response);
             });
     }
 
-    loadCategories() {
+    async loadCategories() {
         //console.log("POZVAO LOAD CATEGORIES");
-        this.http.get<any>('https://webshopangulardiplomski-default-rtdb.europe-west1.firebasedatabase.app/categories.json') // put overvriduje sve podatke koji su prije bili, dodajemo /recipes.json zbog firebase-a
+        /*await  this.http.get<any>('https://webshopangulardiplomski-default-rtdb.europe-west1.firebasedatabase.app/categories.json')// put overvriduje sve podatke koji su prije bili, dodajemo /recipes.json zbog firebase-a
             .subscribe(response => {
                 //console.log("jjj: "+JSON.stringify(response).toString());
                 for (var i in response) {
@@ -111,21 +97,33 @@ export class CategoryService {
                     }
                 }
                 this.setCategories(this.categories);      // mora ovdje u subscribe biti ovo setCategories               
-            });
-
+            });           
+*/
+            const response = await this.http.get<any>('https://webshopangulardiplomski-default-rtdb.europe-west1.firebasedatabase.app/categories.json').toPromise();
+            for (var i in response) {
+                if (response[i].active) {
+                    this.categories.push(response[i]);
+                }
+            }
+            this.setCategories(this.categories); 
     }
-    updateCategory(index: number, newCategory: Category) {
-        this.categories[index] = newCategory;
-        this.categoriesChanged.next(this.categories.slice());
 
-        
+    updateCategory(category: Category) { 
+        //console.log("THIS CAT: "+JSON.stringify(category));
+        this.http.put('https://webshopangulardiplomski-default-rtdb.europe-west1.firebasedatabase.app/categories/' + category.id + '/.json', /*categories*/category) // put overvriduje sve podatke koji su prije bili, dodajemo /recipes.json zbog firebase-a
+        .subscribe(response => {
+           // console.log(response);
+         });
+         setTimeout(() => {
+            this.router.navigate(['categories']);
+        }, 500);
     }
 
     deleteCategory(category: Category) {
         this.loadCategories();
         this.http.put('https://webshopangulardiplomski-default-rtdb.europe-west1.firebasedatabase.app/categories/' + category.id + '/.json', /*categories*/category) // put overvriduje sve podatke koji su prije bili, dodajemo /recipes.json zbog firebase-a
             .subscribe(response => {
-                console.log(response);
+                //console.log(response);
 
                 for (var i = 0; i < this.categories.length; i++) {
                     if (this.categories[i].id === category.id) {

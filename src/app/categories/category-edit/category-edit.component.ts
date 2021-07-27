@@ -5,15 +5,16 @@ import { ActivatedRoute, Params, Router } from '@angular/router';
 import { CategoryService } from '../category.service';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { faUpload } from '@fortawesome/free-solid-svg-icons';
-import { faArrowLeft }from '@fortawesome/free-solid-svg-icons';
-import { faSave }from '@fortawesome/free-solid-svg-icons';
+import { faArrowLeft } from '@fortawesome/free-solid-svg-icons';
+import { faSave } from '@fortawesome/free-solid-svg-icons';
 import { DataStorageService } from 'src/app/shared/data-storage.service';
+import { Category } from '../category.model';
 
 @Component({
-    selector: 'app-category-edit',
-    templateUrl: './category-edit.component.html',
-    styleUrls: ['./category-edit.component.css'],
-    providers: [CategoryService], //da obezbjedim Category Service OBAVEZNO
+  selector: 'app-category-edit',
+  templateUrl: './category-edit.component.html',
+  styleUrls: ['./category-edit.component.css'],
+  providers: [CategoryService], //da obezbjedim Category Service OBAVEZNO
 })
 
 @Injectable()
@@ -24,175 +25,150 @@ export class CategoryEditComponent implements OnInit {
   faSave = faSave;
   imageSrc: string = '';
 
-    imgFile: string | undefined;
-    id: number | undefined;
-    editMode = false;
-    categoryForm!: FormGroup;  // ovo  sam ja dodao uzvicnik pa da vidimo sta ce da bude :D, jer uzvicnik kaze da cu kasnije da izrvsim inicijalizacuj pa sad tu komapjelr kao to nesto zna
-    /*
-    2
+  imgFile: string | undefined;
+  id: number | undefined;
+  editMode = false;
+  categoryForm!: FormGroup;  // ovo  sam ja dodao uzvicnik pa da vidimo sta ce da bude :D, jer uzvicnik kaze da cu kasnije da izrvsim inicijalizacuj pa sad tu komapjelr kao to nesto zna
+  /*
+  2
 
-  The default angular template now has strictPropertyInitialization set to true in the tsconfig file.
+The default angular template now has strictPropertyInitialization set to true in the tsconfig file.
 
-  You can do 2 things:
+You can do 2 things:
 
-  apply the best practice of initializing the properties, either inline or in the constructor
-  disable the strictPropertyInitialization flag in your tsconfig file (not recommended)
-     */
+apply the best practice of initializing the properties, either inline or in the constructor
+disable the strictPropertyInitialization flag in your tsconfig file (not recommended)
+   */
 
-    constructor(private route: ActivatedRoute, private categoryService: CategoryService, private router: Router, private httpClient: HttpClient) { }
-  
+  constructor(private route: ActivatedRoute, private categoryService: CategoryService, private router: Router, private httpClient: HttpClient) { }
 
-    ngOnInit(): void {
-        //console.log("THIS ROUTE SNAPSHOT: "+this.route.snapshot.paramMap.get('id'));
-        this.initForm(); //https://stackoverflow.com/questions/44864303/send-data-through-routing-paths-in-angular
+
+  ngOnInit(): void {
+    this.initForm(); //https://stackoverflow.com/questions/44864303/send-data-through-routing-paths-in-angular
+  }
+
+  onSubmit() {
+    if (!this.route.snapshot.paramMap.get('id')?.toString() !== null) {
+      //console.log("USAO DA POZOVE UPDATE CATEGORY");
+      this.categoryService.updateCategory(this.categoryForm.value);
+    } else {
+      //console.log("POZVAO ADD CATEGORY!");
+      this.categoryService.addCategory(this.categoryForm.value);
     }
 
-    onSubmit() {
-         /*if (this.editMode){
-           this.recipeService.updateRecipe(this.id,this.recipeForm.value);// jer value sa forme je ustvari nas recipe tu su njegovi argumenti :D
-         } else {
-           this.recipeService.addRecipe(this.recipeForm.value);
-         }
-         this.onCancel();*/
-         //console.log("THIS CATEGORY FORM VALUE: "+JSON.stringify(this.categoryForm.value));
-         if(this.route.snapshot.paramMap.get('id')?.toString() !== ''){
-           
-         } else {
-          this.categoryService.addCategory(this.categoryForm.value);
-         }
 
+    //UBACIS LOADING SPINNER
+    setTimeout(() => {                           // <<<---using ()=> syntax
+      this.router.navigate(['']);
+    }, 500);
 
-         //UBACIS LOADING SPINNER
-         setTimeout(()=>{                           // <<<---using ()=> syntax
-          this.router.navigate(['']);
+    //ZAVRSIS LOADING SPINNE
+  }
+
+  onDeleteIngredient(index: number) {
+    //(<FormArray>this.recipeForm.get('ingredients')).removeAt(index);
+  }
+
+  onCancel() {
+    if (!this.route.snapshot.paramMap.get('id') !== null) {
+      this.router.navigate(['../../'], { relativeTo: this.route });
+    } else {
+      this.router.navigate(['../'], { relativeTo: this.route }); // sa relativoTo govorimo trenutnu putanju :D 
+    }
+  }
+
+  initUpdateForm(category: Category) {
+    //console.log("CATEGORY:" + JSON.stringify(category.file));
+    this.imageSrc = category.imageSrc;
+    let file = '';
+    this.categoryForm = new FormGroup({
+      'id': new FormControl(category.id),
+      'categoryName': new FormControl(category.categoryName, Validators.required),
+      'file': new FormControl(file, [Validators.required]),
+      'imageSrc': new FormControl(this.imageSrc,),
+      'active': new FormControl(true,)
+    });
+  }
+
+  private initForm() {
+
+    let categoryName = '';
+    let file = '';
+    if (this.route.snapshot.paramMap.get('id') !== null) {
+
+      //console.log("UPDATE!!!");
+      let categoryName = '';
+      let file = '';
+      let imgSrc = '';
+
+      this.categoryForm = new FormGroup({
+        'id': new FormControl('test',),
+        'categoryName': new FormControl('', Validators.required),
+        'file': new FormControl(file, [Validators.required]),
+        'imageSrc': new FormControl(imgSrc),
+        'active': new FormControl(true,)
+      });
+      var tmpID = this.route.snapshot.paramMap.get('id')?.toString()!; // ovaj ! u slucajnu da nije assignabile ili null :D
+      //console.log("TMPID RUTA: "+tmpID);
+      var category = new Category('', '', '', false, '');
+      this.categoryService.loadCategories();
+      setTimeout(() => {
+        category = this.categoryService.getCategory(tmpID);
+        //console.log("DANCE: " + JSON.stringify(category.categoryName));
+        this.initUpdateForm(category);
       }, 500);
+    }
+    else {
+      //nova kategorija
+      //console.log("NEWW!!");
+      this.categoryForm = new FormGroup({
+        'id': new FormControl('_' + Math.random().toString(36).substr(2, 9)),
+        'categoryName': new FormControl(categoryName, Validators.required),
+        'file': new FormControl(file, [Validators.required]),
+        'imageSrc': new FormControl(this.imageSrc, /*[Validators.required]*/),
+        'active': new FormControl(true,)
+      })
+    }
+  }
 
-      //ZAVRSIS LOADING SPINNE
+  get uf() {
+    return this.categoryForm.controls;
+  }
 
-        //this.onCancel();
-        //this.router.navigate(['']); // po default-u me stavlja na categories
-        //this.router.navigate([''] , {relativeTo: this.route});
-       }
+  onImageChange(e: any) {
+    const reader = new FileReader();
 
-       onDeleteIngredient(index: number){
-        //(<FormArray>this.recipeForm.get('ingredients')).removeAt(index);
-      }
+    if (e.target.files && e.target.files.length) {
+      const [file] = e.target.files;
+      reader.readAsDataURL(file);
 
-      onCancel(){
-        this.router.navigate(['../'], {relativeTo: this.route}); // sa relativoTo govorimo trenutnu putanju :D 
-      }
-
-      private initForm() {
-
-        let categoryName= '';
-        let file = '';
-        let imgSrc = '';
-        
-        /*if(this.route.snapshot.paramMap.get('id')?.toString() !== '') {
-
-
-          var tmpID = this.route.snapshot.paramMap.get('id')?.toString()!; // ovaj ! u slucajnu da nije assignabile ili null :D
-          console.log("TMPID RUTA: "+tmpID);
-          var category = this.categoryService.getCategory(tmpID);
-          console.log("DANCE: "+JSON.stringify(category));
-          this.categoryForm = new FormGroup({
-            'id': new FormControl(category.id),
-            'categoryName': new FormControl(category.categoryName, Validators.required),
-            'file': new FormControl(category.file, [Validators.required]),
-            'imageSrc': new FormControl(this.imageSrc,),
-            'active': new FormControl(true,)
-          })
-        }
-         else {*/
-            //nova kategorija
-        this.categoryForm = new FormGroup({
-          'id': new FormControl('_'+Math.random().toString(36).substr(2,9)),
-          'categoryName': new FormControl(categoryName, Validators.required),
-          'file': new FormControl(file, [Validators.required]),
-          'imageSrc': new FormControl(this.imageSrc, /*[Validators.required]*/),
-          'active': new FormControl(true,)
-        })
-
-      //}
-        /*
-
-        let recipeName= '';
-        let recipeImagePath = '';
-        let recipeDescription = '';
-        let recipeIngredients = new FormArray([]);
-    
-        // od Angulara 8+ , postoji nacin da se 'clearing all items in FormArray' sa :  (<FormArray>this.recipeForm.get('ingredients')).clear(); video 238 :D
-    
-        if(this.editMode) {
-          const recipe = this.recipeService.getRecipe(this.id);
-          recipeName = recipe.name;
-          recipeImagePath = recipe.imagePath;
-          recipeDescription = recipe.description;
-    
-          if (recipe['ingredients']) {
-            for(let ingredient of recipe.ingredients) { // dinamicko dodavanje recepata :D
-              recipeIngredients.push(
-                new FormGroup({
-                  'name': new FormControl(ingredient.name), 
-                  'amount': new FormControl(ingredient.amount, [Validators.required, Validators.pattern(/^[1-9]+[0-9]*$/)])
-                })
-              );
-            }
-          }
-        }
-    
-        this.recipeForm = new FormGroup({
-          'name': new FormControl(recipeName, Validators.required),
-          'imagePath': new FormControl(recipeImagePath, Validators.required),
-          'description': new FormControl(recipeDescription, Validators.required),
-          'ingredients':recipeIngredients
+      reader.onload = () => {
+        this.imgFile = reader.result as string;
+        this.categoryForm.patchValue({
+          imgSrc: reader.result
         });
-            */
-      }
+      };
+    }
+  }
 
-      get uf(){
-        return this.categoryForm.controls;
-      }
+  upload() {
+    alert('Image has been uploaded.');
+  }
 
-      onImageChange(e: any) {
-        const reader = new FileReader();
-        
-        if(e.target.files && e.target.files.length) {
-          const [file] = e.target.files;
-          reader.readAsDataURL(file);
-        
-          reader.onload = () => {
-            this.imgFile = reader.result as string;
-            this.categoryForm.patchValue({
-              imgSrc: reader.result
-            });       
-          };
-        }
-      }
-
-      upload(){
-        //console.log(this.categoryForm.value);
-        /*this.httpClient.post('http://localhost:8888/file-upload.php', this.categoryForm.value)
-          .subscribe(response => {
-            alert('Image has been uploaded.');
-          })*/
-          alert('Image has been uploaded.');
-      }
-
-      handleInputChange(e: any) {
-        var file = e.dataTransfer ? e.dataTransfer.files[0] : e.target.files[0];
-        var pattern = /image-*/;
-        var reader = new FileReader();
-        if (!file.type.match(pattern)) {
-          alert('invalid format');
-          return;
-        }
-        reader.onload = this._handleReaderLoaded.bind(this);
-        reader.readAsDataURL(file);
-      }
-      _handleReaderLoaded(e: any) {
-        let reader = e.target;
-        this.imageSrc = reader.result;
-        //console.log(this.imageSrc);
-      }
+  handleInputChange(e: any) {
+    var file = e.dataTransfer ? e.dataTransfer.files[0] : e.target.files[0];
+    var pattern = /image-*/;
+    var reader = new FileReader();
+    if (!file.type.match(pattern)) {
+      alert('invalid format');
+      return;
+    }
+    reader.onload = this._handleReaderLoaded.bind(this);
+    reader.readAsDataURL(file);
+  }
+  _handleReaderLoaded(e: any) {
+    let reader = e.target;
+    this.imageSrc = reader.result;
+    //console.log(this.imageSrc);
+  }
 }
