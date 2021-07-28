@@ -7,36 +7,20 @@
                 <div class="col-xs-12">
                     <div class="form-group">
                     <label class="categoryNameLabel" for="name">Naziv kategorije</label>
-                    <input type="text" id="name" class="form-control" formControlName="categoryName"> <!-- form control name treba da bude kao u .ts fajlu -->
+                    <input type="text" id="name" class="form-control" formControlName="categoryName">
                 </div>
                 </div>
             </div>
 
             <br>
-
-            <!--
-            <div class="image-upload">
-                <input name="imageUrl" type="file" accept="image/*" (change)="handleInputChange($event)" />
-                <img [src]="imageSrc" style="max-width:300px;max-height:300px"/>               
-            </div> 
-            
-            -->
-
-            
             <div class="form-group">
                 <label class="uploadFileLabel" for="file">Slika</label>
-                <!-- <input type="file" class="form-control" id="file" formControlName="file" (change)="onImageChange($event)"> -->
                 <input type="file" class="form-control" id="file" formControlName="file" accept="image/*" (change)="handleInputChange($event)">
-                <div *ngIf="uf.file.touched && uf.file.invalid" class="alert alert-danger">
-               
-                  <!-- <div *ngIf="uf.file.errors.required">Image file is required.</div>   -->
-                  
+                <div *ngIf="uf.file.touched && uf.file.invalid" class="alert alert-danger">                            
                 </div>
               </div>
               <br>
               <img [src]="imageSrc" alt="slika.png" width="100px" height="100px" class="responsive" />
-              <!-- <button id="uploadPhoto" class="btn btn-warning" type="submit"><fa-icon [icon]="faUpload"> </fa-icon>&nbsp;Izaberite sliku</button>
-              <br><br>  -->
                <input type="text" id="name" class="form-control" formControlName="imageSrc" [(ngModel)]="imageSrc" style="display: none">
               <br><br>
             

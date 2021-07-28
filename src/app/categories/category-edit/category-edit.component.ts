@@ -70,7 +70,7 @@ disable the strictPropertyInitialization flag in your tsconfig file (not recomme
   }
 
   onCancel() {
-    if (!this.route.snapshot.paramMap.get('id') !== null) {
+    if (this.route.snapshot.paramMap.get('id') !== null) {
       this.router.navigate(['../../'], { relativeTo: this.route });
     } else {
       this.router.navigate(['../'], { relativeTo: this.route }); // sa relativoTo govorimo trenutnu putanju :D 
@@ -78,7 +78,6 @@ disable the strictPropertyInitialization flag in your tsconfig file (not recomme
   }
 
   initUpdateForm(category: Category) {
-    //console.log("CATEGORY:" + JSON.stringify(category.file));
     this.imageSrc = category.imageSrc;
     let file = '';
     this.categoryForm = new FormGroup({

@@ -46,8 +46,14 @@ export class CategoriesComponent /*implements OnInit*/ { // nisam koristio ngOnI
 
   onNewCategory() {
     //console.log("THIS ROUTE111 (djole) : "+this.route);
-    this.router.navigate(['new'] , {relativeTo: this.route}); // ovo je relativna putanja , posto smo vec na categories/ pa sad treba da obavjestimo router o nasoj trenutnoj ruti (recipes/) to radimo
+    /*this.router.navigate(['new'] , {relativeTo: this.route});*/ // ovo je relativna putanja , posto smo vec na categories/ pa sad treba da obavjestimo router o nasoj trenutnoj ruti (recipes/) to radimo
       // sa route: ActivatedRoute kroz relativeTo :D
+      this.router.navigate(['newCategory'] /*, {relativeTo: this.route}*/);
+  }
+
+  onNewArticle() {
+    //newArticle
+    this.router.navigate(['newArticle'] /*, {relativeTo: this.route}*/);
   }
 
 }

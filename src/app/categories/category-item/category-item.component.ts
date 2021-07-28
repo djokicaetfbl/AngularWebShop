@@ -64,5 +64,9 @@ import { ActivatedRoute, Router } from '@angular/router';
 
         //https://stackoverflow.com/questions/44864303/send-data-through-routing-paths-in-angular
     }
+
+    onShowArticlesForCategory() {
+      this.router.navigate(['../categories', this.category.categoryName] , {relativeTo: this.route});
+    }
   
   }

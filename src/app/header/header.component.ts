@@ -31,11 +31,12 @@ export class HeaderComponent implements OnInit, OnDestroy  {
     });
   }
 
-  onNewCategory() {
-    console.log("THIS ROUTE (djole) : "+this.route);
-    this.router.navigate(['categories/new'] , {relativeTo: this.route}); // ovo je relativna putanja , posto smo vec na categories/ pa sad treba da obavjestimo router o nasoj trenutnoj ruti (recipes/) to radimo
+  /*onNewCategory() {*/
+    //console.log("THIS ROUTE (djole) : "+this.route);
+    //this.router.navigate(['categories/new'] /*, {relativeTo: this.route}*/); // ovo je relativna putanja , posto smo vec na categories/ pa sad treba da obavjestimo router o nasoj trenutnoj ruti (recipes/) to radimo
       // sa route: ActivatedRoute kroz relativeTo :D
-  }
+  /*    this.router.navigate(['newCategory'] /*, {relativeTo: this.route}*/ /*);
+  }*/
 
   onLogout() {
     this.authService.logout();
@@ -44,5 +45,10 @@ export class HeaderComponent implements OnInit, OnDestroy  {
   ngOnDestroy(): void {
     this.userSub.unsubscribe();
   }
+
+//  onNewArticle() {
+    //newArticle
+ //   this.router.navigate(['newArticle'] /*, {relativeTo: this.route}*/);
+//}
 
 }

@@ -1,6 +1,9 @@
 import { NgModule } from "@angular/core";
 import { PreloadAllModules, RouterModule, Routes } from "@angular/router";
+import { ArticleEditComponent } from "src/articles/article-edit/article-edit.component";
+import { AuthGuard } from "./auth/auth-guard";
 import { CategoriesComponent } from "./categories/categories.component";
+import { CategoryEditComponent } from "./categories/category-edit/category-edit.component";
 
 const appRoutes: Routes = [
     { path: '', redirectTo: '/categories', pathMatch: 'full' },
@@ -8,6 +11,9 @@ const appRoutes: Routes = [
     { path: 'categories', /*component: CategoriesComponent,*/ loadChildren: () => import('./categories/categories.module').then( m => m.CategoriesModule) },
     /*{ path: 'categories', loadChildren: './categories/categories.module#CategoriesModule'}*/
     { path: 'auth', loadChildren: () => import('./auth/auth.module').then(m => m.AuthModule) },
+   // { path: 'newArticle', loadChildren: () => import('./categories/categories.module').then( m => m.CategoriesModule)},
+   { path: 'newCategory', component: CategoryEditComponent, canActivate: [AuthGuard]},
+   { path: 'newArticle', component: ArticleEditComponent, canActivate: [AuthGuard], },
 ];
 
 @NgModule({             // pretvara normalnu typescript klasu u Angular modul

@@ -1,0 +1,65 @@
+.column {
+    float: left;
+    padding: 10px;
+    height: 300px; /* Should be removed. Only for demonstration */
+  }
+  
+  .left {
+    width: 30%;
+  }
+  
+  .right {
+    width: 70%;
+  }
+
+  .rightLeft {
+    width: 50%;
+  }
+
+  .leftLeft {
+    width: 50%;
+    margin-left: 3%;
+}
+
+#btnNovaKategorija {
+  font-size: 24px;
+  margin-left: 0.6%;
+}
+
+.column.right {
+    margin-top: -20%;
+}
+
+.searchDiv {
+    float: left;
+    margin-left: 20%;
+    margin-top: 5%;
+}
+
+#searchCategory {
+    font-size: 20px;
+}
+
+#searchCategoryButton {
+    font-size: 20px;
+}
+
+#test {
+    width: 150%;
+}
+/*.card {
+    float: right;
+    margin-right: 20%;
+    margin-top: -15%;
+}
+
+.searchDiv {
+    float: right;
+    margin-right: 20%;
+    margin-top: -25%;
+}*/
+
+/*.div.row {
+    margin-top: 27%; 
+    margin-left: 2%;
+}*/

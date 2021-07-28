@@ -1,0 +1,75 @@
+
+<!-- <button class="btn btn-success" id="btnNovaKategorija" *ngIf="isAuthenticated" (click)="onNewCategory()"> <fa-icon [icon]="faPlus"> </fa-icon> &nbsp;Nova kategorija</button>  -->
+<div class="row">
+    <div class="column left">
+         <div class="d-flex flex-column align-items-stretch flex-shrink-0 bg-white" style="width: 380px;">
+    <!--        <a href="/"
+                class="d-flex align-items-center flex-shrink-0 p-3 link-dark text-decoration-none border-bottom">
+                <svg class="bi me-2" width="30" height="24">
+                    <use xlink:href="#bootstrap"></use>
+                </svg>
+                <span class="fs-5 fw-semibold">
+                    <h2>Kategorije</h2>
+                </span>
+            </a> -->
+          <!----  <div class="list-group list-group-flush border-bottom scrollarea">    -->
+               <!--  <app-category-item *ngFor="let categoryEl of categories; let i = index" [category]="categoryEl" [index]="i"></app-category-item>   -->
+           <!-- </div>  -->
+        </div>  
+    </div>  
+
+    <div class="column right">
+        <div class="row">
+            <div class=" leftLeft">
+
+                <div class="searchDiv">
+                <div class="input-group mb-3" id="test">
+                    <div class="input-group-prepend">
+                        <input class="form-control mr-sm-2" id="searchCategory" type="search" placeholder="Search" aria-label="Search">
+                    </div>
+                    <div class="input-group-prepend">
+                        <input class="form-control mr-sm-2" id="searchCategory"  readonly>
+                    </div>
+                    <button class="btn btn-outline-success my-2 my-sm-0" id="searchCategoryButton" type="submit" >Search</button>
+                  </div>
+
+                </div>
+                <!--
+                <div class="card" style="width: 150%;" >
+                    <img src="https://i.picsum.photos/id/244/200/300.jpg?hmac=wik1JUmLjSI1ujhC7YXckSJhpxTId-Ul5HF5mcALqC8" height="400px" class="card-img-top" alt="...">
+                    <div class="card-body">
+                      <h5 class="card-title">Card title</h5>
+                      <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                      <a href="#" class="btn btn-primary">Go somewhere</a>
+                    </div>
+                  </div>
+                -->
+                <app-article-item></app-article-item>
+            </div>
+            <br>
+        </div>
+    </div>
+    <router-outlet></router-outlet> <!-- MORAM DA GA IMAM RADI CHILD RUTA, da su ucita isto vremeno kad i roditeljska rutu na istoj stranici !!! -->
+</div>
+
+
+
+
+
+
+
+<!-- <div class="card" style="width: 150%;">
+    <img src="https://i.picsum.photos/id/244/200/300.jpg?hmac=wik1JUmLjSI1ujhC7YXckSJhpxTId-Ul5HF5mcALqC8" height="400px" class="card-img-top" alt="...">
+    <div class="card-body">
+      <h5 class="card-title">Card title</h5>
+      <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+      <a href="#" class="btn btn-primary">Go somewhere</a>
+    </div>
+  </div>
+
+-->
+
+
+
+
+  

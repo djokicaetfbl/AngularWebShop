@@ -1,0 +1,39 @@
+input.ng-invalid.ng-touched, /* ng-invalid vidimo preko console u web browseru pa je to taj dio sto se prilikom kompajliranja dodaje pa da ogo button koji nisu validni bude crveni border ELEMENTA (npr input , textarea ... */
+textarea.ng-invalid.ng-touched /* ng-touched ako sma kliknuo */ 
+{ 
+    border: 1px solid red;
+}
+
+.card {
+    border-radius: 12px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.26);
+    padding: 1rem;
+    margin: 2rem auto;
+    max-width: 92%
+  }
+
+  .uploadFileLabel {
+      font-size: 24px;
+  }
+
+  .categoryNameLabel {
+    font-size: 24px;
+  }
+
+  #uploadPhoto {
+    font-size: 24px;
+  }
+  
+  #saveCategory {
+    font-size: 24px;
+  }
+
+  #cancelCategory {
+    font-size: 24px;
+  }
+
+  #category {
+    font-size: 20px;
+    width: 100%;
+    height: 37.5px;
+  }

@@ -1,0 +1,86 @@
+<br><br>
+<div class="card">
+    <div class="col-xs-12">
+        <form [formGroup]="articleForm" (ngSubmit)="onSubmit()" >
+
+            <div class="row">
+                <div class="col-xs-12">
+                    <div class="form-group">
+                        <label class="chooseCategoryLabel" for="name">Izaberite kategoriju</label>
+                        <br>
+                        <select
+                        name="category"
+                        id="category"
+                        class="selectCategory"
+                        formControlName="chooseCategory"
+                      >
+                      <!--  <option
+                          v-for="item in getCategories"
+                          :value="item"
+                          :key="item.id"
+                        >   -->
+                        <!--  {{ item.categoryName }} -->
+                    <!--   </option> -->
+                    <option *ngFor="let categoryEl of categories; let i = index">
+                        {{ categoryEl.categoryName }}
+                    </option>
+                      </select>
+                    </div>
+                </div>
+            </div>
+
+            <br>
+
+            <div class="row">
+                <div class="col-xs-12">
+                    <div class="form-group">
+                    <label class="articleNameLabel" for="name">Naziv artikla</label>
+                    <input type="text" id="name" class="form-control" formControlName="articleName">
+                </div>
+                </div>
+            </div>
+
+            <br>
+            <div class="form-group">
+                <label class="uploadFileLabel" for="file">Slika</label>
+                <input type="file" class="form-control" id="file" formControlName="file" accept="image/*" (change)="handleInputChange($event)">
+                <div *ngIf="uf.file.touched && uf.file.invalid" class="alert alert-danger">                            
+                </div>
+              </div>
+              <br>
+              <img [src]="imageSrc" alt="slika.png" width="100px" height="100px" class="responsive" />
+               <input type="text" id="name" class="form-control" formControlName="imageSrc" [(ngModel)]="imageSrc" style="display: none">
+              <br><br>
+
+              <div class="row">
+                <div class="col-xs-12">
+                    <div class="form-group">
+                    <label class="describeLabel" for="name">Opis</label>
+                    <input type="text" id="describe" class="form-control" formControlName="describe">
+                </div>
+                </div>
+            </div>
+            <br>
+            <div class="row">
+                <div class="col-xs-12">
+                    <div class="form-group">
+                    <label class="priceLabel" for="name">Cijena</label>
+                    <input type="text" id="price" class="form-control" formControlName="price">
+                </div>
+                </div>
+            </div>
+            <br>
+            
+            <div class="row">
+                <div class="col-xs-12">  
+                    <button type="submit" id="cancelArticle"  class="btn btn-danger" style="margin-right: 5px;" (click)="onCancel()" ><fa-icon [icon]="faArrowLeft"> </fa-icon>&nbsp;Nazad</button>
+                    <button type="submit" id="saveArticle" class="btn btn-success" style="margin-right: 5px;" [disabled]='!articleForm.valid'><fa-icon [icon]="faSave"> </fa-icon>&nbsp;Sačuvaj</button>
+                </div>
+            </div>
+
+        </form>
+    </div>
+</div>
+
+
+

@@ -25,3 +25,9 @@
   font-size: 24px;
   margin-left: 0.6%;
 }
+
+#btnNewArticle {
+  float: right;
+  font-size: 24px;
+  margin-right: 0.6%;
+}

@@ -11,6 +11,7 @@ import { HeaderComponent } from './header/header.component';
 //import { AuthComponent } from './auth/auth.component';
 //import { CategoriesComponent } from './categories/categories.component';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+//import { ArticleEditComponent } from 'src/articles/article-edit/article-edit.component';
 
 @NgModule({
   declarations: [
