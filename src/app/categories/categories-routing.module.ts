@@ -1,5 +1,6 @@
 import { NgModule } from "@angular/core";
 import { RouterModule, Routes } from "@angular/router";
+import { ArticleEditComponent } from "src/articles/article-edit/article-edit.component";
 import { ArticlesComponent } from "src/articles/articles.component";
 import { AuthGuard } from "../auth/auth-guard";
 //import { CategoriesResolverService } from "./categories-resolver.service";
@@ -15,8 +16,8 @@ const routes: Routes = [
             ]  /* sa childre da se ucita na istoj html stranici kao i father, obavezno <router-outlet> na roditeljskoj html stranici */
     },
     //{ path: 'new', component: CategoryEditComponent, canActivate: [AuthGuard]},
-    { path: 'updateCategory/:id', component: CategoryEditComponent, canActivate: [AuthGuard],
-     }
+    { path: 'updateCategory/:id', component: CategoryEditComponent, canActivate: [AuthGuard],},
+    { path: 'updateArticle/:categoryName/:id', component: ArticleEditComponent, canActivate: [AuthGuard],}
 ];
 
 @NgModule({

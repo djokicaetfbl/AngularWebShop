@@ -1,0 +1,17 @@
+#btnDeleteArticle {
+    font-size: 20px;
+    float: left;
+    margin-left: 5%;
+}
+
+#btnChangeArticle {
+    font-size: 20px;
+    /*margin-left: 3%;*/
+    float: right;
+    margin-right: 5%;
+    color: white;
+}
+
+.priceH2 {
+    float: right;
+}

@@ -1,8 +1,16 @@
 <div class="card" style="width: 150%;" >
-    <img src="https://i.picsum.photos/id/244/200/300.jpg?hmac=wik1JUmLjSI1ujhC7YXckSJhpxTId-Ul5HF5mcALqC8" height="400px" class="card-img-top" alt="...">
+  <img [src]="article.imageSrc" alt="{{ article.articleName }}"  height="400px"
+  class="responsive" />
     <div class="card-body">
-      <h5 class="card-title">Card title</h5>
-      <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-      <a href="#" class="btn btn-primary">Go somewhere</a>
+      <h5 class="card-title">{{ article.articleName }}</h5>
+      <p class="card-text">{{ article.describe }}</p>
+      <h2 class="priceH2">Cijena {{article.price}} KM</h2> <br><br><br>
+      <button class="btn btn-danger" id="btnDeleteArticle" *ngIf="isAuthenticated" (click)="onDeleteArticle()">
+        <fa-icon [icon]="faTrash"> </fa-icon> &nbsp;Ukloni&nbsp;&nbsp;
+    </button>
+    <button class="btn btn-info" id="btnChangeArticle" *ngIf="isAuthenticated" (click)="onUpdateArticle()">
+        <fa-icon [icon]="faPencilAlt"> </fa-icon> &nbsp;Izmjeni&nbsp;&nbsp;
+    </button>
     </div>
   </div>
+  <br>

@@ -47,7 +47,21 @@ import { Article } from "../articles.model";
                 this.articles = articles; // prati promjenu niza recepata, tj nasu listu recepata :D
             }
           );
+    }
+    
+    onDeleteArticle() {
+      /*console.log("Category: "+JSON.stringify(this.category.id));*/
+      this.article.active = false;
+      this.articleService.deleteArticle(this.article);
+    }
 
-    } 
+    onUpdateArticle() {
+      //console.log("THIS ROUTE111 (djole) : "+this.route);
+      this.router.navigate(['../updateArticle/'+this.article.categoryName, this.article.id] , {relativeTo: this.route}); // ovo je relativna putanja , posto smo vec na categories/ pa sad treba da obavjestimo router o nasoj trenutnoj ruti (recipes/) to radimo
+        
+      // sa route: ActivatedRoute kroz relativeTo :D
+     
+        //https://stackoverflow.com/questions/44864303/send-data-through-routing-paths-in-angular
+    }
 
   }

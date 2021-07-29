@@ -12,7 +12,9 @@
                         name="category"
                         id="category"
                         class="selectCategory"
-                        formControlName="chooseCategory"
+                        formControlName="categoryName"
+                        #categorySelect
+                        (change)='onOptionsSelected(categorySelect.value)'
                       >
                       <!--  <option
                           v-for="item in getCategories"
@@ -21,6 +23,7 @@
                         >   -->
                         <!--  {{ item.categoryName }} -->
                     <!--   </option> -->
+                    <option *ngIf="!categoryNameSelected" selected="selected" >Izaberite kategoriju</option>
                     <option *ngFor="let categoryEl of categories; let i = index">
                         {{ categoryEl.categoryName }}
                     </option>
@@ -77,7 +80,6 @@
                     <button type="submit" id="saveArticle" class="btn btn-success" style="margin-right: 5px;" [disabled]='!articleForm.valid'><fa-icon [icon]="faSave"> </fa-icon>&nbsp;Sačuvaj</button>
                 </div>
             </div>
-
         </form>
     </div>
 </div>
