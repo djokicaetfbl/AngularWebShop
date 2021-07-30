@@ -49,10 +49,10 @@ disable the strictPropertyInitialization flag in your tsconfig file (not recomme
 
   onSubmit() {
     if (!this.route.snapshot.paramMap.get('id')?.toString() !== null) {
-      //console.log("USAO DA POZOVE UPDATE CATEGORY");
+     // console.log("USAO DA POZOVE UPDATE CATEGORY");
       this.categoryService.updateCategory(this.categoryForm.value);
     } else {
-      //console.log("POZVAO ADD CATEGORY!");
+     // console.log("POZVAO ADD CATEGORY!");
       this.categoryService.addCategory(this.categoryForm.value);
     }
 
@@ -83,7 +83,7 @@ disable the strictPropertyInitialization flag in your tsconfig file (not recomme
     this.categoryForm = new FormGroup({
       'id': new FormControl(category.id),
       'categoryName': new FormControl(category.categoryName, Validators.required),
-      'file': new FormControl(file, [Validators.required]),
+      'file': new FormControl(file,/* [Validators.required]*/),
       'imageSrc': new FormControl(this.imageSrc,),
       'active': new FormControl(true,)
     });

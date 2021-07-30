@@ -83,14 +83,14 @@ export class ArticleService {
             this.setArticles(this.articles); 
     }
 
-    /*updateCategory(category: Category) { 
-        this.http.put('https://webshopangulardiplomski-default-rtdb.europe-west1.firebasedatabase.app/categories/' + category.id + '/.json', category) // put overvriduje sve podatke koji su prije bili, dodajemo /recipes.json zbog firebase-a
+    updateArticle(article: Article) { 
+        this.http.put('https://webshopangulardiplomski-default-rtdb.europe-west1.firebasedatabase.app/articles/' + article.id + '/.json', article) // put overvriduje sve podatke koji su prije bili, dodajemo /recipes.json zbog firebase-a
         .subscribe(response => {
          });
          setTimeout(() => {
             this.router.navigate(['categories']);
         }, 500);
-    }*/
+    }
 
     deleteArticle(article: Article) {
         this.loadArticles(this.categoryName);

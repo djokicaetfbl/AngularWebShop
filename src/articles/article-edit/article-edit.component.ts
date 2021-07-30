@@ -43,18 +43,29 @@ export class ArticleEditComponent implements OnInit {
   constructor(private route: ActivatedRoute, private articleService: ArticleService, private categoryService: CategoryService, private router: Router, private httpClient: HttpClient) {
     if (this.route.snapshot.paramMap.get('id')?.toString() !== null) {
       this.categoryNameNAME = this.route.snapshot.paramMap.get('categoryName')?.toString().trim();
-      console.log("ID 1: "+this.categoryNameNAME);
+      console.log("RUTA CATEGORY NAME 1: "+this.categoryNameNAME);
       //this.articleService.loadArticles(this.categoryName);
     }
   }
 
   onSubmit() {
+        //console.log("DARADARIDADA: "+this.route.snapshot.paramMap.get('categoryName')?.toString());
+        //console.log("THIS CAT NAMENAME: "+this.categoryNameNAME);
+        if (this.categoryNameNAME !== undefined) {
+          console.log("UPDATE ARTICLE");
+          this.articleService.updateArticle(this.articleForm.value);
+        } else {
+          //console.log("CREATE ARTICLE");
+          this.articleService.addArticle(this.articleForm.value);
+        }
 
-    if (!this.route.snapshot.paramMap.get('id')?.toString() !== null) {
-      this.categoryService.updateCategory(this.articleForm.value);
+   /* if (this.route.snapshot.paramMap.get('categoryName')?.toString() !== null) {
+      console.log("UPDATE");
+      this.articleService.updateArticle(this.articleForm.value);
     } else {
+      console.log("CREATE");
       this.articleService.addArticle(this.articleForm.value);
-    }
+    }*/
     setTimeout(() => {
       this.router.navigate(['']);
     }, 500);
@@ -69,12 +80,13 @@ export class ArticleEditComponent implements OnInit {
   }
 
   initUpdateForm(article: Article) {
+    console.log("ARTIKLE FILE: "+article.file);
     this.imageSrc = article.imageSrc;
     let file = '';
     this.articleForm = new FormGroup({
       'id': new FormControl(article.id),
       'articleName': new FormControl(article.articleName, Validators.required),
-      'file': new FormControl(file, [Validators.required]),
+      'file': new FormControl(file, /*[Validators.required]*/),
       'imageSrc': new FormControl(this.imageSrc,),
       'active': new FormControl(true,),
       'describe': new FormControl(article.describe, [Validators.required]),

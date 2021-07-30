@@ -1,4 +1,9 @@
 <div class="card" style="width: 150%;" >
+  <div>
+  <button class="btn btn-primary" id="btnCDetailsArticle"  (click)="onUpdateArticle()">
+    <fa-icon [icon]="faPencilAlt"> </fa-icon> &nbsp;Detalji&nbsp;&nbsp;
+      </button>
+    </div>
   <img [src]="article.imageSrc" alt="{{ article.articleName }}"  height="400px"
   class="responsive" />
     <div class="card-body">
@@ -12,5 +17,6 @@
         <fa-icon [icon]="faPencilAlt"> </fa-icon> &nbsp;Izmjeni&nbsp;&nbsp;
     </button>
     </div>
+
   </div>
   <br>
