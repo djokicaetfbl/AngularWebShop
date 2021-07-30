@@ -6,6 +6,7 @@ import { AuthService } from "src/app/auth/auth.service";
 import { ActivatedRoute, Router } from "@angular/router";
 import { Subscription } from "rxjs";
 import { Article } from "../articles.model";
+import { faInfo } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
     selector: 'app-article-item',
@@ -17,6 +18,7 @@ import { Article } from "../articles.model";
     
     faPencilAlt = faPencilAlt;
     faTrash = faTrash;
+    faInfo = faInfo;
 
     constructor(private authService: AuthService, private articleService: ArticleService, private route: ActivatedRoute, private router: Router) {}
 
@@ -62,6 +64,10 @@ import { Article } from "../articles.model";
       // sa route: ActivatedRoute kroz relativeTo :D
      
         //https://stackoverflow.com/questions/44864303/send-data-through-routing-paths-in-angular
+    }
+
+    onDetailArticle() {
+      this.router.navigate(['../detailsArticle/'+this.article.categoryName, this.article.id] , {relativeTo: this.route});
     }
 
   }

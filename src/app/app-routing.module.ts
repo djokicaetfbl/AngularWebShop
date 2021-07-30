@@ -4,6 +4,7 @@ import { ArticleEditComponent } from "src/articles/article-edit/article-edit.com
 import { AuthGuard } from "./auth/auth-guard";
 import { CategoriesComponent } from "./categories/categories.component";
 import { CategoryEditComponent } from "./categories/category-edit/category-edit.component";
+import { PageNotFound } from './pagenotfound/pagenotfound.component';
 
 const appRoutes: Routes = [
     { path: '', redirectTo: '/categories', pathMatch: 'full' },
@@ -14,6 +15,7 @@ const appRoutes: Routes = [
    // { path: 'newArticle', loadChildren: () => import('./categories/categories.module').then( m => m.CategoriesModule)},
    { path: 'newCategory', component: CategoryEditComponent, canActivate: [AuthGuard]},
    { path: 'newArticle', component: ArticleEditComponent, canActivate: [AuthGuard], },
+   { path: '**', pathMatch: 'full', component: PageNotFound },
 ];
 
 @NgModule({             // pretvara normalnu typescript klasu u Angular modul

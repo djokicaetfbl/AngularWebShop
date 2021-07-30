@@ -5,7 +5,7 @@ import { Subject } from "rxjs";
 import { Article } from "./articles.model";
 
 
-@Injectable()
+@Injectable() // DA KORISIMO KLASU KAO SERVIS , MODULARNOST  //To define a class as a service in Angular, use the @Injectable() decorator to provide the metadata that allows Angular to inject it into a component as a dependency.
 export class ArticleService { 
     articlesChanged = new Subject<Article[]>();
     

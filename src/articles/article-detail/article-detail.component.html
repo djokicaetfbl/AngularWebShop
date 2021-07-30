@@ -1,0 +1,32 @@
+<div class="card" style="width: 150%;" >
+    <div>
+        <h2>Detalji</h2>
+      </div>
+      <div class="row">
+        <div class="column left">
+    <!-- <img [src]="article.imageSrc" alt="{{ article.articleName }}"  height="400px" -->
+    <img [src]="" alt=""  height="400px"
+    class="responsive" />
+      <div class="card-body">
+        <h5 class="card-title"> article.articleName </h5>
+        <p class="card-text"> article.describe </p>
+
+        <!-- <button class="btn btn-danger" id="btnDeleteArticle" *ngIf="isAuthenticated" (click)="onDeleteArticle()">  -->
+    </div>
+    </div>
+    <div class="column right"> 
+        <div class="row" id="counterRow">
+            <div class="row"><button class="btn btn-success" id="btnPlusArticle">+</button></div>
+            <div class="row"><input class="form-control form-control-lg" type="text" placeholder="1"></div>
+            <div class="row"><button class="btn btn-danger" id="btnMinusArticle">-</button></div>
+        </div>
+        <h2 class="priceH2">Cijena article.price KM</h2> <br><br><br>
+        <div class="row" id="addToCartRow">
+            <div class="row"><button class="btn btn-success" id="btnPlusArticle">&nbsp;Dodaj u korpu</button></div>
+        </div>
+
+    </div>
+
+    </div>
+
+    <br>

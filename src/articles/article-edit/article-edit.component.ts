@@ -17,7 +17,7 @@ import { Category } from "src/app/categories/category.model";
   providers: [ArticleService, CategoryService], //da obezbjedim Category Service OBAVEZNO
 })
 
-@Injectable()
+//@Injectable() // DA DEFINISEMO KLASU KAO SERVIS
 export class ArticleEditComponent implements OnInit {
 
   faUpload = faUpload;

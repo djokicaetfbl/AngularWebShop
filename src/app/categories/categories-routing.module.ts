@@ -1,5 +1,6 @@
 import { NgModule } from "@angular/core";
 import { RouterModule, Routes } from "@angular/router";
+import { ArticleDetailComponent } from "src/articles/article-detail/article-detail.component";
 import { ArticleEditComponent } from "src/articles/article-edit/article-edit.component";
 import { ArticlesComponent } from "src/articles/articles.component";
 import { AuthGuard } from "../auth/auth-guard";
@@ -17,7 +18,9 @@ const routes: Routes = [
     },
     //{ path: 'new', component: CategoryEditComponent, canActivate: [AuthGuard]},
     { path: 'updateCategory/:id', component: CategoryEditComponent, canActivate: [AuthGuard],},
-    { path: 'updateArticle/:categoryName/:id', component: ArticleEditComponent, canActivate: [AuthGuard],}
+    { path: 'updateArticle/:categoryName/:id', component: ArticleEditComponent, canActivate: [AuthGuard],},
+    { path: 'detailsArticle/:categoryName/:id', component: ArticleDetailComponent,},
+    //detailsArticle
 ];
 
 @NgModule({

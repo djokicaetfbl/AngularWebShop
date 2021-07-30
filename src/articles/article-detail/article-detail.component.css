@@ -1,0 +1,86 @@
+#btnDeleteArticle {
+    font-size: 20px;
+    float: left;
+    margin-left: 5%;
+}
+
+#btnChangeArticle {
+    font-size: 20px;
+    /*margin-left: 3%;*/
+    float: right;
+    margin-right: 5%;
+    color: white;
+}
+
+.priceH2 {
+    float: right;
+}
+
+#btnCDetailsArticle {
+    margin-top: 2%;
+    font-size: 22px;
+    /*margin-left: 3%;*/
+    float: right;
+    margin-right: 5%;
+    color: white;
+}
+
+input.ng-invalid.ng-touched, /* ng-invalid vidimo preko console u web browseru pa je to taj dio sto se prilikom kompajliranja dodaje pa da ogo button koji nisu validni bude crveni border ELEMENTA (npr input , textarea ... */
+textarea.ng-invalid.ng-touched, /* ng-touched ako sma kliknuo */ 
+select.ng-invalid.ng-touched
+{ 
+    border: 1px solid red;
+}
+
+.card {
+    border-radius: 12px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.26);
+    padding: 1rem;
+    margin: 2rem auto;
+    max-width: 92%
+  }
+
+  .uploadFileLabel {
+      font-size: 24px;
+  }
+
+  .categoryNameLabel {
+    font-size: 24px;
+  }
+
+  #uploadPhoto {
+    font-size: 24px;
+  }
+  
+  #saveArticle {
+    font-size: 24px;
+  }
+
+  #cancelArticle {
+    font-size: 24px;
+  }
+
+  #category {
+    font-size: 20px;
+    width: 100%;
+    height: 37.5px;
+  }
+
+  #counterRow {
+      width: 20%;
+  }
+
+  #addToCartRow {
+      width: 40%;
+      float: right;
+      margin-top: 40%;
+  }
+
+  
+  .left {
+    width: 50%;
+  }
+  
+  .right {
+    width: 50%;
+  }
