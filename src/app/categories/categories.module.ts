@@ -11,6 +11,8 @@ import { ArticlesComponent } from "src/articles/articles.component";
 import { ArticleItemComponent } from "src/articles/article-item/article-item.component";
 import { ArticleEditComponent } from "src/articles/article-edit/article-edit.component";
 import { ArticleDetailComponent } from "src/articles/article-detail/article-detail.component";
+import { FormsModule } from '@angular/forms';
+
 
 @NgModule({
     declarations: [
@@ -23,8 +25,8 @@ import { ArticleDetailComponent } from "src/articles/article-detail/article-deta
         ArticleDetailComponent
     ],
 
-    imports: [ RouterModule, SharedModule , ReactiveFormsModule, CategoriesRoutingModule, FontAwesomeModule ], // sve sto korismimo treba da importujemo, sem servisa koje je dovoljno importovati jednom u app
-})
+    imports: [ RouterModule, SharedModule , ReactiveFormsModule, CategoriesRoutingModule, FontAwesomeModule, FormsModule ], // sve sto korismimo treba da importujemo, sem servisa koje je dovoljno importovati jednom u app
+})                      // FormsModule mi treba za TwoWay binding ngModel
 
 export class CategoriesModule {
     

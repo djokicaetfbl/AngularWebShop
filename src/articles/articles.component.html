@@ -1,20 +1,7 @@
 
-<!-- <button class="btn btn-success" id="btnNovaKategorija" *ngIf="isAuthenticated" (click)="onNewCategory()"> <fa-icon [icon]="faPlus"> </fa-icon> &nbsp;Nova kategorija</button>  -->
 <div class="row">
     <div class="column left">
          <div class="d-flex flex-column align-items-stretch flex-shrink-0 bg-white" style="width: 380px;">
-    <!--        <a href="/"
-                class="d-flex align-items-center flex-shrink-0 p-3 link-dark text-decoration-none border-bottom">
-                <svg class="bi me-2" width="30" height="24">
-                    <use xlink:href="#bootstrap"></use>
-                </svg>
-                <span class="fs-5 fw-semibold">
-                    <h2>Kategorije</h2>
-                </span>
-            </a> -->
-          <!----  <div class="list-group list-group-flush border-bottom scrollarea">    -->
-               <!--  <app-category-item *ngFor="let categoryEl of categories; let i = index" [category]="categoryEl" [index]="i"></app-category-item>   -->
-           <!-- </div>  -->
         </div>  
     </div>  
 
@@ -25,12 +12,12 @@
                 <div class="searchDiv">
                 <div class="input-group mb-3" id="test">
                     <div class="input-group-prepend">
-                        <input class="form-control mr-sm-2" id="searchCategory" type="search" placeholder="Search" aria-label="Search">
+                        <input [(ngModel)]="searchValue"  class="form-control mr-sm-2" id="searchCategory" type="search" placeholder="Search" aria-label="Search">
                     </div>
                     <div class="input-group-prepend">
                         <input class="form-control mr-sm-2" id="searchCategory" [value]="categoryName"   readonly>
                     </div>
-                    <button class="btn btn-outline-success my-2 my-sm-0" id="searchCategoryButton" type="submit" >Search</button>
+                    <button class="btn btn-outline-success my-2 my-sm-0" id="searchCategoryButton" type="submit" (click)="searchArticleInCategory()" >Search</button>
                   </div>
 
                 </div>

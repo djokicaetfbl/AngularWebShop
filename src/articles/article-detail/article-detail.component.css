@@ -13,7 +13,8 @@
 }
 
 .priceH2 {
-    float: right;
+    float: left;
+    font-size: 30px;
 }
 
 #btnCDetailsArticle {
@@ -37,7 +38,7 @@ select.ng-invalid.ng-touched
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.26);
     padding: 1rem;
     margin: 2rem auto;
-    max-width: 92%
+    max-width: 62%
   }
 
   .uploadFileLabel {
@@ -67,11 +68,12 @@ select.ng-invalid.ng-touched
   }
 
   #counterRow {
-      width: 20%;
+    margin-left: 25%;
+      width: 22%;
   }
 
   #addToCartRow {
-      width: 40%;
+      width: 60%;
       float: right;
       margin-top: 40%;
   }
@@ -84,3 +86,52 @@ select.ng-invalid.ng-touched
   .right {
     width: 50%;
   }
+
+  #btnPlusArticle {
+    font-size: 26px;
+  }
+
+  #btnMinusArticle {
+    font-size: 26px;
+  }
+
+  inputCounter {
+    font-size: 26px;
+  }
+  
+  #describeArticle {
+    font-size: 22px;
+  }
+
+  #btnAddToCart {
+    font-size: 26px;
+  }
+
+  .articleBasicInfoP{
+    font-size: 20px;
+    color: #5864d1;
+  }
+
+  textarea {
+    resize: none;
+    height: 100px;
+ }
+
+
+
+/*
+ .purple-border textarea {
+  border: 1px solid #ba68c8;
+}
+.purple-border .form-control:focus {
+  border: 1px solid #ba68c8;
+  box-shadow: 0 0 0 0.2rem rgba(186, 104, 200, .25);
+}
+
+.green-border-focus .form-control:focus {
+  border: 1px solid #8bc34a;
+  box-shadow: 0 0 0 0.2rem rgba(139, 195, 74, .25);
+}
+
+
+*/

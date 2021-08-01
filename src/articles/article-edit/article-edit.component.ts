@@ -49,23 +49,12 @@ export class ArticleEditComponent implements OnInit {
   }
 
   onSubmit() {
-        //console.log("DARADARIDADA: "+this.route.snapshot.paramMap.get('categoryName')?.toString());
-        //console.log("THIS CAT NAMENAME: "+this.categoryNameNAME);
         if (this.categoryNameNAME !== undefined) {
           console.log("UPDATE ARTICLE");
           this.articleService.updateArticle(this.articleForm.value);
         } else {
-          //console.log("CREATE ARTICLE");
           this.articleService.addArticle(this.articleForm.value);
         }
-
-   /* if (this.route.snapshot.paramMap.get('categoryName')?.toString() !== null) {
-      console.log("UPDATE");
-      this.articleService.updateArticle(this.articleForm.value);
-    } else {
-      console.log("CREATE");
-      this.articleService.addArticle(this.articleForm.value);
-    }*/
     setTimeout(() => {
       this.router.navigate(['']);
     }, 500);

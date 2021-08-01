@@ -19,14 +19,16 @@ export class ArticlesComponent {
     articles!: Article[];
     subscription!: Subscription;
     categoryName: any;
+    searchValue = '';
 
     constructor(private articleService: ArticleService, private authService: AuthService, private router: Router, private route: ActivatedRoute) {
 
+        //console.log("DJOKSIM: " + this.route.snapshot.paramMap.get('categoryName')?.toString());
 
-       /* if (!this.route.snapshot.paramMap.get('id')?.toString() !== null) {
-            this.categoryName = this.route.snapshot.paramMap.get('categoryName')?.toString().trim();
-            console.log("BRE: " + this.route.snapshot.paramMap.get('categoryName')?.toString().trim());
-        }*/
+        /* if (!this.route.snapshot.paramMap.get('id')?.toString() !== null) {
+             this.categoryName = this.route.snapshot.paramMap.get('categoryName')?.toString().trim();
+             console.log("BRE: " + this.route.snapshot.paramMap.get('categoryName')?.toString().trim());
+         }*/
 
         this.router.routeReuseStrategy.shouldReuseRoute = function () { // INACE IDE OVA IMPLEMENTACIJA U OnInit
             return false;
@@ -54,7 +56,33 @@ export class ArticlesComponent {
     }
 
 
+    searchArticleInCategory() {
+        console.log("CATEGORY NAME: " + this.categoryName);
+        console.log("SEARCH VALUE: " + this.searchValue);
+        console.log("ARTIKLES LENGTHHHL: " + this.articles.length);
 
+        if (this.searchValue !== '') {
+            //this.articles = [];
+            //this.articleService.loadArticles(this.categoryName);
+           // setTimeout(() => {
+                var articlesTMP = [];
 
+                for (var i = 0; i < this.articles.length; i++) {
+                    if (this.articles[i].articleName.toString().trim().toLowerCase().startsWith(this.searchValue.toString().trim().toLowerCase())) {
+                        console.log("DA: " + this.articles[i].articleName);
+                        articlesTMP.push(this.articles[i]);
+                    }
+                }
+                this.articles.length = 0;
+                this.articles.push.apply(this.articles, articlesTMP);
+                //this.articles.splice(0, articlesTMP.length, ... articlesTMP);
+                //this.articles = articlesTMP;
+         //   }, 1000);
+        } else {
+            this.articleService.setArticles([]);
+            this.articleService.loadArticles(this.categoryName);
+        }
+
+    }
 }
 

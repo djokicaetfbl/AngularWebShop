@@ -12,6 +12,7 @@ import { HeaderComponent } from './header/header.component';
 //import { CategoriesComponent } from './categories/categories.component';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 //import { ArticleEditComponent } from 'src/articles/article-edit/article-edit.component';
+import { FormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -26,6 +27,7 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
     SharedModule,
     CoreModule,
     FontAwesomeModule,
+    FormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

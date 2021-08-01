@@ -40,6 +40,7 @@ export class ArticleService {
             {
                if(this.articles[i].id.toString().trim().localeCompare(index) === 0){
                     article = this.articles[i];
+                    console.log("DA IMA!");
                 }
             }
 
