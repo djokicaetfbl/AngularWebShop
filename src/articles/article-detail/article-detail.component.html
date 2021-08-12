@@ -1,6 +1,7 @@
+
 <div class="card" style="width: 150%;">
     <div>
-        <h2>Detalji</h2>
+        <h2>Detalji >> {{articleName}}</h2>
     </div>
     <div class="row">
         <div class="column left">
@@ -8,16 +9,14 @@
             <img [src]="imageSrc" alt="" height="50%" width="80%" class="responsive" />
             <div class="card-body">
                 <!-- <h5 class="card-title"> {{ articleName }} </h5>    -->
-                <p class="articleBasicInfoP">{{ categoryName }} >> {{ articleName }}</p>
                 <!-- <p class="card-text" id="describeArticle"> {{ describe }}</p>  -->
                 <!-- <textarea class="form-control" aria-label="With textarea" readonly>{{ describe }}</textarea>   -->
                 <div class="form-group">
-                    <label for="exampleFormControlTextarea3">Rounded corners</label>
                     <textarea class="form-control" id="exampleFormControlTextarea3" rows="5" readonly>{{ describe }}</textarea>
                   </div>
                 <br><br>
-                <p class="priceH2">Cijena {{ price }} KM
-                <p>
+                <p class="articleBasicInfoP">{{ categoryName }} >> {{ articleName }}</p>
+                <!-- <p class="priceH2">Cijena {{ price }} KM</p>   -->
 
                     <!-- <button class="btn btn-danger" id="btnDeleteArticle" *ngIf="isAuthenticated" (click)="onDeleteArticle()">  -->
             </div>
@@ -33,10 +32,13 @@
             </div>
             <!-- <h2 class="priceH2">Cijena {{ price }} KM</h2> --> <br><br><br>
             <div class="row" id="addToCartRow">
-                <div class="row"><button class="btn btn-success" id="btnAddToCart">
+                <p class="priceH2">Cijena {{ price }} KM</p>
+                <div class="row">
+                    <button class="btn btn-success" id="btnAddToCart" (click)="addArticleToCart()">
                         <fa-icon [icon]="faPlus"> </fa-icon>&nbsp;Dodaj u korpu
                     </button></div>
             </div>
         </div>
     </div>
     <br>
+    

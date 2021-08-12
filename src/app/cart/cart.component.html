@@ -1,0 +1,41 @@
+<div class="card">
+    <table class="table">
+        <thead class="table-light">
+          <tr>
+            <th scope="col">Proizvod</th>
+            <th scope="col">Količina</th>
+            <th scope="col">Cijena</th>
+            <th scope="col">Ukloni</th>
+          </tr>
+        </thead> 
+        <tbody> 
+          <!-- <app-cart-item *ngFor="let article of (articles | async).articles; let i = index;" ></app-cart-item> -->
+          <tr *ngFor="let article of (articles | async).articles; let i = index;">
+            <th scope="row">
+                <div class="row">
+                    <div class="column">
+                        <div class="card">
+                             <img
+                             [src]="article.imageSrc" alt="{{ article.imageSrc }}"
+                            class="card-img-top"
+                            alt="..."
+                            style="max-height: 300px; max-width: 500px"
+                          />    
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <p class="articleHistory">{{ article.articleName }} » {{ article.categoryName }}</p>
+                      </div>
+                </div>
+            </th>
+            <th scope="row">
+              <button type="button" class="btn btn-danger"  id="deleteArticleFromCart">Ukloni</button>
+            </th>
+            <th  scope="row" id="articleQuantity">{{ article.quantiy }}</th>
+            <th  id="articlePrice">{{ article.price }}</th>
+        </tr>
+      </tbody>
+      </table>  
+
+
+</div>

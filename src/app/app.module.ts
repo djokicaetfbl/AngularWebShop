@@ -13,6 +13,10 @@ import { HeaderComponent } from './header/header.component';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 //import { ArticleEditComponent } from 'src/articles/article-edit/article-edit.component';
 import { FormsModule } from '@angular/forms';
+import { StoreModule } from '@ngrx/store';
+
+import * as fromApp from './store/app.reducer';
+import { CartItemComponent } from './cart/cart-item/cart-item.component';
 
 @NgModule({
   declarations: [
@@ -27,7 +31,10 @@ import { FormsModule } from '@angular/forms';
     SharedModule,
     CoreModule,
     FontAwesomeModule,
-    FormsModule
+    FormsModule,
+    StoreModule.forRoot(
+      fromApp.appReducer
+    ),
   ],
   providers: [],
   bootstrap: [AppComponent]

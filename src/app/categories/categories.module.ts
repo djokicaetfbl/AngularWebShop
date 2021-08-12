@@ -12,6 +12,8 @@ import { ArticleItemComponent } from "src/articles/article-item/article-item.com
 import { ArticleEditComponent } from "src/articles/article-edit/article-edit.component";
 import { ArticleDetailComponent } from "src/articles/article-detail/article-detail.component";
 import { FormsModule } from '@angular/forms';
+import { CartItemComponent } from "../cart/cart-item/cart-item.component";
+import { Cart } from "../cart/cart.component";
 
 
 @NgModule({
@@ -22,7 +24,9 @@ import { FormsModule } from '@angular/forms';
         ArticlesComponent, // nisam pravio poseban articles.module.ts jer mi se ucitava na istoj stranici :D
         ArticleItemComponent, // jer je ovaj roditelj od njega :D
         ArticleEditComponent,
-        ArticleDetailComponent
+        ArticleDetailComponent,
+        Cart,
+        CartItemComponent
     ],
 
     imports: [ RouterModule, SharedModule , ReactiveFormsModule, CategoriesRoutingModule, FontAwesomeModule, FormsModule ], // sve sto korismimo treba da importujemo, sem servisa koje je dovoljno importovati jednom u app

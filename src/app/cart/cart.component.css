@@ -1,0 +1,28 @@
+.card {
+    border-radius: 12px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.26);
+    padding: 1rem;
+    margin: 2rem auto;
+    max-width: 92%
+  }
+
+  .articleHistory {
+    font-size: 18px;
+    color: #39c0ed;
+  }
+
+  #deleteArticleFromCart {
+    font-size: 14px;
+    margin-top: 15%;
+    width: 100%;
+  }
+
+  #articleQuantity {
+    font-size: 20px;
+    text-align: center;
+  }
+
+  #articlePrice {
+    font-size: 20px;
+  }
+  

@@ -6,6 +6,9 @@ import { faCoffee, faPlus, faKey ,faShoppingCart } from '@fortawesome/free-solid
 //import { faKey} from '@fortawesome/free-solid-svg-icons';
 import { Subscription } from 'rxjs';
 import { ActivatedRoute, Router } from '@angular/router';
+import { Store } from '@ngrx/store';
+
+import * as fromApp from '../store/app.reducer';
 
 @Component({
   selector: 'app-header',
@@ -23,7 +26,7 @@ export class HeaderComponent implements OnInit, OnDestroy  {
   isAuthenticated = false;
 
 
-  constructor(/*private dataStorageService: DataStorageService, kada dodam dataStorageService */ private authService: AuthService, private router: Router, private route: ActivatedRoute) { }
+  constructor(private authService: AuthService, private router: Router, private route: ActivatedRoute, private store: Store<fromApp.AppState>) { }
 
   ngOnInit(): void {
     this.userSub = this.authService.user.subscribe(user => {
@@ -44,6 +47,10 @@ export class HeaderComponent implements OnInit, OnDestroy  {
 
   ngOnDestroy(): void {
     this.userSub.unsubscribe();
+  }
+
+  goToCart(){
+    this.router.navigate(['cart']); 
   }
 
 //  onNewArticle() {

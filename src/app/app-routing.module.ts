@@ -2,6 +2,7 @@ import { NgModule } from "@angular/core";
 import { PreloadAllModules, RouterModule, Routes } from "@angular/router";
 import { ArticleEditComponent } from "src/articles/article-edit/article-edit.component";
 import { AuthGuard } from "./auth/auth-guard";
+import { Cart } from "./cart/cart.component";
 import { CategoriesComponent } from "./categories/categories.component";
 import { CategoryEditComponent } from "./categories/category-edit/category-edit.component";
 import { PageNotFound } from './pagenotfound/pagenotfound.component';
@@ -15,6 +16,7 @@ const appRoutes: Routes = [
    // { path: 'newArticle', loadChildren: () => import('./categories/categories.module').then( m => m.CategoriesModule)},
    { path: 'newCategory', component: CategoryEditComponent, canActivate: [AuthGuard]},
    { path: 'newArticle', component: ArticleEditComponent, canActivate: [AuthGuard], },
+   { path: 'cart', component: Cart },
    { path: '**', pathMatch: 'full', component: PageNotFound },
 ];
 

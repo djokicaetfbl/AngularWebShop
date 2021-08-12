@@ -9,10 +9,11 @@ export class Article {
     public file: string;
     public describe: string;
     public price: number;
+    public quantiy?: number;
     /*public ingredients: Ingredient[];*/
 
 
-    constructor(id: string, categoryName: string, articleName: string, imageSrc: string, active: boolean, file: string, describe: string, price: number){
+    constructor(id: string, categoryName: string, articleName: string, imageSrc: string, active: boolean, file: string, describe: string, price: number, quantity?: number){
         //this.name = name;
         this.id = id;
         this.categoryName = categoryName;
@@ -22,6 +23,9 @@ export class Article {
         this.file = file;
         this.describe = describe;
         this.price = price;
+        this.quantiy = quantity;
         //this.ingredients = ingredients;
     }
+
+    
 }

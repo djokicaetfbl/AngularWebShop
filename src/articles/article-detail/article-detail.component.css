@@ -118,6 +118,11 @@ select.ng-invalid.ng-touched
  }
 
 
+ textarea[readonly] {
+  background-color: transparent;
+}
+
+
 
 /*
  .purple-border textarea {
