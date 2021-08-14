@@ -6,6 +6,9 @@ import { Article } from "src/articles/articles.model";
 export const ADD_ARTICLE = 'ADD_ARTICLE';
 export const ADD_ARTICLES_TO_CART = 'ADD_ARTICLES_TO_CART';
 export const DELETE_ARTICLE_FROM_CART = 'DELETE_ARTICLE_FROM_CART';
+export const UPDATE_ARTICLE = 'UPDATE_ARTICLE';
+export const START_EDIT = 'START_EDIT'; // ZA EDIT :D
+export const STOP_EDIT = 'STOP_EDIT';
 
 export class AddArticle implements Action {
     readonly type = ADD_ARTICLE;
@@ -21,6 +24,26 @@ export class DeleteArticleFromCart implements Action {
 readonly type = DELETE_ARTICLE_FROM_CART;
 }
 
+export class UpdateArticle implements Action {
+    readonly type = UPDATE_ARTICLE;
+    constructor(public payload: Article) {}
+}
+
+export class StartEdit implements Action {
+    readonly type = START_EDIT;
+
+    constructor(public payload: number) {}
+
+}
+
+export class StopEdit implements Action {
+    readonly type = STOP_EDIT;
+}
+
+
 export type CartActions = AddArticle
     | AddArticlesToCart
-    | DeleteArticleFromCart;
+    | DeleteArticleFromCart
+    | UpdateArticle
+    | StartEdit
+    | StopEdit;

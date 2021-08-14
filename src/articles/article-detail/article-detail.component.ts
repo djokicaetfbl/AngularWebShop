@@ -46,6 +46,8 @@ export class ArticleDetailComponent implements OnInit {
 
   articles: Observable<{ articles: Article[] }>;   // SA NGRX je Observable
 
+  editedArticle: Article;
+
 
   constructor(private articleService: ArticleService, private route: ActivatedRoute, private router: Router, private store: Store<fromApp.AppState>) {
     if (this.route.snapshot.paramMap.get('id')?.toString() !== null && this.route.snapshot.paramMap.get('categoryName')?.toString() !== null) {
@@ -92,9 +94,41 @@ export class ArticleDetailComponent implements OnInit {
     }
   }
 
+  doesItemExistInCart() {
+
+  }
+
   addArticleToCart() { // probaj sa localeStrorage ako ne pamti ovako stanje :D
+
+    let tmpArticles: Article[];
+    this.articles.subscribe(x => tmpArticles = x.articles); // BITNO DRAGANA POMOGLA :D
+
     var newArticle = new Article(this.articleId, this.categoryName, this.articleName, this.imageSrc, true, this.file, this.describe, this.price, this.articleCounterState);
-    this.store.dispatch(new CartActions.AddArticle(newArticle));
+    console.log("DJOKA: " + tmpArticles.length);
+    var findUpdate = false;
+    var i = 0
+    if (tmpArticles.length === 0) {
+      // inicijalni slucaj:
+      this.store.dispatch(new CartActions.AddArticle(newArticle));
+    }
+    else {
+      for (; i < tmpArticles.length; i++) {
+        if (tmpArticles[i].id.toString().trim().localeCompare(newArticle.id.toString().trim()) === 0) {
+          console.log("DA!");
+          findUpdate = true;
+          this.store.dispatch(new CartActions.StartEdit(i));
+
+          var djole = tmpArticles[i].quantiy + this.articleCounterState;
+          var newArticle2 = new Article(this.articleId, this.categoryName, this.articleName, this.imageSrc, true, this.file, this.describe, this.price, djole);
+          this.store.dispatch(new CartActions.UpdateArticle(newArticle2));
+        } 
+      }
+    }
+
+    if(!findUpdate && i === tmpArticles.length) {
+      console.log("NE!");
+      this.store.dispatch(new CartActions.AddArticle(newArticle));
+    }
     /*
     this.cart = this.cartService.getCart();
     var tmpArticle = new Article(this.articleId,this.categoryName, this.articleName, this.imageSrc, true, this.file, this.describe, this.price, this.articleCounterState);
