@@ -35,6 +35,7 @@ export function cartReducer(    // U REDUCER-u nema asinhronog koda samo sinhron
             };
 
         case CartActions.DELETE_ARTICLE_FROM_CART:
+            //const tmpArticle = state.articles[state.editedArticleIndex];
             return {
                 ...state,
                 articles: state.articles.filter((art, artIndex) => {

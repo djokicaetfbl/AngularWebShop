@@ -21,7 +21,7 @@ export class AddArticlesToCart implements Action {
 }
 
 export class DeleteArticleFromCart implements Action {
-readonly type = DELETE_ARTICLE_FROM_CART;
+    readonly type = DELETE_ARTICLE_FROM_CART;
 }
 
 export class UpdateArticle implements Action {

@@ -23,6 +23,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 
     private userSub: Subscription = new Subscription;
     isAuthenticated = false;
+    isAdmin = false;
 
     @Input() category!: Category; // ovo undefined sam ja dodao zar ce da radi dobro :D
   
@@ -33,8 +34,15 @@ import { ActivatedRoute, Router } from '@angular/router';
     subscription!: Subscription;
   
     ngOnInit(): void {
+      console.log("TEST");
       this.userSub = this.authService.user.subscribe(user => {
         this.isAuthenticated = !!user;// ili !user ? false : true; // ako nemamo objekat user , tada nismo autenitifikovani (tj user = null)
+        /*if(user !== null){
+          console.log("USER JE ADMIN: "+!!user.isAdmin);
+          this.isAdmin = !!user.isAdmin;
+        }*/
+        this.isAdmin = this.authService.getIsUserAdmin();
+        console.log("DJOKASS121: "+ this.isAdmin);
       });
 
       this.subscription = this.categoryService.categoriesChanged

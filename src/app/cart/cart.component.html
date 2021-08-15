@@ -28,7 +28,7 @@
         <th scope="row" id="articleQuantity">{{ article.quantiy }}</th>
         <th id="articlePrice">{{ article.price }}</th>
         <th scope="row">
-          <button type="button" class="btn btn-danger" id="deleteArticleFromCart">Ukloni</button>
+          <button type="button" class="btn btn-danger" id="deleteArticleFromCart" (click)="deleteArticleFromCart(i)" >Ukloni</button>
         </th>
       </tr>
     </tbody>

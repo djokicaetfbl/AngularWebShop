@@ -26,6 +26,8 @@ export class AuthService {
 
     private tokenExpirationTimer: any;
 
+     isAdmin: any;
+
     constructor(private http: HttpClient, private router: Router) { }
 
     signup(email: string, password: string) { // koristit cemo return , da se mozemo subscribe i da bi mogli da upravljamo rezultatom :D
@@ -99,7 +101,16 @@ export class AuthService {
 
     private handleAuthentication(email: string, userId: string, token: string, expiresIn: number) {
         const expirationDate = new Date(new Date().getTime() + expiresIn * 1000);
+        this.isAdmin = false;
         const user = new User(email, userId, token, expirationDate);
+        console.log("DEBELI");
+        if( userId.toString().trim().localeCompare("UuoMDdxjpLOYjWSlmAEpPqofvpA2") === 0 ) //UuoMDdxjpLOYjWSlmAEpPqofvpA2
+        {
+            console.log("DA!!");
+            this.isAdmin = true;
+            const user = new User(email, userId, token, expirationDate, true);
+        }
+
         this.user.next(user); // emitujemo naseg novog korisnika koji se logovao :D
         this.autologout(expiresIn * 1000) // da posaljemo koliko nam traje token
         localStorage.setItem('userData', JSON.stringify(user)); // i ovako sacuvamo podatke o korisniku i zivjet ce u browseru
@@ -121,6 +132,10 @@ export class AuthService {
 
         }
         return throwError(errorMessage);
+    }
+
+    public getIsUserAdmin(){
+        return this.isAdmin;
     }
 
 }

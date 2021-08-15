@@ -94,17 +94,12 @@ export class ArticleDetailComponent implements OnInit {
     }
   }
 
-  doesItemExistInCart() {
-
-  }
-
   addArticleToCart() { // probaj sa localeStrorage ako ne pamti ovako stanje :D
 
     let tmpArticles: Article[];
     this.articles.subscribe(x => tmpArticles = x.articles); // BITNO DRAGANA POMOGLA :D
 
     var newArticle = new Article(this.articleId, this.categoryName, this.articleName, this.imageSrc, true, this.file, this.describe, this.price, this.articleCounterState);
-    console.log("DJOKA: " + tmpArticles.length);
     var findUpdate = false;
     var i = 0
     if (tmpArticles.length === 0) {
@@ -114,29 +109,20 @@ export class ArticleDetailComponent implements OnInit {
     else {
       for (; i < tmpArticles.length; i++) {
         if (tmpArticles[i].id.toString().trim().localeCompare(newArticle.id.toString().trim()) === 0) {
-          console.log("DA!");
           findUpdate = true;
           this.store.dispatch(new CartActions.StartEdit(i));
 
-          var djole = tmpArticles[i].quantiy + this.articleCounterState;
-          var newArticle2 = new Article(this.articleId, this.categoryName, this.articleName, this.imageSrc, true, this.file, this.describe, this.price, djole);
+          var summaryQuantity = tmpArticles[i].quantiy + this.articleCounterState;
+          var newArticle2 = new Article(this.articleId, this.categoryName, this.articleName, this.imageSrc, true, this.file, this.describe, this.price, summaryQuantity);
           this.store.dispatch(new CartActions.UpdateArticle(newArticle2));
-        } 
+        }
       }
     }
 
-    if(!findUpdate && i === tmpArticles.length) {
-      console.log("NE!");
+    if (!findUpdate && i === tmpArticles.length) {
       this.store.dispatch(new CartActions.AddArticle(newArticle));
     }
-    /*
-    this.cart = this.cartService.getCart();
-    var tmpArticle = new Article(this.articleId,this.categoryName, this.articleName, this.imageSrc, true, this.file, this.describe, this.price, this.articleCounterState);
-    this.cart.push(tmpArticle);
-    for(let i = 0; i < this.cart.length; i++) {
-      console.log("JSON djole: "+JSON.stringify(this.cart[i].articleName));
-    }
-    this.cartService.setCart(this.cart);*/
+    this.articleCounterState = 1;
   }
 
 
