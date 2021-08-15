@@ -17,6 +17,7 @@ export class CategoriesComponent /*implements OnInit*/ { // nisam koristio ngOnI
   faPlus = faPlus;
   private userSub: Subscription = new Subscription; // ovo new Subscription sma dodao :D
   isAuthenticated = false;
+  isAdmin = false;
 
   //@Input() category!: Category;
   categories!: Category[];
@@ -24,6 +25,27 @@ export class CategoriesComponent /*implements OnInit*/ { // nisam koristio ngOnI
 
 
   constructor(private categoryService: CategoryService , private authService: AuthService, private router: Router, private route: ActivatedRoute) { 
+
+    this.userSub = this.authService.user.subscribe(user => {        
+      const userData: {
+        email: string;
+        id: string;
+        _token: string; // _token ova _ (donja crtica) jer imamo get token() a njega pozivamo sa token :D
+        _tokenExpirationDate: string;
+        isAdmin?: string;
+
+    } = JSON.parse(localStorage.getItem('userData') || '{}'); 
+
+    console.log("SANJKO LIJEPI2: "+userData.email);
+      this.isAuthenticated = !!user;// ili !user ? false : true; // ako nemamo objekat user , tada nismo autenitifikovani (tj user = null)
+      if(userData.isAdmin !== undefined && userData.isAdmin.toString().toLowerCase().trim().localeCompare("true") === 0){
+        this.isAdmin = true;
+      }  else {
+      this.isAdmin = false;
+      }
+    });
+
+
     this.router.routeReuseStrategy.shouldReuseRoute = function() { // INACE IDE OVA IMPLEMENTACIJA U OnInit
       return false;
     };

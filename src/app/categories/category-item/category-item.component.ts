@@ -34,30 +34,40 @@ import { ActivatedRoute, Router } from '@angular/router';
     subscription!: Subscription;
   
     ngOnInit(): void {
-      console.log("TEST");
-      this.userSub = this.authService.user.subscribe(user => {
+      //console.log("TEST");
+      this.userSub = this.authService.user.subscribe(user => {        
+        const userData: {
+          email: string;
+          id: string;
+          _token: string; // _token ova _ (donja crtica) jer imamo get token() a njega pozivamo sa token :D
+          _tokenExpirationDate: string;
+          isAdmin?: string;
+
+      } = JSON.parse(localStorage.getItem('userData') || '{}'); 
+
+      console.log("SANJKO LIJEPI: "+userData.email);
         this.isAuthenticated = !!user;// ili !user ? false : true; // ako nemamo objekat user , tada nismo autenitifikovani (tj user = null)
-        /*if(user !== null){
-          console.log("USER JE ADMIN: "+!!user.isAdmin);
-          this.isAdmin = !!user.isAdmin;
-        }*/
-        this.isAdmin = this.authService.getIsUserAdmin();
-        console.log("DJOKASS121: "+ this.isAdmin);
+        if(userData.isAdmin !== undefined && userData.isAdmin.toString().toLowerCase().trim().localeCompare("true") === 0){
+          this.isAdmin = true;
+        }  else {
+        this.isAdmin = false;
+        }
       });
 
       this.subscription = this.categoryService.categoriesChanged
       .subscribe(
         (categories: Category[]) => {
-         /* for(var i = 0; i < categories.length; i++){
-            console.log("------------");
-            console.log(categories[i].categoryName);
-            console.log("------------");
-        }*/
             this.categories = categories; // prati promjenu niza recepata, tj nasu listu recepata :D
         }
       );
 
     }
+
+    /*getIsAdmin(){
+      this.isAdmin = this.authService.getIsUserAdmin();
+      //console.log("ASAAA: "+this.isAdmin);
+      return this.isAdmin;
+    }*/
 
     onDeleteCategory() {
       console.log("Category: "+JSON.stringify(this.category.id));

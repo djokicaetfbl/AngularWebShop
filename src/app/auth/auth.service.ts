@@ -24,6 +24,8 @@ export class AuthService {
     //da se pritupi vrijednosti prije nego li je emitovana
     user = new BehaviorSubject<any>(null); // pazi ovo sam umjesto  user = new BehaviorSubject<User>(null) , stavio ANY PITANJE DA LI CE RADITI :D
 
+    private ADMIN_ID = "UuoMDdxjpLOYjWSlmAEpPqofvpA2";
+
     private tokenExpirationTimer: any;
 
      isAdmin: any;
@@ -66,6 +68,7 @@ export class AuthService {
             id: string;
             _token: string; // _token ova _ (donja crtica) jer imamo get token() a njega pozivamo sa token :D
             _tokenExpirationDate: string;
+            isAdmin?: string;
 
         } = JSON.parse(localStorage.getItem('userData') || '{}'); // daj nam normalan JavaScript objekat :D, OVO JE PROBLEMATICNO! // https://stackoverflow.com/questions/66713585/typescript-error-type-null-is-not-assignable-to-type
         if (!userData) {
@@ -102,15 +105,15 @@ export class AuthService {
     private handleAuthentication(email: string, userId: string, token: string, expiresIn: number) {
         const expirationDate = new Date(new Date().getTime() + expiresIn * 1000);
         this.isAdmin = false;
-        const user = new User(email, userId, token, expirationDate);
+        var user = new User(email, userId, token, expirationDate);
         console.log("DEBELI");
-        if( userId.toString().trim().localeCompare("UuoMDdxjpLOYjWSlmAEpPqofvpA2") === 0 ) //UuoMDdxjpLOYjWSlmAEpPqofvpA2
+        if( userId.toString().trim().localeCompare(this.ADMIN_ID) === 0 ) //UuoMDdxjpLOYjWSlmAEpPqofvpA2
         {
-            console.log("DA!!");
+            //console.log("DA!!");
             this.isAdmin = true;
-            const user = new User(email, userId, token, expirationDate, true);
+             user = new User(email, userId, token, expirationDate, true);
         }
-
+        console.log("OPA: "+JSON.stringify(user.isAdmin));
         this.user.next(user); // emitujemo naseg novog korisnika koji se logovao :D
         this.autologout(expiresIn * 1000) // da posaljemo koliko nam traje token
         localStorage.setItem('userData', JSON.stringify(user)); // i ovako sacuvamo podatke o korisniku i zivjet ce u browseru

@@ -1,5 +1,5 @@
-<button class="btn btn-success" id="btnNovaKategorija" *ngIf="isAuthenticated" (click)="onNewCategory()"> <fa-icon [icon]="faPlus"> </fa-icon> &nbsp;Nova kategorija</button>
-<button class="btn btn-success" id="btnNewArticle" *ngIf="isAuthenticated" (click)="onNewArticle()"> <fa-icon [icon]="faPlus"> </fa-icon> &nbsp;Novi artikal</button>
+<button class="btn btn-success" id="btnNovaKategorija" *ngIf="isAuthenticated && isAdmin" (click)="onNewCategory()"> <fa-icon [icon]="faPlus"> </fa-icon> &nbsp;Nova kategorija</button>
+<button class="btn btn-success" id="btnNewArticle" *ngIf="isAuthenticated && isAdmin" (click)="onNewArticle()"> <fa-icon [icon]="faPlus"> </fa-icon> &nbsp;Novi artikal</button>
 <div class="row">
     <div class="column left">
         <div class="d-flex flex-column align-items-stretch flex-shrink-0 bg-white" style="width: 380px;">

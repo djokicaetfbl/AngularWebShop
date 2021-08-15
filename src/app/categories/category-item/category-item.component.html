@@ -12,14 +12,14 @@
             racunarskoj opremi</div>
         <div class="buttonAreaDiv">
             <br>
-            <button class="btn btn-danger" id="btnDeleteCategory" *ngIf="isAuthenticated" (click)="onDeleteCategory()">
+            <button class="btn btn-danger" id="btnDeleteCategory" *ngIf="isAuthenticated && isAdmin" (click)="onDeleteCategory()">
                 <fa-icon [icon]="faTrash"> </fa-icon> &nbsp;Ukloni&nbsp;&nbsp;
             </button>
-            <button class="btn btn-info" id="btnChangeCategory" *ngIf="isAuthenticated" (click)="onUpdateCategory()">
+            <button class="btn btn-info" id="btnChangeCategory" *ngIf="isAuthenticated && isAdmin" (click)="onUpdateCategory()">
                 <fa-icon [icon]="faPencilAlt"> </fa-icon> &nbsp;Izmjeni&nbsp;&nbsp;
             </button>
-            <br *ngIf="isAuthenticated">
-            <br *ngIf="isAuthenticated">
+            <br *ngIf="isAuthenticated && isAdmin">
+            <br *ngIf="isAuthenticated && isAdmin">
          <!--   <hr>    -->
         </div>
     </a>
