@@ -9,6 +9,7 @@ export const DELETE_ARTICLE_FROM_CART = 'DELETE_ARTICLE_FROM_CART';
 export const UPDATE_ARTICLE = 'UPDATE_ARTICLE';
 export const START_EDIT = 'START_EDIT'; // ZA EDIT :D
 export const STOP_EDIT = 'STOP_EDIT';
+export const DELETE_ALL_ARTICLES_FROM_CART = 'DELETE_ALL_ARTICLES_FROM_CART';
 
 export class AddArticle implements Action {
     readonly type = ADD_ARTICLE;
@@ -40,10 +41,15 @@ export class StopEdit implements Action {
     readonly type = STOP_EDIT;
 }
 
+export class DeleteAllArticlesFromCart implements Action {
+    readonly type = DELETE_ALL_ARTICLES_FROM_CART;
+}
+
 
 export type CartActions = AddArticle
     | AddArticlesToCart
     | DeleteArticleFromCart
     | UpdateArticle
     | StartEdit
-    | StopEdit;
+    | StopEdit
+    | DeleteAllArticlesFromCart;

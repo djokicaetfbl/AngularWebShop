@@ -74,6 +74,13 @@ export function cartReducer(    // U REDUCER-u nema asinhronog koda samo sinhron
                     editedArticleIndex: -1,
                 };
 
+            case CartActions.DELETE_ALL_ARTICLES_FROM_CART:
+            //const tmpArticle = state.articles[state.editedArticleIndex];
+            return {
+                ...state,
+                articles: []
+            };    
+
             
         default:
             return state;

@@ -1,37 +1,104 @@
-<button class="btn btn-success" id="btnNovaKategorija" *ngIf="isAuthenticated && isAdmin" (click)="onNewCategory()"> <fa-icon [icon]="faPlus"> </fa-icon> &nbsp;Nova kategorija</button>
-<button class="btn btn-success" id="btnNewArticle" *ngIf="isAuthenticated && isAdmin" (click)="onNewArticle()"> <fa-icon [icon]="faPlus"> </fa-icon> &nbsp;Novi artikal</button>
-<div class="row">
-    <div class="column left">
-        <div class="d-flex flex-column align-items-stretch flex-shrink-0 bg-white" style="width: 380px;">
-            <a href="/"
-                class="d-flex align-items-center flex-shrink-0 p-3 link-dark text-decoration-none border-bottom">
-                <svg class="bi me-2" width="30" height="24">
-                    <use xlink:href="#bootstrap"></use>
-                </svg>
-                <span class="fs-5 fw-semibold">
-                    <h2>Kategorije</h2>
-                </span>
-            </a>
-            <div class="list-group list-group-flush border-bottom scrollarea">
-                <app-category-item *ngFor="let categoryEl of categories; let i = index" [category]="categoryEl" [index]="i"></app-category-item>
-               <!-- <a href="#" class="list-group-item list-group-item-action py-3 lh-tight">
-                    <div class="d-flex w-100 align-items-center justify-content-between">
-                        <strong class="mb-1">Kucanski aparati</strong>
-                        <small class="text-muted">Tues</small>
-                    </div>
-                    <div class="col-10 mb-1 small">Ovdje mozete pronaci mnogo artikala kako o kucanskim aparatima</div>
-                </a>    -->
+<div *ngIf="innerWidth > 417; else elseBlock">
+    <br>
+    <button class="btn btn-success" id="btnNovaKategorija" *ngIf="isAuthenticated && isAdmin" (click)="onNewCategory()">
+        <fa-icon [icon]="faPlus"> </fa-icon> &nbsp;Nova kategorija
+    </button>
+    <button class="btn btn-success" id="btnNewArticle" *ngIf="isAuthenticated && isAdmin" (click)="onNewArticle()">
+        <fa-icon [icon]="faPlus"> </fa-icon> &nbsp;Novi artikal
+    </button>
+    <div class="row">
+        <div class="column left">
+            <div class="d-flex flex-column align-items-stretch flex-shrink-0 bg-white" style="width: 380px;">
+                <a href="/"
+                    class="d-flex align-items-center flex-shrink-0 p-3 link-dark text-decoration-none border-bottom">
+                    <svg class="bi me-2" width="30" height="24">
+                        <use xlink:href="#bootstrap"></use>
+                    </svg>
+                    <span class="fs-5 fw-semibold">
+                        <h2>Kategorije</h2>
+                    </span>
+                </a>
+                <div class="list-group list-group-flush border-bottom scrollarea">
+                    <app-category-item *ngFor="let categoryEl of categories; let i = index" [category]="categoryEl"
+                        [index]="i"></app-category-item>
+                </div>
             </div>
         </div>
+        <router-outlet></router-outlet>
+        <!-- MORAM DA GA IMAM RADI CHILD RUTA, da su ucita isto vremeno kad i roditeljska rutu na istoj stranici !!! -->
     </div>
-
-     <!-- <div class="column right"> 
-        <div class="row">
-            <div class=" leftLeft"> -->
-            <!-- <app-articles></app-articles>  -->  <!-- OBAVEZNO UKLJUCI UNUTAR DEKLARACIJE U fajlu categories.module.ts unutar NgModule deklaracije :D -->
-        <!--</div>
-            <br>
-        </div>
-    </div> -->
-    <router-outlet></router-outlet> <!-- MORAM DA GA IMAM RADI CHILD RUTA, da su ucita isto vremeno kad i roditeljska rutu na istoj stranici !!! -->
 </div>
+
+
+<ng-template #elseBlock>
+    <div>
+        <br><br>
+        <button class="btn btn-success" id="btnNovaKategorija" *ngIf="isAuthenticated && isAdmin"
+            (click)="onNewCategory()">
+            <fa-icon [icon]="faPlus"> </fa-icon> &nbsp;Nova kategorija
+        </button>
+        <br><br>
+        <button class="btn btn-success" id="btnNewArticleMobile" *ngIf="isAuthenticated && isAdmin"
+            (click)="onNewArticle()">
+            <fa-icon [icon]="faPlus"> </fa-icon> &nbsp;Novi artikal
+        </button>
+        <br><br>
+
+
+    </div>
+    <div class="row">
+        <div class="column left" *ngIf="isAdmin; else noAdmin" style="margin-top: -5%">
+            <!-- style="margin-top: -30%" -->
+            <div class="allToShow" id="allToShow">
+                <div class="d-flex flex-column align-items-stretch flex-shrink-0 bg-white" style="width: 380px;">
+
+                    <a href="/"
+                        class="d-flex align-items-center flex-shrink-0 p-3 link-dark text-decoration-none border-bottom">
+                        <svg class="bi me-2" width="30" height="24">
+                            <use xlink:href="#bootstrap"></use>
+                        </svg>
+                        <span class="fs-5 fw-semibold">
+                            <h2>Kategorije</h2>
+                        </span>
+                    </a>
+
+                    <div class="list-group list-group-flush border-bottom scrollarea">
+                        <app-category-item *ngFor="let categoryEl of categories; let i = index" [category]="categoryEl"
+                            [index]="i"></app-category-item>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+        <ng-template #noAdmin>
+            <div class="column left"  style="margin-top: -35%">
+                <!-- style="margin-top: -30%" -->
+                <div class="allToShow" id="allToShow">
+                    <div class="d-flex flex-column align-items-stretch flex-shrink-0 bg-white" style="width: 380px;">
+
+                        <a href="/"
+                            class="d-flex align-items-center flex-shrink-0 p-3 link-dark text-decoration-none border-bottom">
+                            <svg class="bi me-2" width="30" height="24">
+                                <use xlink:href="#bootstrap"></use>
+                            </svg>
+                            <span class="fs-5 fw-semibold">
+                                <h2>Kategorije</h2>
+                            </span>
+                        </a>
+
+                        <div class="list-group list-group-flush border-bottom scrollarea">
+                            <app-category-item *ngFor="let categoryEl of categories; let i = index"
+                                [category]="categoryEl" [index]="i"></app-category-item>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </ng-template>
+        <router-outlet></router-outlet>
+        <!-- MORAM DA GA IMAM RADI CHILD RUTA, da su ucita isto vremeno kad i roditeljska rutu na istoj stranici !!! -->
+
+    </div>
+    <!-- <div class="allToShow" id="allToShow"> -->
+
+</ng-template>

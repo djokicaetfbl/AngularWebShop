@@ -1,4 +1,4 @@
-import { Component, Input, OnInit, Output } from '@angular/core';
+import { Component, HostListener, Input, OnInit, Output } from '@angular/core';
 import { Category } from '../category.model';
 import { faPencilAlt } from '@fortawesome/free-solid-svg-icons';
 import { faTrash } from '@fortawesome/free-solid-svg-icons';
@@ -19,6 +19,18 @@ import { ActivatedRoute, Router } from '@angular/router';
     faPencilAlt = faPencilAlt;
     faTrash = faTrash;
 
+    public innerWidth: any;
+
+    @HostListener('window:resize', ['$event']) //If you wanna keep it updated on resize:
+    onResize(event) {
+      this.innerWidth = window.innerWidth;
+    }
+  
+    /*ngOnInit() {
+      this.innerWidth = window.innerWidth;
+      console.log("INNER WIDTH: "+this.innerWidth);
+    }*/
+
     constructor(private authService: AuthService, private categoryService: CategoryService, private route: ActivatedRoute, private router: Router) {}
 
     private userSub: Subscription = new Subscription;
@@ -34,6 +46,9 @@ import { ActivatedRoute, Router } from '@angular/router';
     subscription!: Subscription;
   
     ngOnInit(): void {
+      this.innerWidth = window.innerWidth;
+      console.log("INNER WIDTH: "+this.innerWidth);
+      
       //console.log("TEST");
       this.userSub = this.authService.user.subscribe(user => {        
         const userData: {
@@ -45,7 +60,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 
       } = JSON.parse(localStorage.getItem('userData') || '{}'); 
 
-      console.log("SANJKO LIJEPI: "+userData.email);
+     // console.log("SANJKO LIJEPI: "+userData.email);
         this.isAuthenticated = !!user;// ili !user ? false : true; // ako nemamo objekat user , tada nismo autenitifikovani (tj user = null)
         if(userData.isAdmin !== undefined && userData.isAdmin.toString().toLowerCase().trim().localeCompare("true") === 0){
           this.isAdmin = true;
@@ -84,6 +99,8 @@ import { ActivatedRoute, Router } from '@angular/router';
     }
 
     onShowArticlesForCategory() {
+      //console.log("GET ELEMENT BY NAME: "+document.getElementById("allToShow").style.visibility = 'hidden');
+      
       this.router.navigate(['../categories', this.category.categoryName] , {relativeTo: this.route});
     }
   

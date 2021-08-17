@@ -1,4 +1,4 @@
-import { Component } from "@angular/core";
+import { Component, HostListener } from "@angular/core";
 import { ActivatedRoute, Router } from "@angular/router";
 import { Subscription } from "rxjs";
 import { AuthService } from "src/app/auth/auth.service";
@@ -21,14 +21,28 @@ export class ArticlesComponent {
     categoryName: any;
     searchValue = '';
 
+    public innerWidth: any;
+    isMobile = false;
+
+    @HostListener('window:resize', ['$event']) //If you wanna keep it updated on resize:
+    onResize(event) {
+      this.innerWidth = window.screen.width; //= window.innerWidth;
+    }
+  
+    ngOnInit() {
+      this.innerWidth = window.innerWidth;     
+      //document.getElementById("allToShow").remove();
+      if(window.screen.width < 418 ) {
+        document.getElementById("allToShow").style.visibility = 'hidden';
+        document.getElementById("allToShow").style.display = 'none';
+        //document.getElementById("allToShow").remove();
+        this.isMobile = true;
+      } else {
+          this.isMobile = false;
+      }
+    }
+
     constructor(private articleService: ArticleService, private authService: AuthService, private router: Router, private route: ActivatedRoute) {
-
-        //console.log("DJOKSIM: " + this.route.snapshot.paramMap.get('categoryName')?.toString());
-
-        /* if (!this.route.snapshot.paramMap.get('id')?.toString() !== null) {
-             this.categoryName = this.route.snapshot.paramMap.get('categoryName')?.toString().trim();
-             console.log("BRE: " + this.route.snapshot.paramMap.get('categoryName')?.toString().trim());
-         }*/
 
         this.router.routeReuseStrategy.shouldReuseRoute = function () { // INACE IDE OVA IMPLEMENTACIJA U OnInit
             return false;

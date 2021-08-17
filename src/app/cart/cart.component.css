@@ -12,8 +12,8 @@
   }
 
   #deleteArticleFromCart {
-    font-size: 14px;
-    margin-top: 15%;
+    font-size: 16px;
+    margin-top: 2.5%;
     width: 100%;
   }
 
@@ -24,9 +24,19 @@
 
   #articlePrice {
     font-size: 20px;
+    text-align: center;
   }
 
   .SummaryCartAmount {
     font-weight: bold;
   }
+
+  #buyArticlesButton {
+    width: 50%;
+    background-color: #00b74a;
+    font-size: 24px;
+  }
   
+  .buyArticleDiv {
+    text-align: center;
+  }

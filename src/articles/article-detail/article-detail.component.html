@@ -5,20 +5,13 @@
     </div>
     <div class="row">
         <div class="column left">
-            <!-- <img [src]="article.imageSrc" alt="{{ article.articleName }}"  height="400px" -->
             <img [src]="imageSrc" alt="" height="50%" width="80%" class="responsive" />
             <div class="card-body">
-                <!-- <h5 class="card-title"> {{ articleName }} </h5>    -->
-                <!-- <p class="card-text" id="describeArticle"> {{ describe }}</p>  -->
-                <!-- <textarea class="form-control" aria-label="With textarea" readonly>{{ describe }}</textarea>   -->
                 <div class="form-group">
                     <textarea class="form-control" id="exampleFormControlTextarea3" rows="5" readonly>{{ describe }}</textarea>
                   </div>
                 <br><br>
                 <p class="articleBasicInfoP">{{ categoryName }} >> {{ articleName }}</p>
-                <!-- <p class="priceH2">Cijena {{ price }} KM</p>   -->
-
-                    <!-- <button class="btn btn-danger" id="btnDeleteArticle" *ngIf="isAuthenticated" (click)="onDeleteArticle()">  -->
             </div>
         </div>
         <div class="column right">
@@ -30,15 +23,30 @@
                 <div class="row"><button class="btn btn-danger" id="btnMinusArticle"
                         (click)="minusArticleToCart()">-</button></div>
             </div>
-            <!-- <h2 class="priceH2">Cijena {{ price }} KM</h2> --> <br><br><br>
+            <br><br><br>
             <div class="row" id="addToCartRow">
                 <p class="priceH2">Cijena {{ price }} KM</p>
                 <div class="row">
-                    <button class="btn btn-success" id="btnAddToCart" (click)="addArticleToCart()">
-                        <fa-icon [icon]="faPlus"> </fa-icon>&nbsp;Dodaj u korpu
+                    <button class="btn btn-success" id="btnAddToCart" (click)="addArticleToCart(); open(mymodal)">
+                        <fa-icon [icon]="faPlus"> </fa-icon>&nbsp;Dodajte u korpu
                     </button></div>
             </div>
         </div>
     </div>
     <br>
+
+    <ng-template #mymodal let-modal>
+        <div class="modal-header">
+          <h4 class="modal-title" id="modal-basic-title">Dodavanje u korpu</h4>
+          <!-- <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+            <span aria-hidden="true">×</span>
+          </button> -->
+        </div>
+        <div class="modal-body">
+           Uspješno ste dodali artiakal {{ articleName }} u korpu!
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-light" (click)="modal.close('Save click')" style="background-color: #b23cfd; color: white;">Potvrdi</button>
+        </div>
+      </ng-template>
     

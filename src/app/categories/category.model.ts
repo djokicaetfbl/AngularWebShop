@@ -9,7 +9,7 @@ export class Category {
     /*public ingredients: Ingredient[];*/
 
 
-    constructor(id: string, categoryName: string, imageSrc: string, active: boolean, file: string/*,  ingredients: Ingredient[]*/){
+    constructor(id: string, categoryName: string, imageSrc: string, active: boolean, file: string){
         //this.name = name;
         this.id = id;
         this.categoryName = categoryName;

@@ -13,6 +13,8 @@ import * as fromApp from '../../app/store/app.reducer';
 import { Observable, Subscription } from "rxjs";
 import * as CartActions from '../../app/cart/store/cart-actions';
 
+import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
+
 
 @Component({
   selector: 'app-article-detail',
@@ -48,8 +50,10 @@ export class ArticleDetailComponent implements OnInit {
 
   editedArticle: Article;
 
+  closeResult: string = '';
 
-  constructor(private articleService: ArticleService, private route: ActivatedRoute, private router: Router, private store: Store<fromApp.AppState>) {
+
+  constructor(private articleService: ArticleService, private route: ActivatedRoute, private router: Router, private store: Store<fromApp.AppState>, private modalService: NgbModal) {
     if (this.route.snapshot.paramMap.get('id')?.toString() !== null && this.route.snapshot.paramMap.get('categoryName')?.toString() !== null) {
       //console.log("BLA: " + this.route.snapshot.paramMap.get('id')?.toString());
       //console.log("BLA1: " + this.route.snapshot.paramMap.get('categoryName')?.toString());
@@ -76,6 +80,27 @@ export class ArticleDetailComponent implements OnInit {
     this.price = this.article.price;
     this.categoryName = this.article.categoryName;
     this.imageSrc = this.article.imageSrc;
+  }
+
+  open(content: any) {
+    let tmpArticles: Article[];
+    this.articles.subscribe(x => tmpArticles = x.articles);
+
+    this.modalService.open(content, { ariaLabelledBy: 'modal-basic-title' }).result.then((result) => {
+      this.closeResult = `Closed with: ${result}`;
+    }, (reason) => {
+      this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
+    });
+  }
+
+  private getDismissReason(reason: any): string {
+    if (reason === ModalDismissReasons.ESC) {
+      return 'by pressing ESC';
+    } else if (reason === ModalDismissReasons.BACKDROP_CLICK) {
+      return 'by clicking on a backdrop';
+    } else {
+      return `with: ${reason}`;
+    }
   }
 
 

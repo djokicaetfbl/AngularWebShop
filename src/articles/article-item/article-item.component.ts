@@ -32,10 +32,26 @@ import { faInfo } from '@fortawesome/free-solid-svg-icons';
 
     articles!: Article[];
     subscription!: Subscription;
+    isAdmin = false;
     
     ngOnInit(): void {
         this.userSub = this.authService.user.subscribe(user => {
+            //this.isAuthenticated = !!user;// ili !user ? false : true; // ako nemamo objekat user , tada nismo autenitifikovani (tj user = null)
+            const userData: {
+              email: string;
+              id: string;
+              _token: string; // _token ova _ (donja crtica) jer imamo get token() a njega pozivamo sa token :D
+              _tokenExpirationDate: string;
+              isAdmin?: string;
+    
+          } = JSON.parse(localStorage.getItem('userData') || '{}'); 
+    
             this.isAuthenticated = !!user;// ili !user ? false : true; // ako nemamo objekat user , tada nismo autenitifikovani (tj user = null)
+            if(userData.isAdmin !== undefined && userData.isAdmin.toString().toLowerCase().trim().localeCompare("true") === 0){
+              this.isAdmin = true;
+            }  else {
+            this.isAdmin = false;
+            }
           });
         
           this.subscription = this.articleService.articlesChanged

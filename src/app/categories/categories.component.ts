@@ -1,4 +1,4 @@
-import { Component, Input, NgModule, OnInit } from '@angular/core';
+import { Component, HostListener, Input, NgModule, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { AuthService } from '../auth/auth.service';
@@ -12,7 +12,7 @@ import { CategoryService } from './category.service';
   styleUrls: ['./categories.component.css'],
   providers: [CategoryService], // posto i .ts pozivan u konstruktoru ovu klasu ovdje ga provide-ujem :D
 })
-export class CategoriesComponent /*implements OnInit*/ { // nisam koristio ngOnInit radi navigacije na istu stranicu
+export class CategoriesComponent implements OnInit { // nisam koristio ngOnInit radi navigacije na istu stranicu
 
   faPlus = faPlus;
   private userSub: Subscription = new Subscription; // ovo new Subscription sma dodao :D
@@ -23,10 +23,22 @@ export class CategoriesComponent /*implements OnInit*/ { // nisam koristio ngOnI
   categories!: Category[];
   subscription!: Subscription;
 
+  public innerWidth: any;
 
-  constructor(private categoryService: CategoryService , private authService: AuthService, private router: Router, private route: ActivatedRoute) { 
+  @HostListener('window:resize', ['$event']) //If you wanna keep it updated on resize:
+  onResize(event) {
+    this.innerWidth = window.innerWidth;
+  }
 
-    this.userSub = this.authService.user.subscribe(user => {        
+  ngOnInit() {
+    this.innerWidth = window.innerWidth;
+    console.log("DJOLE: "+this.innerWidth);
+  }
+
+
+  constructor(private categoryService: CategoryService, private authService: AuthService, private router: Router, private route: ActivatedRoute) {
+
+    this.userSub = this.authService.user.subscribe(user => {
       const userData: {
         email: string;
         id: string;
@@ -34,19 +46,18 @@ export class CategoriesComponent /*implements OnInit*/ { // nisam koristio ngOnI
         _tokenExpirationDate: string;
         isAdmin?: string;
 
-    } = JSON.parse(localStorage.getItem('userData') || '{}'); 
+      } = JSON.parse(localStorage.getItem('userData') || '{}');
 
-    console.log("SANJKO LIJEPI2: "+userData.email);
       this.isAuthenticated = !!user;// ili !user ? false : true; // ako nemamo objekat user , tada nismo autenitifikovani (tj user = null)
-      if(userData.isAdmin !== undefined && userData.isAdmin.toString().toLowerCase().trim().localeCompare("true") === 0){
+      if (userData.isAdmin !== undefined && userData.isAdmin.toString().toLowerCase().trim().localeCompare("true") === 0) {
         this.isAdmin = true;
-      }  else {
-      this.isAdmin = false;
+      } else {
+        this.isAdmin = false;
       }
     });
 
 
-    this.router.routeReuseStrategy.shouldReuseRoute = function() { // INACE IDE OVA IMPLEMENTACIJA U OnInit
+    this.router.routeReuseStrategy.shouldReuseRoute = function () { // INACE IDE OVA IMPLEMENTACIJA U OnInit
       return false;
     };
     this.router.onSameUrlNavigation = 'reload'; //https://stackoverflow.com/questions/41678356/router-navigate-does-not-call-ngoninit-when-same-page
@@ -57,11 +68,11 @@ export class CategoriesComponent /*implements OnInit*/ { // nisam koristio ngOnI
       });
 
       this.subscription = this.categoryService.categoriesChanged
-      .subscribe(
-        (categories: Category[]) => {
+        .subscribe(
+          (categories: Category[]) => {
             this.categories = categories; // prati promjenu niza recepata, tj nasu listu recepata :D
-        }
-      );
+          }
+        );
       this.categories = this.categoryService.getCategories();
     });
   }
@@ -69,8 +80,8 @@ export class CategoriesComponent /*implements OnInit*/ { // nisam koristio ngOnI
   onNewCategory() {
     //console.log("THIS ROUTE111 (djole) : "+this.route);
     /*this.router.navigate(['new'] , {relativeTo: this.route});*/ // ovo je relativna putanja , posto smo vec na categories/ pa sad treba da obavjestimo router o nasoj trenutnoj ruti (recipes/) to radimo
-      // sa route: ActivatedRoute kroz relativeTo :D
-      this.router.navigate(['newCategory'] /*, {relativeTo: this.route}*/);
+    // sa route: ActivatedRoute kroz relativeTo :D
+    this.router.navigate(['newCategory'] /*, {relativeTo: this.route}*/);
   }
 
   onNewArticle() {

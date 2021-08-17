@@ -16,7 +16,9 @@ import { FormsModule } from '@angular/forms';
 import { StoreModule } from '@ngrx/store';
 
 import * as fromApp from './store/app.reducer';
-import { CartItemComponent } from './cart/cart-item/cart-item.component';
+//import { CartItemComponent } from './cart/cart-item/cart-item.component';
+
+import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 
 @NgModule({
   declarations: [
@@ -35,6 +37,7 @@ import { CartItemComponent } from './cart/cart-item/cart-item.component';
     StoreModule.forRoot(
       fromApp.appReducer
     ),
+    NgbModule
   ],
   providers: [],
   bootstrap: [AppComponent]

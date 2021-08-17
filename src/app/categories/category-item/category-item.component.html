@@ -3,13 +3,10 @@
         (click)="onShowArticlesForCategory()">
         <div class="d-flex w-100 align-items-center justify-content-between">
             <strong class="mb-1" id="categorynameStrong">{{ category.categoryName }}</strong>
-            <!-- <small>Wed</small> -->
-            <!-- <img :src="https://i.picsum.photos/id/244/200/300.jpg?hmac=wik1JUmLjSI1ujhC7YXckSJhpxTId-Ul5HF5mcALqC8" width="100px" height="100px" class="responsive" /> -->
-            <img [src]="category.imageSrc" alt="{{ category.categoryName }}" width="100px" height="100px"
+            <img [src]="category.imageSrc" alt="{{ category.categoryName }}" width="125px" height="125px"
                 class="responsive" />
         </div>
-        <div class="col-10 mb-1 small">Ovdje mozete pronaci mnogo artikala kako o racunarima tako i
-            racunarskoj opremi</div>
+        <div class="col-10 mb-1 small"></div>
         <div class="buttonAreaDiv">
             <br>
             <button class="btn btn-danger" id="btnDeleteCategory" *ngIf="isAuthenticated && isAdmin" (click)="onDeleteCategory()">
@@ -23,13 +20,5 @@
          <!--   <hr>    -->
         </div>
     </a>
-    <!-- <button class="btn btn-success" id="btnNovaKategorija" *ngIf="isAuthenticated" (click)="onNewCategory()"> <fa-icon [icon]="faPlus"> </fa-icon> &nbsp;Nova kategorija</button>  -->
     <br>
-    <!--
-<button class="btn btn-danger" id="btnDeleteCategory" *ngIf="isAuthenticated" (click)="onDeleteCategory()" ><fa-icon [icon]="faTrash"> </fa-icon> &nbsp;Ukloni&nbsp;&nbsp;</button>
-<button class="btn btn-info" id="btnChangeCategory" *ngIf="isAuthenticated" (click)="onUpdateCategory()"   > <fa-icon [icon]="faPencilAlt"> </fa-icon> &nbsp;Izmjeni&nbsp;&nbsp;</button>
-<br *ngIf="isAuthenticated">
-<br *ngIf="isAuthenticated">
-<hr>
--->
 </div>

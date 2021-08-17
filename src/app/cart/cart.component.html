@@ -1,11 +1,15 @@
+
+
+
+
 <div class="card">
   <table class="table">
     <thead class="table-light">
       <tr>
-        <th scope="col">Proizvod</th>
-        <th scope="col">Količina</th>
-        <th scope="col">Cijena</th>
-        <th scope="col">Ukloni</th>
+        <th scope="col" style="text-align: center;">Proizvod</th>
+        <th scope="col" style="text-align: center;">Ukloni</th>
+        <th scope="col" style="text-align: center;">Količina</th>
+        <th scope="col" style="text-align: center;">Cijena</th>
       </tr>
     </thead>
     <tbody>
@@ -24,17 +28,46 @@
             </div>
           </div>
         </th>
-
-        <th scope="row" id="articleQuantity">{{ article.quantiy }}</th>
-        <th id="articlePrice">{{ article.price }}</th>
         <th scope="row">
-          <button type="button" class="btn btn-danger" id="deleteArticleFromCart" (click)="deleteArticleFromCart(i)" >Ukloni</button>
+          <button type="button" class="btn btn-danger" id="deleteArticleFromCart"
+            (click)="deleteArticleFromCart(i)">Ukloni</button>
         </th>
+        <th scope="row" id="articleQuantity" style="align-items: center;">{{ article.quantiy }}</th>
+        <th id="articlePrice">{{ article.price }}</th>
+
       </tr>
     </tbody>
   </table>
 
   <h1 class="SummaryCartAmount">Ukupno: {{ getSummaryPriceXQuantity }} KM</h1>
+  <div class="buyArticleDiv">
+    <button type="button" class="btn btn-success" id="buyArticlesButton" (click)="open(mymodal)">KUPI</button>
+  </div>
   <br>
 
+  <!-- <button class="btn btn-lg btn-outline-primary" (click)="open(mymodal)">Open My Modal</button>  -->
+     
+  <ng-template #mymodal let-modal>
+    <div class="modal-header">
+      <h4 class="modal-title" id="modal-basic-title">Uspješna kupovina</h4>
+      <!-- <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+        <span aria-hidden="true">×</span>
+      </button> -->
+    </div>
+    <div class="modal-body">
+      Kupovina u iznosu od {{ getSummaryPriceXQuantity }} je uspješno obavljena.
+      <br><br>
+      <p>Hvala Vam na kupovini!</p>
+    </div>
+    <div class="modal-footer">
+      <button type="button" class="btn btn-light" (click)="modal.close('Save click')" style="background-color: #b23cfd; color: white;">Potvrdi</button>
+    </div>
+  </ng-template>
+
+
+
+
+
 </div>
+
+

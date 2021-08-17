@@ -62,7 +62,7 @@ export class ArticleEditComponent implements OnInit {
 
   onCancel() {
     if (this.route.snapshot.paramMap.get('id') !== null) {
-      this.router.navigate(['../../'], { relativeTo: this.route });
+      this.router.navigate(['categories/', this.categoryNameNAME ], /*{ relativeTo: this.route }*/);
     } else {
       this.router.navigate(['../'], { relativeTo: this.route }); // sa relativoTo govorimo trenutnu putanju :D 
     }

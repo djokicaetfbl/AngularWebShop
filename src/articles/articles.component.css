@@ -12,6 +12,10 @@
     width: 70%;
   }
 
+  .rightMobile {
+    width: 100%;
+  }
+
   .rightLeft {
     width: 50%;
   }
@@ -19,6 +23,10 @@
   .leftLeft {
     width: 50%;
     margin-left: 3%;
+}
+.leftLeftMobile {
+  width: 93.5%;
+  margin-left: 3%;
 }
 
 #btnNovaKategorija {
@@ -30,9 +38,13 @@
     margin-top: -20%;
 }
 
+.column.rightMobile {
+  margin-top: -70%;
+}
+
 .searchDiv {
     float: left;
-    margin-left: 20%;
+    margin-left: 7%;
     margin-top: 5%;
 }
 
@@ -40,9 +52,18 @@
     font-size: 20px;
 }
 
+#searchCategoryMobile {
+  font-size: 13px;
+}
+
 #searchCategoryButton {
     font-size: 20px;
 }
+
+#searchCategoryButtonMobile {
+  font-size: 13px;
+}
+
 
 #test {
     width: 150%;
