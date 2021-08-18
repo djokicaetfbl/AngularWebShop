@@ -9,12 +9,14 @@ import { faArrowLeft } from '@fortawesome/free-solid-svg-icons';
 import { faSave } from '@fortawesome/free-solid-svg-icons';
 import { DataStorageService } from 'src/app/shared/data-storage.service';
 import { Category } from '../category.model';
+import { ArticleService } from 'src/articles/article.service';
+import { Article } from 'src/articles/articles.model';
 
 @Component({
   selector: 'app-category-edit',
   templateUrl: './category-edit.component.html',
   styleUrls: ['./category-edit.component.css'],
-  providers: [CategoryService], //da obezbjedim Category Service OBAVEZNO
+  providers: [CategoryService, ArticleService], //da obezbjedim Category Service OBAVEZNO
 })
 
 @Injectable()
@@ -24,11 +26,14 @@ export class CategoryEditComponent implements OnInit {
   faArrowLeft = faArrowLeft;
   faSave = faSave;
   imageSrc: string = '';
+  categoryNameOLD: string = '';
+  categoryNameNEW: string = '';
 
   imgFile: string | undefined;
   id: number | undefined;
   editMode = false;
   categoryForm!: FormGroup;  // ovo  sam ja dodao uzvicnik pa da vidimo sta ce da bude :D, jer uzvicnik kaze da cu kasnije da izrvsim inicijalizacuj pa sad tu komapjelr kao to nesto zna
+  private articles: Article[] = [];
   /*
   2
 
@@ -40,7 +45,7 @@ apply the best practice of initializing the properties, either inline or in the 
 disable the strictPropertyInitialization flag in your tsconfig file (not recommended)
    */
 
-  constructor(private route: ActivatedRoute, private categoryService: CategoryService, private router: Router, private httpClient: HttpClient) { }
+  constructor(private route: ActivatedRoute, private categoryService: CategoryService, private router: Router, private httpClient: HttpClient, private articleService: ArticleService) { }
 
 
   ngOnInit(): void {
@@ -49,10 +54,27 @@ disable the strictPropertyInitialization flag in your tsconfig file (not recomme
 
   onSubmit() {
     if (!this.route.snapshot.paramMap.get('id')?.toString() !== null) {
-     // console.log("USAO DA POZOVE UPDATE CATEGORY");
+        console.log("USAO DA POZOVE UPDATE CATEGORY");
+        this.categoryNameNEW = JSON.stringify(this.categoryForm.value.categoryName);
+
+        let tmpCategoryName = this.categoryNameNEW.replace(/['"]+/g, '');
+        this.articleService.loadArticles(this.categoryNameOLD);
+
+        setTimeout(() => {
+          this.articles = this.articleService.getArticles();
+
+          console.log("DJOKICA:  " + this.articles.length);
+          for(let i = 0; i < this.articles.length; i++){
+            /* updateuj kategoriju za sve artikle :D */
+            console.log("HH: "+this.articles[i].categoryName);
+            this.articles[i].categoryName = tmpCategoryName;
+            this.articleService.updateArticle(this.articles[i]);
+          }
+      }, 2000);
+     // }
       this.categoryService.updateCategory(this.categoryForm.value);
     } else {
-     // console.log("POZVAO ADD CATEGORY!");
+      // console.log("POZVAO ADD CATEGORY!");
       this.categoryService.addCategory(this.categoryForm.value);
     }
 
@@ -87,6 +109,7 @@ disable the strictPropertyInitialization flag in your tsconfig file (not recomme
       'imageSrc': new FormControl(this.imageSrc,),
       'active': new FormControl(true,)
     });
+    this.categoryNameOLD = category.categoryName;
   }
 
   private initForm() {
@@ -95,7 +118,6 @@ disable the strictPropertyInitialization flag in your tsconfig file (not recomme
     let file = '';
     if (this.route.snapshot.paramMap.get('id') !== null) {
 
-      //console.log("UPDATE!!!");
       let categoryName = '';
       let file = '';
       let imgSrc = '';

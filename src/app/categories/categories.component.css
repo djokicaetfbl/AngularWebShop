@@ -37,3 +37,10 @@
   font-size: 24px;
   margin-right: 0.6%;
 }
+
+.chooseCategoryHeader {
+display: flex;
+  flex-direction: column;
+  justify-content: center;
+  text-align: center;
+}

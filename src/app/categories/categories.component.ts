@@ -18,6 +18,12 @@ export class CategoriesComponent implements OnInit { // nisam koristio ngOnInit 
   private userSub: Subscription = new Subscription; // ovo new Subscription sma dodao :D
   isAuthenticated = false;
   isAdmin = false;
+  isMobile = false;
+  isMobileHrizontal = false;
+  MOBILE_WIDTH = 500;
+  MOBILE_WIDTH_HORIZONTAL_MIN = 700;
+  MOBILE_WIDTH_HORIZONTAL_MAX = 920;
+  isLoading = true;
 
   //@Input() category!: Category;
   categories!: Category[];
@@ -31,12 +37,23 @@ export class CategoriesComponent implements OnInit { // nisam koristio ngOnInit 
   }
 
   ngOnInit() {
-    this.innerWidth = window.innerWidth;
-    console.log("DJOLE: "+this.innerWidth);
+    //this.innerWidth = window.innerWidth;
+    //console.log("DJOLE: "+this.innerWidth);
+    if (window.screen.width < this.MOBILE_WIDTH) {
+      this.isMobile = true;
+    } else {
+      this.isMobile = false;
+    }
+
+    if(window.screen.width > this.MOBILE_WIDTH_HORIZONTAL_MIN && window.screen.width < this.MOBILE_WIDTH_HORIZONTAL_MAX) {
+      console.log("DADADA!!!");
+      this.isMobileHrizontal = true;
+    }
   }
 
 
   constructor(private categoryService: CategoryService, private authService: AuthService, private router: Router, private route: ActivatedRoute) {
+    this.isLoading = true;
 
     this.userSub = this.authService.user.subscribe(user => {
       const userData: {
@@ -74,7 +91,9 @@ export class CategoriesComponent implements OnInit { // nisam koristio ngOnInit 
           }
         );
       this.categories = this.categoryService.getCategories();
+      this.isLoading = false;
     });
+    
   }
 
   onNewCategory() {

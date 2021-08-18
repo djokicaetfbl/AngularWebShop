@@ -1,3 +1,6 @@
+<div *ngIf="isLoading" style="text-align: center;"> 
+    <app-loading-spinner></app-loading-spinner>
+  </div>
 <br><br>
 <div class="card">
     <h2>Artikal</h2>
@@ -69,7 +72,7 @@
                 <div class="col-xs-12">
                     <div class="form-group">
                     <label class="priceLabel" for="name">Cijena</label>
-                    <input type="text" id="price" class="form-control" formControlName="price">
+                    <input type="number" id="price" class="form-control" formControlName="price" min="0" >
                 </div>
                 </div>
             </div>

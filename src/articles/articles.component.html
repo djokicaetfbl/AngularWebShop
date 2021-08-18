@@ -1,3 +1,6 @@
+<div *ngIf="isLoading" style="text-align: center;"> 
+    <app-loading-spinner></app-loading-spinner>
+  </div>
 <div class="row">
     <div class="column left" *ngIf="!isMobile">
         <div class="d-flex flex-column align-items-stretch flex-shrink-0 bg-white" style="width: 380px;">
@@ -11,7 +14,7 @@
             <div class=" leftLeft">
                 <div class="searchDiv">
                     <div class="input-group mb-3" id="test">
-                        <div class="input-group-prepend">
+                        <div class="input-group-prepend" style="margin-left: -2.5%">
                             <input [(ngModel)]="searchValue" class="form-control mr-sm-2" id="searchCategory"
                                 type="search" placeholder="Unesite naziv artikala" aria-label="Search">
                         </div>

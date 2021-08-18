@@ -14,10 +14,15 @@
             <input type="password" id="password" class="form-control" ngModel name="password" required minlength="6">
         </div>
         <br>
-        <div> <!-- kada su button-i u istom divu idu jedan pored drugog, a ako su u raz. divovima onda jedan ispod drugog -->
+        <div *ngIf="!isMobile; else mobileBlock" > <!-- kada su button-i u istom divu idu jedan pored drugog, a ako su u raz. divovima onda jedan ispod drugog -->
             <button class="btn btn-primary" type="submit" [disabled]="!authForm.valid" >{{ isLoginMode ? 'Prijava' : 'Registracija' }}</button> |
             <button class="btn btn-primary" type="button" (click)="onSwitchMode()">Promjeni na {{ isLoginMode ? 'Registracija': 'Prijava'}}</button><!-- obavezno type button , inace ce da posalje suvisan http request , kao da je submit -->
         </div>
+        <ng-template #mobileBlock>
+            <button class="btn btn-primary" type="submit" id="loginMobile" [disabled]="!authForm.valid" >{{ isLoginMode ? 'Prijava' : 'Registracija' }}</button> |
+            <button class="btn btn-primary" type="button" id="registerMobile" (click)="onSwitchMode()">Promjeni na {{ isLoginMode ? 'Registracija': 'Prijava'}}</button>
+        </ng-template>
+
     </form>
 
 </div>

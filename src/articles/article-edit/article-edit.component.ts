@@ -35,6 +35,7 @@ export class ArticleEditComponent implements OnInit {
   categoryNameSelected = false;
 
   categoryNameNAME: any;
+  isLoading = true;
 
   ngOnInit(): void {
     this.initForm();
@@ -69,7 +70,7 @@ export class ArticleEditComponent implements OnInit {
   }
 
   initUpdateForm(article: Article) {
-    console.log("ARTIKLE FILE: "+article.file);
+    //console.log("ARTIKLE FILE: "+article.file);
     this.imageSrc = article.imageSrc;
     let file = '';
     this.articleForm = new FormGroup({
@@ -105,7 +106,8 @@ export class ArticleEditComponent implements OnInit {
         categories = this.categoryService.getCategories();
         console.log("CATEG. LENGTH UPDATE: " + categories.length);
         this.categories = categories;
-      }, 500);
+        this.isLoading = false;
+      }, 2000);
 
       this.articleForm = new FormGroup({
         'id': new FormControl('test',),
@@ -131,7 +133,7 @@ export class ArticleEditComponent implements OnInit {
         article = this.articleService.getArticle(tmpID/*, this.categoryName*/);
         console.log("ARTIKLE: "+article.articleName);
         this.initUpdateForm(article);
-      }, 500);
+      }, 2000);
     }
     else {
 
@@ -141,7 +143,8 @@ export class ArticleEditComponent implements OnInit {
         categories = this.categoryService.getCategories();
         console.log("CATEG. LENGTH: " + categories.length);
         this.categories = categories;
-      }, 500);
+        this.isLoading = false;
+      }, 2000);
 
       this.articleForm = new FormGroup({
         'id': new FormControl('_' + Math.random().toString(36).substr(2, 9)),

@@ -52,26 +52,38 @@ export class ArticleDetailComponent implements OnInit {
 
   closeResult: string = '';
 
+  isMobile = false;
+  MOBILE_WIDTH = 500;
+  isLoading = true;
+  /*
+  @ViewChild(PlaceHolderDirective) alertHost; // pronaci ce prvi PlaceHolderDirective element koji koristimo :D
+*/
 
   constructor(private articleService: ArticleService, private route: ActivatedRoute, private router: Router, private store: Store<fromApp.AppState>, private modalService: NgbModal) {
+    this.isLoading = true;
     if (this.route.snapshot.paramMap.get('id')?.toString() !== null && this.route.snapshot.paramMap.get('categoryName')?.toString() !== null) {
-      //console.log("BLA: " + this.route.snapshot.paramMap.get('id')?.toString());
-      //console.log("BLA1: " + this.route.snapshot.paramMap.get('categoryName')?.toString());
       this.articleId = this.route.snapshot.paramMap.get('id')?.toString().trim();
       this.articleCategoryName = this.route.snapshot.paramMap.get('categoryName')?.toString().trim();
       this.articleService.loadArticles(this.articleCategoryName);
       setTimeout(() => {
         this.article = this.articleService.getArticle(this.articleId);
         this.initForm();
-      }, 1000);
+        this.isLoading = false;
+      }, 2000);
       this.subscription = this.store.select('cart').subscribe();
     }
-
+    
   }
 
   ngOnInit(): void {
     this.articles = this.store.select('cart'); // BITNO ZA NGRX STORE ! 
     this.store.select('cart').subscribe();
+
+    if (window.screen.width < this.MOBILE_WIDTH) {
+      this.isMobile = true;
+    } else {
+      this.isMobile = false;
+    }
   }
 
   initForm() {
@@ -149,6 +161,4 @@ export class ArticleDetailComponent implements OnInit {
     }
     this.articleCounterState = 1;
   }
-
-
 }

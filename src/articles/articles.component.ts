@@ -23,6 +23,8 @@ export class ArticlesComponent {
 
     public innerWidth: any;
     isMobile = false;
+    MOBILE_WIDTH = 500;
+    isLoading = true;
 
     @HostListener('window:resize', ['$event']) //If you wanna keep it updated on resize:
     onResize(event) {
@@ -32,7 +34,7 @@ export class ArticlesComponent {
     ngOnInit() {
       this.innerWidth = window.innerWidth;     
       //document.getElementById("allToShow").remove();
-      if(window.screen.width < 418 ) {
+      if(window.screen.width < this.MOBILE_WIDTH ) {
         document.getElementById("allToShow").style.visibility = 'hidden';
         document.getElementById("allToShow").style.display = 'none';
         //document.getElementById("allToShow").remove();
@@ -53,6 +55,7 @@ export class ArticlesComponent {
             if (!this.route.snapshot.paramMap.get('id')?.toString() !== null) {
                 this.categoryName = this.route.snapshot.paramMap.get('categoryName')?.toString().trim();
                 this.articleService.loadArticles(this.categoryName);
+                
                 //console.log("DJOKICAAA")
             }
             this.userSub = this.authService.user.subscribe(user => {
@@ -66,19 +69,19 @@ export class ArticlesComponent {
                     }
                 );
             this.articles = this.articleService.getArticles();
+            this.isLoading = false;
         });
     }
 
 
     searchArticleInCategory() {
-        console.log("CATEGORY NAME: " + this.categoryName);
-        console.log("SEARCH VALUE: " + this.searchValue);
-        console.log("ARTIKLES LENGTHHHL: " + this.articles.length);
-
+        console.log("SEARCH VALUE: "+this.searchValue);
         if (this.searchValue !== '') {
+            this.isLoading = true;
             //this.articles = [];
-            //this.articleService.loadArticles(this.categoryName);
-           // setTimeout(() => {
+            this.articleService.setArticles([]); // dodao
+            this.articleService.loadArticles(this.categoryName); // dodao
+            setTimeout(() => { // dodao
                 var articlesTMP = [];
 
                 for (var i = 0; i < this.articles.length; i++) {
@@ -91,7 +94,8 @@ export class ArticlesComponent {
                 this.articles.push.apply(this.articles, articlesTMP);
                 //this.articles.splice(0, articlesTMP.length, ... articlesTMP);
                 //this.articles = articlesTMP;
-         //   }, 1000);
+                this.isLoading = false;
+            }, 1000);   //dodao
         } else {
             this.articleService.setArticles([]);
             this.articleService.loadArticles(this.categoryName);

@@ -1,52 +1,102 @@
+<div *ngIf="isLoading" style="text-align: center;"> 
+  <app-loading-spinner></app-loading-spinner>
+</div>
+<div class="card" style="width: 150%;" *ngIf="!isMobile; else elseBlock">
+  <div>
+    <h2>Detalji >> {{articleName}}</h2>
+  </div>
+  <div class="row">
+    <div class="column left">
+      <img [src]="imageSrc" alt="" height="50%" width="80%" class="responsive" />
+      <div class="card-body">
+        <div class="form-group">
+          <textarea class="form-control" id="exampleFormControlTextarea3" rows="5" readonly>{{ describe }}</textarea>
+        </div>
+        <br><br>
+        <p class="articleBasicInfoP">{{ categoryName }} >> {{ articleName }}</p>
+      </div>
+    </div>
+    <div class="column right">
+      <div class="row" id="counterRow">
+        <div class="row"><button class="btn btn-success" id="btnPlusArticle" (click)="plusArticleToCart()">+</button>
+        </div>
+        <div class="row"><input [(ngModel)]="articleCounterState" class="form-control form-control-lg" id="inputCounter"
+            type="text" readonly></div>
+        <div class="row"><button class="btn btn-danger" id="btnMinusArticle" (click)="minusArticleToCart()">-</button>
+        </div>
+      </div>
+      <br><br><br>
+      <div class="row" id="addToCartRow">
+        <p class="priceH2">Cijena {{ price }} KM</p>
+        <div class="row">
+          <button class="btn btn-success" id="btnAddToCart" (click)="addArticleToCart(); open(mymodal)" [disabled]="isLoading" >
+            <fa-icon [icon]="faPlus"> </fa-icon>&nbsp;Dodajte u korpu
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
 
-<div class="card" style="width: 150%;">
+<ng-template #elseBlock>
+  <div class="cardMobile" style="width: 150%;">
     <div>
-        <h2>Detalji >> {{articleName}}</h2>
+      <h4>Detalji >> {{articleName}}</h4>
     </div>
     <div class="row">
-        <div class="column left">
-            <img [src]="imageSrc" alt="" height="50%" width="80%" class="responsive" />
-            <div class="card-body">
-                <div class="form-group">
-                    <textarea class="form-control" id="exampleFormControlTextarea3" rows="5" readonly>{{ describe }}</textarea>
-                  </div>
-                <br><br>
-                <p class="articleBasicInfoP">{{ categoryName }} >> {{ articleName }}</p>
-            </div>
-        </div>
-        <div class="column right">
-            <div class="row" id="counterRow">
-                <div class="row"><button class="btn btn-success" id="btnPlusArticle"
-                        (click)="plusArticleToCart()">+</button></div>
-                <div class="row"><input [(ngModel)]="articleCounterState" class="form-control form-control-lg"
-                        id="inputCounter" type="text" readonly></div>
-                <div class="row"><button class="btn btn-danger" id="btnMinusArticle"
-                        (click)="minusArticleToCart()">-</button></div>
-            </div>
-            <br><br><br>
-            <div class="row" id="addToCartRow">
-                <p class="priceH2">Cijena {{ price }} KM</p>
-                <div class="row">
-                    <button class="btn btn-success" id="btnAddToCart" (click)="addArticleToCart(); open(mymodal)">
-                        <fa-icon [icon]="faPlus"> </fa-icon>&nbsp;Dodajte u korpu
-                    </button></div>
-            </div>
-        </div>
-    </div>
-    <br>
+      <div class="column left">
+        <img [src]="imageSrc" alt="" height="30%" width="80%" class="responsive" />
+        <div class="card-body">
+          <div class="form-group">
+            <textarea class="form-control" id="exampleFormControlTextarea3Mobile" rows="5" readonly>{{ describe }}</textarea>
+          </div>
+          <br><br>
+          <p class="priceH2Mobile">Cijena</p>
+          <p class="priceH2Mobile" style="margin-top: -15%;">{{ price }} KM</p>
+          <br><br><br>
+          <p class="articleBasicInfoPMobile">{{ categoryName }} >> {{ articleName }}</p>
 
-    <ng-template #mymodal let-modal>
-        <div class="modal-header">
-          <h4 class="modal-title" id="modal-basic-title">Dodavanje u korpu</h4>
-          <!-- <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+        </div>
+      </div>
+      <div class="column right">
+        <div class="row" id="counterRowMobile">
+          <div class="row"><button class="btn btn-success" id="btnPlusArticleMobile" (click)="plusArticleToCart()">+</button>
+          </div>
+           <div class="row"><input [(ngModel)]="articleCounterState" class="form-control form-control-lg" id="inputCounterMobile"
+              type="text" readonly></div>
+          <div class="row"><button class="btn btn-danger" id="btnMinusArticleMobile" (click)="minusArticleToCart()">-</button>
+          </div> 
+        </div>
+        <br><br><br>
+
+        <div class="row" id="addToCartRowMobile">
+          
+           <div class="row">  
+            <button class="btn btn-success" id="btnAddToCartMobile" (click)="addArticleToCart(); open(mymodal)">
+              <fa-icon [icon]="faPlus"> </fa-icon>&nbsp;Dodajte u korpu
+            </button>
+          </div>  
+        </div>
+      </div>
+    </div>
+  </div>
+</ng-template>
+
+
+<br>
+
+<ng-template #mymodal let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title" id="modal-basic-title">Dodavanje u korpu</h4>
+    <!-- <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
             <span aria-hidden="true">×</span>
           </button> -->
-        </div>
-        <div class="modal-body">
-           Uspješno ste dodali artiakal {{ articleName }} u korpu!
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-light" (click)="modal.close('Save click')" style="background-color: #b23cfd; color: white;">Potvrdi</button>
-        </div>
-      </ng-template>
-    
+  </div>
+  <div class="modal-body">
+    Uspješno ste dodali artiakal {{ articleName }} u korpu!
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-light" (click)="modal.close('Save click')"
+      style="background-color: #b23cfd; color: white;">Potvrdi</button>
+  </div>
+</ng-template>

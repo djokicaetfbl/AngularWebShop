@@ -1,14 +1,35 @@
-<div *ngIf="innerWidth > 417; else elseBlock">
+
+<div *ngIf="!isMobile; else elseBlock">
+    <div *ngIf="isLoading" style="text-align: center;"> 
+        <app-loading-spinner></app-loading-spinner>
+    </div>
     <br>
+
+
+    <div *ngIf="isMobileHrizontal; else standardLook">
+        <button class="btn btn-success" id="btnNovaKategorija" *ngIf="isAuthenticated && isAdmin" (click)="onNewCategory()">
+            <fa-icon [icon]="faPlus"> </fa-icon> &nbsp;Nova kategorija
+        </button>
+        <br><br>
+        <button class="btn btn-success" id="btnNewArticleMobile" *ngIf="isAuthenticated && isAdmin" (click)="onNewArticle()" style="margin-left: 0.5%;">
+            <fa-icon [icon]="faPlus"> </fa-icon> &nbsp;Novi artikal
+        </button>
+
+        <!-- OVDJE IMPLEMENTIRATI HORIZONTALI POLOZAJ TELEFONA -->
+    </div>
+
+    <ng-template #standardLook>
+    
     <button class="btn btn-success" id="btnNovaKategorija" *ngIf="isAuthenticated && isAdmin" (click)="onNewCategory()">
         <fa-icon [icon]="faPlus"> </fa-icon> &nbsp;Nova kategorija
     </button>
     <button class="btn btn-success" id="btnNewArticle" *ngIf="isAuthenticated && isAdmin" (click)="onNewArticle()">
         <fa-icon [icon]="faPlus"> </fa-icon> &nbsp;Novi artikal
     </button>
-    <div class="row">
+    <div class="row" >
         <div class="column left">
             <div class="d-flex flex-column align-items-stretch flex-shrink-0 bg-white" style="width: 380px;">
+ 
                 <a href="/"
                     class="d-flex align-items-center flex-shrink-0 p-3 link-dark text-decoration-none border-bottom">
                     <svg class="bi me-2" width="30" height="24">
@@ -27,11 +48,18 @@
         <router-outlet></router-outlet>
         <!-- MORAM DA GA IMAM RADI CHILD RUTA, da su ucita isto vremeno kad i roditeljska rutu na istoj stranici !!! -->
     </div>
+
+</ng-template>
+
+
 </div>
 
 
 <ng-template #elseBlock>
     <div>
+        <div *ngIf="isLoading" style="text-align: center;"> 
+            <app-loading-spinner></app-loading-spinner>
+        </div>
         <br><br>
         <button class="btn btn-success" id="btnNovaKategorija" *ngIf="isAuthenticated && isAdmin"
             (click)="onNewCategory()">
@@ -98,7 +126,8 @@
         <router-outlet></router-outlet>
         <!-- MORAM DA GA IMAM RADI CHILD RUTA, da su ucita isto vremeno kad i roditeljska rutu na istoj stranici !!! -->
 
-    </div>
     <!-- <div class="allToShow" id="allToShow"> -->
+    </div>
 
-</ng-template>
+
+
