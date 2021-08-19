@@ -59,6 +59,7 @@ export class ArticleDetailComponent implements OnInit {
   MOBILE_WIDTH = 500;
   MOBILE_WIDTH_HORIZONTAL_MIN = 700;
   MOBILE_WIDTH_HORIZONTAL_MAX = 920;
+
   /*
   @ViewChild(PlaceHolderDirective) alertHost; // pronaci ce prvi PlaceHolderDirective element koji koristimo :D
 */
@@ -67,9 +68,11 @@ export class ArticleDetailComponent implements OnInit {
     //this.innerWidth = window.innerWidth;
     if (window.screen.width > this.MOBILE_WIDTH_HORIZONTAL_MIN && window.screen.width < this.MOBILE_WIDTH_HORIZONTAL_MAX) {
       this.isMobileHrizontal = true;
+      this.isMobile = false;
     }
     if (window.screen.width < this.MOBILE_WIDTH) {
       this.isMobile = true;
+      this.isMobileHrizontal = false;
     } else {
       this.isMobile = false;
     }
@@ -104,6 +107,20 @@ export class ArticleDetailComponent implements OnInit {
       this.isMobile = true;
     } else {
       this.isMobile = false;
+    }
+
+    if (window.screen.width > this.MOBILE_WIDTH_HORIZONTAL_MIN && window.screen.width < this.MOBILE_WIDTH_HORIZONTAL_MAX) {
+      this.isMobileHrizontal = true;
+    }
+    if (window.screen.width < this.MOBILE_WIDTH) {
+      this.isMobile = true;
+    } else {
+      this.isMobile = false;
+    }
+
+    if (window.screen.width > this.MOBILE_WIDTH_HORIZONTAL_MAX) {
+      this.isMobile = false;
+      this.isMobileHrizontal = false;
     }
   }
 

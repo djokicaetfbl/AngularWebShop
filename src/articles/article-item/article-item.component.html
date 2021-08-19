@@ -1,3 +1,4 @@
+<div *ngIf="!isMobileHrizontal; else horizontalLook">
 <div class="card" style="width: 150%;" >
   <div>
   <button class="btn btn-info" id="btnCDetailsArticle"  (click)="onDetailArticle()">
@@ -20,3 +21,31 @@
 
   </div>
   <br>
+  </div>
+
+  <ng-template #horizontalLook>
+    <div class="card" style="width: 165%; margin-left: 7%;" >
+      <div>
+      <button class="btn btn-info" id="btnCDetailsArticle"  (click)="onDetailArticle()">
+        <fa-icon [icon]="faInfo"> </fa-icon> &nbsp;Detalji&nbsp;&nbsp;
+          </button>
+        </div>
+      <img [src]="article.imageSrc" alt="{{ article.articleName }}"  height="200px"
+      class="responsive" />
+        <div class="card-body">
+          <h5 class="card-title">{{ article.articleName }}</h5>
+          <p class="card-text">{{ article.describe }}</p>
+          <h2 class="priceH2">Cijena {{article.price}} KM</h2> <br><br><br>
+          <button class="btn btn-danger" id="btnDeleteArticle" *ngIf="isAuthenticated && isAdmin" (click)="onDeleteArticle()">
+            <fa-icon [icon]="faTrash"> </fa-icon> &nbsp;Ukloni&nbsp;&nbsp;
+        </button>
+        <button class="btn btn-info" id="btnChangeArticle" *ngIf="isAuthenticated && isAdmin" (click)="onUpdateArticle()">
+            <fa-icon [icon]="faPencilAlt"> </fa-icon> &nbsp;Izmjeni&nbsp;&nbsp;
+        </button>
+        </div>
+    
+      </div>
+      <br>
+
+
+  </ng-template>

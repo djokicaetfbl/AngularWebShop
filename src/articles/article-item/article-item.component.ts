@@ -20,6 +20,10 @@ import { faInfo } from '@fortawesome/free-solid-svg-icons';
     faTrash = faTrash;
     faInfo = faInfo;
 
+    isMobileHrizontal = false;
+    MOBILE_WIDTH_HORIZONTAL_MIN = 700;
+    MOBILE_WIDTH_HORIZONTAL_MAX = 920;
+
     constructor(private authService: AuthService, private articleService: ArticleService, private route: ActivatedRoute, private router: Router) {}
 
     private userSub: Subscription = new Subscription;
@@ -35,6 +39,13 @@ import { faInfo } from '@fortawesome/free-solid-svg-icons';
     isAdmin = false;
     
     ngOnInit(): void {
+
+      if (window.screen.width > this.MOBILE_WIDTH_HORIZONTAL_MIN && window.screen.width < this.MOBILE_WIDTH_HORIZONTAL_MAX) {
+        this.isMobileHrizontal = true;
+      } else {
+        this.isMobileHrizontal = false;
+      }
+
         this.userSub = this.authService.user.subscribe(user => {
             //this.isAuthenticated = !!user;// ili !user ? false : true; // ako nemamo objekat user , tada nismo autenitifikovani (tj user = null)
             const userData: {

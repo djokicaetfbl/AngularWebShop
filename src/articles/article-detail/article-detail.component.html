@@ -1,7 +1,7 @@
 <div *ngIf="isLoading" style="text-align: center;"> 
   <app-loading-spinner></app-loading-spinner>
 </div>
-<div class="card" style="width: 150%;" *ngIf="!isMobile; else elseBlock">
+<div class="card" style="width: 150%;" *ngIf="!isMobile && !isMobileHrizontal; else elseBlock">
   <div>
     <h2>Detalji >> {{articleName}}</h2>
   </div>
@@ -36,9 +36,13 @@
       </div>
     </div>
   </div>
+
+
+
 </div>
 
 <ng-template #elseBlock>
+  <div *ngIf="isMobile && !isMobileHrizontal">
   <div class="cardMobile" style="width: 150%;">
     <div>
       <h4>Detalji >> {{articleName}}</h4>
@@ -80,6 +84,61 @@
       </div>
     </div>
   </div>
+  </div>
+
+  <div *ngIf="isMobileHrizontal">
+
+
+      <div class="cardMobile" style="width: 150%;">
+    <div>
+      <h4>Detalji >> {{articleName}}</h4>
+      <p class="articleBasicInfoPMobileH">{{ categoryName }} >> {{ articleName }}</p>
+    </div>
+    <div class="row" >
+      <div class="column left" style="height: 100%;">
+        <img [src]="imageSrc" alt="" height="30%" width="80%" class="responsive" />
+        <div class="card-body">
+          <div class="form-group">
+            <textarea class="form-control" id="exampleFormControlTextarea3HMobile" rows="5" readonly>{{ describe }}</textarea>
+          </div>
+          <!-- <br><br><br> -->
+          <!-- <p class="priceH2Mobile">Cijena</p>  -->
+          <p class="priceH2MobileH">Cijena {{ price }} KM</p>
+          <!-- <br>
+          <p class="articleBasicInfoPMobile">{{ categoryName }} >> {{ articleName }}</p>
+          -->
+        </div>
+      </div>
+      <div class="column right">
+        
+        <div class="row" id="counterRowMobile">
+          <div class="row"><button class="btn btn-success" id="btnPlusArticleHMobile" (click)="plusArticleToCart()">+</button>
+          </div>
+           <div class="row"><input [(ngModel)]="articleCounterState" class="form-control form-control-lg" id="inputCounterHMobile"
+              type="text" readonly></div>
+          <div class="row"><button class="btn btn-danger" id="btnMinusArticleHMobile" (click)="minusArticleToCart()">-</button>
+          </div> 
+        </div>
+        <br><br><br>
+
+        <div class="row" id="addToCartRowMobile">
+          
+           <div class="row">  
+            <button class="btn btn-success" id="btnAddToCartHMobile" (click)="addArticleToCart(); open(mymodal)">
+              <fa-icon [icon]="faPlus"> </fa-icon>&nbsp;Dodajte u korpu
+            </button>
+           
+          </div>  
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+
+    
+  </div>
+
 </ng-template>
 
 
