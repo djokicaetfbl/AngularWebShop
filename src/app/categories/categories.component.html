@@ -6,7 +6,8 @@
     <br>
 
 
-    <div *ngIf="isMobileHrizontal; else standardLook">
+     <div *ngIf="isMobileHrizontal; else standardLook"> 
+    <!--    <div *ngIf="innerWidth > MOBILE_WIDTH_HORIZONTAL_MIN && innerWidth < MOBILE_WIDTH_HORIZONTAL_MAX;"> -->
         <button class="btn btn-success" id="btnNovaKategorija" *ngIf="isAuthenticated && isAdmin" (click)="onNewCategory()">
             <fa-icon [icon]="faPlus"> </fa-icon> &nbsp;Nova kategorija
         </button>
@@ -16,6 +17,30 @@
         </button>
 
         <!-- OVDJE IMPLEMENTIRATI HORIZONTALI POLOZAJ TELEFONA -->
+
+        <div class="row" >
+            <div class="column left">
+                <div class="d-flex flex-column align-items-stretch flex-shrink-0 bg-white" style="width: 100%;">
+     
+                    <a href="/"
+                        class="d-flex align-items-center flex-shrink-0 p-3 link-dark text-decoration-none border-bottom">
+                        <svg class="bi me-2" width="30" height="24">
+                            <use xlink:href="#bootstrap"></use>
+                        </svg>
+                        <span class="fs-5 fw-semibold">
+                            <h2>Kategorije</h2>
+                        </span>
+                    </a>
+                    <div class="list-group list-group-flush border-bottom scrollarea">
+                        <app-category-item *ngFor="let categoryEl of categories; let i = index" [category]="categoryEl"
+                            [index]="i"></app-category-item>
+                    </div>
+                </div>
+            </div>
+            <router-outlet></router-outlet>
+            <!-- MORAM DA GA IMAM RADI CHILD RUTA, da su ucita isto vremeno kad i roditeljska rutu na istoj stranici !!! -->
+        </div>
+
     </div>
 
     <ng-template #standardLook>

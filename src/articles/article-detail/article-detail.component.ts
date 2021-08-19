@@ -1,4 +1,4 @@
-import { Component, OnInit } from "@angular/core";
+import { Component, HostListener, OnInit } from "@angular/core";
 import { CategoryService } from "src/app/categories/category.service";
 import { ArticleService } from "../article.service";
 import { faPencilAlt } from '@fortawesome/free-solid-svg-icons';
@@ -52,12 +52,33 @@ export class ArticleDetailComponent implements OnInit {
 
   closeResult: string = '';
 
-  isMobile = false;
-  MOBILE_WIDTH = 500;
   isLoading = true;
+
+  isMobile = false;
+  isMobileHrizontal = false;
+  MOBILE_WIDTH = 500;
+  MOBILE_WIDTH_HORIZONTAL_MIN = 700;
+  MOBILE_WIDTH_HORIZONTAL_MAX = 920;
   /*
   @ViewChild(PlaceHolderDirective) alertHost; // pronaci ce prvi PlaceHolderDirective element koji koristimo :D
 */
+  @HostListener('window:resize', ['$event']) //If you wanna keep it updated on resize:
+  onResize(event) {
+    //this.innerWidth = window.innerWidth;
+    if (window.screen.width > this.MOBILE_WIDTH_HORIZONTAL_MIN && window.screen.width < this.MOBILE_WIDTH_HORIZONTAL_MAX) {
+      this.isMobileHrizontal = true;
+    }
+    if (window.screen.width < this.MOBILE_WIDTH) {
+      this.isMobile = true;
+    } else {
+      this.isMobile = false;
+    }
+
+    if (window.screen.width > this.MOBILE_WIDTH_HORIZONTAL_MAX) {
+      this.isMobile = false;
+      this.isMobileHrizontal = false;
+    }
+  }
 
   constructor(private articleService: ArticleService, private route: ActivatedRoute, private router: Router, private store: Store<fromApp.AppState>, private modalService: NgbModal) {
     this.isLoading = true;
@@ -72,7 +93,7 @@ export class ArticleDetailComponent implements OnInit {
       }, 2000);
       this.subscription = this.store.select('cart').subscribe();
     }
-    
+
   }
 
   ngOnInit(): void {

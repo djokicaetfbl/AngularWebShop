@@ -1,24 +1,57 @@
-<div>
-    <a class="list-group-item list-group-item-action active py-3 lh-tight" aria-current="true"
-        (click)="onShowArticlesForCategory()">
-        <div class="d-flex w-100 align-items-center justify-content-between">
-            <strong class="mb-1" id="categorynameStrong">{{ category.categoryName }}</strong>
-            <img [src]="category.imageSrc" alt="{{ category.categoryName }}" width="125px" height="125px"
-                class="responsive" />
-        </div>
-        <div class="col-10 mb-1 small"></div>
-        <div class="buttonAreaDiv">
-            <br>
-            <button class="btn btn-danger" id="btnDeleteCategory" *ngIf="isAuthenticated && isAdmin" (click)="onDeleteCategory()">
-                <fa-icon [icon]="faTrash"> </fa-icon> &nbsp;Ukloni&nbsp;&nbsp;
-            </button>
-            <button class="btn btn-info" id="btnChangeCategory" *ngIf="isAuthenticated && isAdmin" (click)="onUpdateCategory()">
-                <fa-icon [icon]="faPencilAlt"> </fa-icon> &nbsp;Izmjeni&nbsp;&nbsp;
-            </button>
-            <br *ngIf="isAuthenticated && isAdmin">
-            <br *ngIf="isAuthenticated && isAdmin">
-         <!--   <hr>    -->
-        </div>
-    </a>
-    <br>
+<div *ngIf="isMobileHrizontal; else standardLook">
+    <div>
+        <a class="list-group-item list-group-item-action active py-3 lh-tight" aria-current="true"
+            (click)="onShowArticlesForCategory()">
+            <div class="d-flex w-100 align-items-center justify-content-between">
+                <strong class="mb-1" id="categorynameStrongHorizontal" >{{ category.categoryName }}</strong> &nbsp;
+                <img [src]="category.imageSrc" alt="{{ category.categoryName }}" width="80px" height="80px"
+                    class="responsive" />
+            </div>
+            <div class="col-10 mb-1 small"></div>
+            <div class="buttonAreaDiv">
+                <br>
+                <button class="btn btn-danger" id="btnDeleteCategoryHorizontal" *ngIf="isAuthenticated && isAdmin"
+                    (click)="onDeleteCategory()">
+                    <fa-icon [icon]="faTrash"> </fa-icon> &nbsp;Ukloni&nbsp;&nbsp;
+                </button>
+                <button class="btn btn-info" id="btnChangeCategoryHorizontal" *ngIf="isAuthenticated && isAdmin"
+                    (click)="onUpdateCategory()">
+                    <fa-icon [icon]="faPencilAlt"> </fa-icon> &nbsp;Izmjeni&nbsp;&nbsp;
+                </button>
+                <br *ngIf="isAuthenticated && isAdmin">
+                <br *ngIf="isAuthenticated && isAdmin">
+                <!--   <hr>    -->
+            </div>
+        </a>
+        <br>
+    </div>
+
 </div>
+<ng-template #standardLook>
+    <div>
+        <a class="list-group-item list-group-item-action active py-3 lh-tight" aria-current="true"
+            (click)="onShowArticlesForCategory()">
+            <div class="d-flex w-100 align-items-center justify-content-between">
+                <strong class="mb-1" id="categorynameStrong">{{ category.categoryName }}</strong>
+                <img [src]="category.imageSrc" alt="{{ category.categoryName }}" width="125px" height="125px"
+                    class="responsive" />
+            </div>
+            <div class="col-10 mb-1 small"></div>
+            <div class="buttonAreaDiv">
+                <br>
+                <button class="btn btn-danger" id="btnDeleteCategory" *ngIf="isAuthenticated && isAdmin"
+                    (click)="onDeleteCategory()">
+                    <fa-icon [icon]="faTrash"> </fa-icon> &nbsp;Ukloni&nbsp;&nbsp;
+                </button>
+                <button class="btn btn-info" id="btnChangeCategory" *ngIf="isAuthenticated && isAdmin"
+                    (click)="onUpdateCategory()">
+                    <fa-icon [icon]="faPencilAlt"> </fa-icon> &nbsp;Izmjeni&nbsp;&nbsp;
+                </button>
+                <br *ngIf="isAuthenticated && isAdmin">
+                <br *ngIf="isAuthenticated && isAdmin">
+                <!--   <hr>    -->
+            </div>
+        </a>
+        <br>
+    </div>
+</ng-template>

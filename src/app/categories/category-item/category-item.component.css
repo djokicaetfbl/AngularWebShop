@@ -20,3 +20,21 @@
     font-family: Verdana, Geneva, Tahoma, sans-serif;
 }
 
+#categorynameStrongHorizontal {
+    font-size: 14px;
+}
+
+#btnDeleteCategoryHorizontal {
+    font-size: 12px;
+    float: left;
+    margin-left: -5%;
+}
+
+#btnChangeCategoryHorizontal {
+    font-size: 12px;
+    /*margin-left: 3%;*/
+    float: right;
+    margin-right: -5%;
+    color: white;
+}
+

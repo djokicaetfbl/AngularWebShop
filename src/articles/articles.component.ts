@@ -26,6 +26,10 @@ export class ArticlesComponent {
     MOBILE_WIDTH = 500;
     isLoading = true;
 
+    isMobileHrizontal = false;
+    MOBILE_WIDTH_HORIZONTAL_MIN = 700;
+    MOBILE_WIDTH_HORIZONTAL_MAX = 920;
+
     @HostListener('window:resize', ['$event']) //If you wanna keep it updated on resize:
     onResize(event) {
       this.innerWidth = window.screen.width; //= window.innerWidth;
@@ -41,6 +45,14 @@ export class ArticlesComponent {
         this.isMobile = true;
       } else {
           this.isMobile = false;
+      }
+
+      if (window.screen.width > this.MOBILE_WIDTH_HORIZONTAL_MIN && window.screen.width < this.MOBILE_WIDTH_HORIZONTAL_MAX) {
+        this.isMobileHrizontal = true;
+      }
+      if(window.screen.width > this.MOBILE_WIDTH_HORIZONTAL_MAX) {
+        this.isMobileHrizontal = false;
+        this.isMobile = false;
       }
     }
 

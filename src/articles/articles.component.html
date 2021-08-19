@@ -2,14 +2,14 @@
     <app-loading-spinner></app-loading-spinner>
   </div>
 <div class="row">
-    <div class="column left" *ngIf="!isMobile">
+    <div class="column left" *ngIf="!isMobile && !isMobileHrizontal">
         <div class="d-flex flex-column align-items-stretch flex-shrink-0 bg-white" style="width: 380px;">
 
         </div>
     </div>
 
 
-    <div class="column right" *ngIf="!isMobile">
+    <div class="column right" *ngIf="!isMobile && !isMobileHrizontal">
         <div class="row">
             <div class=" leftLeft">
                 <div class="searchDiv">
@@ -72,6 +72,46 @@
             <br>
         </div>
     </div>
+
+    
+
+
+
+    <div class="column left" *ngIf="isMobileHrizontal">
+        <div class="d-flex flex-column align-items-stretch flex-shrink-0 bg-white" style="width: 380px;">
+
+        </div>
+    </div>
+
+
+    <div class="column right" *ngIf="isMobileHrizontal">
+        <div class="row">
+            <div class=" leftLeft">
+                <div class="searchDiv" style="width: 110%;">
+                    <div class="input-group mb-3" id="test" >
+                        <!-- <div class="input-group-prepend">  -->
+                            <input class="form-control mr-sm-2" id="searchCategoryMobile" [value]="categoryName"
+                            style="font-size: 11px;" readonly>
+                            <input [(ngModel)]="searchValue" class="form-control mr-sm-2" id="searchCategoryMobile"
+                                type="search" placeholder="Unesite naziv artikala" aria-label="Search">
+                        <!-- </div> &nbsp;&nbsp;&nbsp; -->
+                        <button class="btn btn-outline-success my-2 my-sm-0" id="searchCategoryButtonMobile" type="submit"
+                        (click)="searchArticleInCategory()" style="width: 100%;">Pretraga</button>
+                        <!-- <input class="form-control mr-sm-2" id="searchCategoryMobile" [value]="categoryName"
+                            style="font-size: 20px;" readonly>  -->
+
+                    </div>
+
+                </div>
+                <app-article-item *ngFor="let articleEl of articles; let i = index" [article]="articleEl" [index]="i">
+                </app-article-item>
+            </div>
+            <br>
+        </div>
+    </div>
+
+
+
 
     <router-outlet></router-outlet>
     <!-- MORAM DA GA IMAM RADI CHILD RUTA, da su ucita isto vremeno kad i roditeljska rutu na istoj stranici !!! -->
