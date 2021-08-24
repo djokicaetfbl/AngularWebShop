@@ -20,6 +20,7 @@ export class ArticlesComponent {
     subscription!: Subscription;
     categoryName: any;
     searchValue = '';
+    //articlesTMP = [];
 
     public innerWidth: any;
     isMobile = false;
@@ -88,13 +89,23 @@ export class ArticlesComponent {
 
     searchArticleInCategory() {
         console.log("SEARCH VALUE: "+this.searchValue);
+        
         if (this.searchValue !== '') {
             this.isLoading = true;
             //this.articles = [];
-            this.articleService.setArticles([]); // dodao
-            this.articleService.loadArticles(this.categoryName); // dodao
-            setTimeout(() => { // dodao
+            //this.articleService.setArticles([]); // dodao
+            //this.articleService.loadArticles(this.categoryName); // dodao
+            
+           // setTimeout(() => { // dodao
                 var articlesTMP = [];
+
+                console.log("222: "+this.articles.length);
+
+                /*if(this.articlesTMP.length > 0) {
+                    console.log("YEAP");
+                    this.articleService.setArticles([]); // dodao
+                    this.articleService.loadArticles(this.categoryName); // dodao
+                }*/
 
                 for (var i = 0; i < this.articles.length; i++) {
                     if (this.articles[i].articleName.toString().trim().toLowerCase().startsWith(this.searchValue.toString().trim().toLowerCase())) {
@@ -106,8 +117,9 @@ export class ArticlesComponent {
                 this.articles.push.apply(this.articles, articlesTMP);
                 //this.articles.splice(0, articlesTMP.length, ... articlesTMP);
                 //this.articles = articlesTMP;
+                //this.articleService.setArticles(this.articles);
                 this.isLoading = false;
-            }, 1000);   //dodao
+           // }, 1000);   //dodao
         } else {
             this.articleService.setArticles([]);
             this.articleService.loadArticles(this.categoryName);
