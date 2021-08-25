@@ -88,13 +88,19 @@ export class ArticleDetailComponent implements OnInit {
     if (this.route.snapshot.paramMap.get('id')?.toString() !== null && this.route.snapshot.paramMap.get('categoryName')?.toString() !== null) {
       this.articleId = this.route.snapshot.paramMap.get('id')?.toString().trim();
       this.articleCategoryName = this.route.snapshot.paramMap.get('categoryName')?.toString().trim();
-      this.articleService.loadArticles(this.articleCategoryName);
-      setTimeout(() => {
+      this.articleService.loadArticles(this.articleCategoryName).then(response => {
         this.article = this.articleService.getArticle(this.articleId);
         this.initForm();
         this.isLoading = false;
-      }, 2000);
-      this.subscription = this.store.select('cart').subscribe();
+      });
+      
+      /*setTimeout(() => {
+        this.article = this.articleService.getArticle(this.articleId);
+        this.initForm();
+        this.isLoading = false;
+      }, 3000);*/
+
+      this.subscription = this.store.select('cart').subscribe(); // za NGRX
     }
 
   }

@@ -53,38 +53,42 @@ disable the strictPropertyInitialization flag in your tsconfig file (not recomme
   }
 
   onSubmit() {
-    if (!this.route.snapshot.paramMap.get('id')?.toString() !== null) {
-        console.log("USAO DA POZOVE UPDATE CATEGORY");
+    //if (!this.route.snapshot.paramMap.get('id')?.toString() !== null) {
+      if (this.route.snapshot.paramMap.get('id') !== null) {
         this.categoryNameNEW = JSON.stringify(this.categoryForm.value.categoryName);
 
         let tmpCategoryName = this.categoryNameNEW.replace(/['"]+/g, '');
-        this.articleService.loadArticles(this.categoryNameOLD);
-
-        setTimeout(() => {
+        this.articleService.loadArticles(this.categoryNameOLD).then( response => {
           this.articles = this.articleService.getArticles();
+          for(let i = 0; i < this.articles.length; i++){   
+            /*console.log("HHN: "+this.articles[i].articleName);      
+            console.log("HHC: "+this.articles[i].categoryName);
+            console.log("HHID: "+this.articles[i].id);*/
+            this.articles[i].categoryName = tmpCategoryName;
+            this.articleService.updateArticle(this.articles[i]);
+          }
+        });
 
-          console.log("DJOKICA:  " + this.articles.length);
-          for(let i = 0; i < this.articles.length; i++){
-            /* updateuj kategoriju za sve artikle :D */
+         /* updateuj kategoriju za sve artikle :D */
+        /*setTimeout(() => {
+          this.articles = this.articleService.getArticles();
+          for(let i = 0; i < this.articles.length; i++){         
             console.log("HH: "+this.articles[i].categoryName);
             this.articles[i].categoryName = tmpCategoryName;
             this.articleService.updateArticle(this.articles[i]);
           }
-      }, 2000);
+      }, 2000);*/
+      
      // }
+     console.log("POZVAO UPDATE CATEGORY");
       this.categoryService.updateCategory(this.categoryForm.value);
     } else {
-      // console.log("POZVAO ADD CATEGORY!");
+      console.log("POZVAO CREATE CATEGORY");
       this.categoryService.addCategory(this.categoryForm.value);
     }
-
-
-    //UBACIS LOADING SPINNER
-    setTimeout(() => {                           // <<<---using ()=> syntax
+    /*setTimeout(() => {                           // <<<---using ()=> syntax
       this.router.navigate(['']);
-    }, 500);
-
-    //ZAVRSIS LOADING SPINNE
+    }, 500);*/
   }
 
   onDeleteIngredient(index: number) {
@@ -114,6 +118,8 @@ disable the strictPropertyInitialization flag in your tsconfig file (not recomme
 
   private initForm() {
 
+    console.log("DJOKAS:: "+this.route.snapshot.paramMap.get('id') );
+
     let categoryName = '';
     let file = '';
     if (this.route.snapshot.paramMap.get('id') !== null) {
@@ -132,12 +138,15 @@ disable the strictPropertyInitialization flag in your tsconfig file (not recomme
       var tmpID = this.route.snapshot.paramMap.get('id')?.toString()!; // ovaj ! u slucajnu da nije assignabile ili null :D
       //console.log("TMPID RUTA: "+tmpID);
       var category = new Category('', '', '', false, '');
-      this.categoryService.loadCategories();
-      setTimeout(() => {
+      this.categoryService.loadCategories().then( response => {
         category = this.categoryService.getCategory(tmpID);
-        //console.log("DANCE: " + JSON.stringify(category.categoryName));
         this.initUpdateForm(category);
-      }, 500);
+      });
+      
+      /*setTimeout(() => {
+        category = this.categoryService.getCategory(tmpID);
+        this.initUpdateForm(category);
+      }, 500);*/
     }
     else {
       //nova kategorija

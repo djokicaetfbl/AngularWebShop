@@ -38,7 +38,7 @@ export class ArticleEditComponent implements OnInit {
   isLoading = true;
 
   ngOnInit(): void {
-    this.initForm();
+    //this.initForm();
   }
 
   constructor(private route: ActivatedRoute, private articleService: ArticleService, private categoryService: CategoryService, private router: Router, private httpClient: HttpClient) {
@@ -47,13 +47,15 @@ export class ArticleEditComponent implements OnInit {
       console.log("RUTA CATEGORY NAME 1: "+this.categoryNameNAME);
       //this.articleService.loadArticles(this.categoryName);
     }
+    this.initForm();
   }
 
   onSubmit() {
-        if (this.categoryNameNAME !== undefined) {
+    if (this.categoryNameNAME !== undefined) {
           console.log("UPDATE ARTICLE");
           this.articleService.updateArticle(this.articleForm.value);
         } else {
+          console.log("CREATE ARTICLE");
           this.articleService.addArticle(this.articleForm.value);
         }
     setTimeout(() => {
@@ -95,19 +97,25 @@ export class ArticleEditComponent implements OnInit {
 
     if (this.route.snapshot.paramMap.get('id') !== null) {
 
-      console.log("UPDATE!!!"+this.route.snapshot.paramMap.get('categoryName')?.toString());
+      console.log("UPDATE ARTIKLE!!!"+this.route.snapshot.paramMap.get('categoryName')?.toString());
       let categoryName = '';
       let file = '';
       let imgSrc = '';
 
       var categories = [];
-      this.categoryService.loadCategories();
-      setTimeout(() => {
+      this.categoryService.loadCategories().then( response => {
         categories = this.categoryService.getCategories();
         console.log("CATEG. LENGTH UPDATE: " + categories.length);
         this.categories = categories;
         this.isLoading = false;
-      }, 2000);
+      });
+      
+      /*setTimeout(() => {
+        categories = this.categoryService.getCategories();
+        console.log("CATEG. LENGTH UPDATE: " + categories.length);
+        this.categories = categories;
+        this.isLoading = false;
+      }, 3000);*/
 
       this.articleForm = new FormGroup({
         'id': new FormControl('test',),
@@ -125,26 +133,38 @@ export class ArticleEditComponent implements OnInit {
       var tmpID = this.route.snapshot.paramMap.get('id')?.toString()!; // ovaj ! u slucajnu da nije assignabile ili null :D
       var article = new Article('', '', '', '', false, '', '', 0);
       if (this.route.snapshot.paramMap.get('categoryName')?.toString() !== null) {
-        //this.categoryName = this.route.snapshot.paramMap.get('id')?.toString().trim();
-        this.articleService.loadArticles(this.categoryNameNAME,/*this.categoryName*/);
+        //this.articleService.loadArticles(this.categoryNameNAME,/*this.categoryName*/);
+        this.articleService.loadArticles(this.categoryNameNAME).then( result => {
+          article = this.articleService.getArticle(tmpID);
+          console.log("ARTIKLE: "+article.categoryName);
+          setTimeout(() => {
+          this.initUpdateForm(article);
+        }, 1000);
+        })
       }
-      //this.articleService.loadArticles();
+      /*
       setTimeout(() => {
-        article = this.articleService.getArticle(tmpID/*, this.categoryName*/);
+        article = this.articleService.getArticle(tmpID);
         console.log("ARTIKLE: "+article.articleName);
         this.initUpdateForm(article);
-      }, 2000);
+      }, 10000);*/
     }
     else {
-
+      console.log("CREATE ARTIKLE");
       var categories = [];
-      this.categoryService.loadCategories();
-      setTimeout(() => {
+      this.categoryService.loadCategories().then( response => {
         categories = this.categoryService.getCategories();
         console.log("CATEG. LENGTH: " + categories.length);
         this.categories = categories;
         this.isLoading = false;
-      }, 2000);
+      });
+      
+      /*setTimeout(() => {
+        categories = this.categoryService.getCategories();
+        console.log("CATEG. LENGTH: " + categories.length);
+        this.categories = categories;
+        this.isLoading = false;
+      }, 3000);*/
 
       this.articleForm = new FormGroup({
         'id': new FormControl('_' + Math.random().toString(36).substr(2, 9)),

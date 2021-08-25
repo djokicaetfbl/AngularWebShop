@@ -56,9 +56,11 @@ export class CategoryService {
         const categories = this.getCategories(); // sa put kao radi :d
         this.http.post('https://webshopangulardiplomski-default-rtdb.europe-west1.firebasedatabase.app/categories.json', /*categories*/category) // put overvriduje sve podatke koji su prije bili, dodajemo /recipes.json zbog firebase-a
             .subscribe(response => {
+                console.log("RESPONSE: "+JSON.stringify(response));
                 var tmpString = JSON.stringify(response).toString();
                 var mySubString = tmpString.substring(
-                    tmpString.lastIndexOf('-') + 1,
+                    //tmpString.lastIndexOf('-') + 1,
+                    tmpString.indexOf('-') + 1,
                     tmpString.lastIndexOf('"')
                 );
 
@@ -68,8 +70,11 @@ export class CategoryService {
                 this.categories.push(category);
                 this.categoriesChanged.next(this.categories.slice());
                 this.setCategories(this.categories);
-
+                
+                this.router.navigate(['categories']);
             });
+                
+
     }
 
     updateCategoryID(category: Category, tmpID: string) {
@@ -93,10 +98,8 @@ export class CategoryService {
         this.http.put('https://webshopangulardiplomski-default-rtdb.europe-west1.firebasedatabase.app/categories/' + category.id + '/.json', /*categories*/category) // put overvriduje sve podatke koji su prije bili, dodajemo /recipes.json zbog firebase-a
             .subscribe(response => {
                 // console.log(response);
+                this.router.navigate(['categories']);
             });
-        setTimeout(() => {
-            this.router.navigate(['categories']);
-        }, 500);
     }
 
     deleteCategory(category: Category) {

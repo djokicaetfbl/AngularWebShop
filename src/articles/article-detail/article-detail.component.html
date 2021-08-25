@@ -2,12 +2,12 @@
   <app-loading-spinner></app-loading-spinner>
 </div>
 <div class="card" style="width: 150%;" *ngIf="!isMobile && !isMobileHrizontal; else elseBlock">
-  <div>
+  <div>     
     <h2>Detalji >> {{articleName}}</h2>
   </div>
   <div class="row">
     <div class="column left">
-      <img [src]="imageSrc" alt="" height="50%" width="80%" class="responsive" />
+      <img [src]="imageSrc" alt="" height="300px" width="80%" style="margin: 10%;" class="responsive" />
       <div class="card-body">
         <div class="form-group">
           <textarea class="form-control" id="exampleFormControlTextarea3" rows="5" readonly>{{ describe }}</textarea>
@@ -49,8 +49,8 @@
     </div>
     <div class="row">
       <div class="column left">
-        <img [src]="imageSrc" alt="" height="30%" width="80%" class="responsive" />
-        <div class="card-body">
+        <img [src]="imageSrc" alt="" height="100px" width="80%" class="responsive" style="margin: 10%;"/>
+        <div class="card-body">   
           <div class="form-group">
             <textarea class="form-control" id="exampleFormControlTextarea3Mobile" rows="5" readonly>{{ describe }}</textarea>
           </div>
@@ -96,8 +96,8 @@
     </div>
     <div class="row" >
       <div class="column left" style="height: 100%;">
-        <img [src]="imageSrc" alt="" height="30%" width="80%" class="responsive" />
-        <div class="card-body">
+        <img [src]="imageSrc" alt="" height="200px" width="80%" class="responsive" style="margin: 5%;" />
+        <div class="card-body">     <!-- height="300px" width="60%" style="margin: 10%;" -->
           <div class="form-group">
             <textarea class="form-control" id="exampleFormControlTextarea3HMobile" rows="5" readonly>{{ describe }}</textarea>
           </div>

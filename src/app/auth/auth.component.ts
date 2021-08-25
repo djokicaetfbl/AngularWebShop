@@ -77,23 +77,6 @@ export class AuthComponent implements OnDestroy {
 
     }
 
-    /*
-        private showErrorAlert(message: string) { // ovo je za programsko pravljenje alerta :D
-           // const alertCmp = new AlertComponent(); ovo nece da radi , jer angular ne kreira komponente na ovakav nacin
-            const alertCmpFactory = this.componentFactoryResolver.resolveComponentFactory(AlertComponent);// ovako Angular pravi komponentu
-            const hosViewContainerRef = this.alertHost.viewContainerRef;
-            hosViewContainerRef.clear();
-    
-            const componentRef = hosViewContainerRef.createComponent(alertCmpFactory); // u app.moduelt.ts posto rucno kreiramo komponentu treba dodati: entryComponents: [  // 
-                                                                                                                                                         //AlertComponent
-            componentRef.instance.message = message;  // ovo je kontkretna instanca nase komponente alert komponenente,i treba da ima atribute koje smo definisali a to su message i close :D                                                                                                                                         // ], 
-            this.closeSub = componentRef.instance.close.subscribe( () => {
-                this.closeSub.unsubscribe(); // posto imama subsrcibe treba mi i interfejs onDestry() :D
-                hosViewContainerRef.clear(); // sa ovim clear nasa komponenta ne staje :D
-            });
-            }
-     */
-
     ngOnDestroy(): void {
         if (this.closeSub) {
             this.closeSub.unsubscribe();

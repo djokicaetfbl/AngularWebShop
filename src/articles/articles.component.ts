@@ -86,45 +86,25 @@ export class ArticlesComponent {
         });
     }
 
+    searchArticleInCategory(searchValue) {
+        this.isLoading = true;
+        let articlesTMP = [];
+        console.log("SEARCH VALUE: "+searchValue);
 
-    searchArticleInCategory() {
-        console.log("SEARCH VALUE: "+this.searchValue);
-        
-        if (this.searchValue !== '') {
-            this.isLoading = true;
-            //this.articles = [];
-            //this.articleService.setArticles([]); // dodao
-            //this.articleService.loadArticles(this.categoryName); // dodao
-            
-           // setTimeout(() => { // dodao
-                var articlesTMP = [];
+        this.articleService.setArticles([]);
+        this.articleService.loadArticles(this.categoryName).then( respone => {
+            console.log("RESPONSE: "+this.articles);
 
-                console.log("222: "+this.articles.length);
-
-                /*if(this.articlesTMP.length > 0) {
-                    console.log("YEAP");
-                    this.articleService.setArticles([]); // dodao
-                    this.articleService.loadArticles(this.categoryName); // dodao
-                }*/
-
-                for (var i = 0; i < this.articles.length; i++) {
-                    if (this.articles[i].articleName.toString().trim().toLowerCase().startsWith(this.searchValue.toString().trim().toLowerCase())) {
-                        console.log("DA: " + this.articles[i].articleName);
-                        articlesTMP.push(this.articles[i]);
-                    }
+            for(let i = 0; i < this.articles.length; i++) {
+                if(this.articles[i].articleName.toString().toLowerCase().startsWith(searchValue.toString().toLowerCase())) {
+                    console.log("DA");
+                    articlesTMP.push(this.articles[i]);
                 }
-                this.articles.length = 0;
-                this.articles.push.apply(this.articles, articlesTMP);
-                //this.articles.splice(0, articlesTMP.length, ... articlesTMP);
-                //this.articles = articlesTMP;
-                //this.articleService.setArticles(this.articles);
-                this.isLoading = false;
-           // }, 1000);   //dodao
-        } else {
-            this.articleService.setArticles([]);
-            this.articleService.loadArticles(this.categoryName);
-        }
-
+            }
+            this.articles = [];
+            this.articles.push.apply(this.articles, articlesTMP);
+            this.isLoading = false;
+        });
     }
 }
 

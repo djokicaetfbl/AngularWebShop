@@ -5,8 +5,9 @@
     <fa-icon [icon]="faInfo"> </fa-icon> &nbsp;Detalji&nbsp;&nbsp;
       </button>
     </div>
-  <img [src]="article.imageSrc" alt="{{ article.articleName }}"  height="400px"
+  <img *ngIf="!isMobileHrizontal" [src]="article.imageSrc" alt="{{ article.articleName }}"  height="300px" width="60%" style="margin: 10%;" 
   class="responsive" />
+          <!--  border:5px solid black -->
     <div class="card-body">
       <h5 class="card-title">{{ article.articleName }}</h5>
       <p class="card-text">{{ article.describe }}</p>
@@ -30,7 +31,7 @@
         <fa-icon [icon]="faInfo"> </fa-icon> &nbsp;Detalji&nbsp;&nbsp;
           </button>
         </div>
-      <img [src]="article.imageSrc" alt="{{ article.articleName }}"  height="200px"
+      <img [src]="article.imageSrc" alt="{{ article.articleName }}"  height="200px" width="56%" style="margin: 10%;"
       class="responsive" />
         <div class="card-body">
           <h5 class="card-title">{{ article.articleName }}</h5>

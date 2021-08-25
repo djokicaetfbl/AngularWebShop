@@ -29,7 +29,6 @@ export class CategoryItemComponent implements OnInit {
 
   @HostListener('window:resize', ['$event']) //If you wanna keep it updated on resize:
   onResize(event) {
-    //this.innerWidth = window.innerWidth;
     if (window.screen.width > this.MOBILE_WIDTH_HORIZONTAL_MIN && window.screen.width < this.MOBILE_WIDTH_HORIZONTAL_MAX) {
       this.isMobileHrizontal = true;
     }
@@ -61,7 +60,6 @@ export class CategoryItemComponent implements OnInit {
 
   ngOnInit(): void {
     this.innerWidth = window.innerWidth;
-    console.log("INNER WIDTH: " + this.innerWidth);
 
     if (window.screen.width > this.MOBILE_WIDTH_HORIZONTAL_MIN && window.screen.width < this.MOBILE_WIDTH_HORIZONTAL_MAX) {
       this.isMobileHrizontal = true;
@@ -106,29 +104,18 @@ export class CategoryItemComponent implements OnInit {
 
   }
 
-  /*getIsAdmin(){
-    this.isAdmin = this.authService.getIsUserAdmin();
-    //console.log("ASAAA: "+this.isAdmin);
-    return this.isAdmin;
-  }*/
-
   onDeleteCategory() {
-    console.log("Category: " + JSON.stringify(this.category.id));
     this.category.active = false;
     this.categoryService.deleteCategory(this.category);
   }
 
   onUpdateCategory() {
-    //console.log("THIS ROUTE111 (djole) : "+this.route);
     this.router.navigate(['updateCategory', this.category.id], { relativeTo: this.route }); // ovo je relativna putanja , posto smo vec na categories/ pa sad treba da obavjestimo router o nasoj trenutnoj ruti (recipes/) to radimo
     // sa route: ActivatedRoute kroz relativeTo :D
-
     //https://stackoverflow.com/questions/44864303/send-data-through-routing-paths-in-angular
   }
 
   onShowArticlesForCategory() {
-    //console.log("GET ELEMENT BY NAME: "+document.getElementById("allToShow").style.visibility = 'hidden');
-
     this.router.navigate(['../categories', this.category.categoryName], { relativeTo: this.route });
   }
 
