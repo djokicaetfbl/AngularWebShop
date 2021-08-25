@@ -50,7 +50,7 @@ export class ArticleService {
         const categories = this.getArticles(); // sa put kao radi :d
         this.http.post('https://webshopangulardiplomski-default-rtdb.europe-west1.firebasedatabase.app/articles.json', article) // put overvriduje sve podatke koji su prije bili, dodajemo /recipes.json zbog firebase-a
             .subscribe(response => {
-                setTimeout(() => {
+                console.log("RESPONSE: "+JSON.stringify(response));
                     var tmpString = JSON.stringify(response).toString();
                     var mySubString = tmpString.substring(
                         //tmpString.lastIndexOf('-') + 1,  // ne lastIndexOf vec firstIndexOf
@@ -64,9 +64,6 @@ export class ArticleService {
                     this.articles.push(article);
                     this.articlesChanged.next(this.articles.slice());
                     this.setArticles(this.articles);
-                    console.log("DOSAO OVDEEEEE");
-                }, 1000);
-
             });
     }
 
