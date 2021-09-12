@@ -56,9 +56,12 @@ export class ArticleDetailComponent implements OnInit {
 
   isMobile = false;
   isMobileHrizontal = false;
-  MOBILE_WIDTH = 500;
-  MOBILE_WIDTH_HORIZONTAL_MIN = 700;
-  MOBILE_WIDTH_HORIZONTAL_MAX = 920;
+  //MOBILE_WIDTH = 500;
+  MOBILE_WIDTH = 707; // DJUKA
+  //MOBILE_WIDTH_HORIZONTAL_MIN = 700;
+  MOBILE_WIDTH_HORIZONTAL_MIN = 706; // DJUKA
+  //MOBILE_WIDTH_HORIZONTAL_MAX = 920;
+  MOBILE_WIDTH_HORIZONTAL_MAX = 1450; // DJUKA
 
   /*
   @ViewChild(PlaceHolderDirective) alertHost; // pronaci ce prvi PlaceHolderDirective element koji koristimo :D
@@ -66,6 +69,7 @@ export class ArticleDetailComponent implements OnInit {
   @HostListener('window:resize', ['$event']) //If you wanna keep it updated on resize:
   onResize(event) {
     //this.innerWidth = window.innerWidth;
+    
     if (window.screen.width > this.MOBILE_WIDTH_HORIZONTAL_MIN && window.screen.width < this.MOBILE_WIDTH_HORIZONTAL_MAX) {
       this.isMobileHrizontal = true;
       this.isMobile = false;

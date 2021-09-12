@@ -56,7 +56,8 @@
           </div>
           <br><br>
           <p class="priceH2Mobile">Cijena</p>
-          <p class="priceH2Mobile" style="margin-top: -15%;">{{ price }} KM</p>
+          <br><br><br>
+          <p class="priceH2Mobile" style="margin-top: -15%; margin-left: 1%">{{ price }} KM</p>
           <br><br><br>
           <p class="articleBasicInfoPMobile">{{ categoryName }} >> {{ articleName }}</p>
 
@@ -75,7 +76,7 @@
 
         <div class="row" id="addToCartRowMobile">
           
-           <div class="row">  
+           <div class="row" >  
             <button class="btn btn-success" id="btnAddToCartMobile" (click)="addArticleToCart(); open(mymodal)">
               <fa-icon [icon]="faPlus"> </fa-icon>&nbsp;Dodajte u korpu
             </button>

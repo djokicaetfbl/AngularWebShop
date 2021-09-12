@@ -24,37 +24,74 @@ export class ArticlesComponent {
 
     public innerWidth: any;
     isMobile = false;
-    MOBILE_WIDTH = 500;
     isLoading = true;
-
     isMobileHrizontal = false;
-    MOBILE_WIDTH_HORIZONTAL_MIN = 700;
-    MOBILE_WIDTH_HORIZONTAL_MAX = 920;
+    isLittleMob = false;
+
+    //MOBILE_WIDTH = 500;
+    MOBILE_WIDTH = 708; // DJUKA
+    //MOBILE_WIDTH_HORIZONTAL_MIN = 700;
+    MOBILE_WIDTH_HORIZONTAL_MIN = 706; // DJUKA
+    //MOBILE_WIDTH_HORIZONTAL_MAX = 920;
+    MOBILE_WIDTH_HORIZONTAL_MAX = 1450; // DJUKA
+    LITTLE_MOB = 450;
 
     @HostListener('window:resize', ['$event']) //If you wanna keep it updated on resize:
     onResize(event) {
-      this.innerWidth = window.screen.width; //= window.innerWidth;
-    }
-  
-    ngOnInit() {
-      this.innerWidth = window.innerWidth;     
-      //document.getElementById("allToShow").remove();
-      if(window.screen.width < this.MOBILE_WIDTH ) {
-        document.getElementById("allToShow").style.visibility = 'hidden';
-        document.getElementById("allToShow").style.display = 'none';
-        //document.getElementById("allToShow").remove();
-        this.isMobile = true;
-      } else {
-          this.isMobile = false;
-      }
+        this.innerWidth = window.screen.width; //= window.innerWidth;
 
-      if (window.screen.width > this.MOBILE_WIDTH_HORIZONTAL_MIN && window.screen.width < this.MOBILE_WIDTH_HORIZONTAL_MAX) {
-        this.isMobileHrizontal = true;
-      }
-      if(window.screen.width > this.MOBILE_WIDTH_HORIZONTAL_MAX) {
-        this.isMobileHrizontal = false;
-        this.isMobile = false;
-      }
+        if (window.screen.width < this.MOBILE_WIDTH) {
+            document.getElementById("allToShow").style.visibility = 'hidden';
+            document.getElementById("allToShow").style.display = 'none';
+            //document.getElementById("allToShow").remove();
+            this.isMobile = true;
+        } else {
+            this.isMobile = false;
+        }
+
+        if (window.screen.width > this.MOBILE_WIDTH_HORIZONTAL_MIN && window.screen.width < this.MOBILE_WIDTH_HORIZONTAL_MAX) {
+            this.isMobileHrizontal = true;
+        }
+        if (window.screen.width > this.MOBILE_WIDTH_HORIZONTAL_MAX) {
+            this.isMobileHrizontal = false;
+            this.isMobile = false;
+        }
+
+        if (window.screen.width < this.LITTLE_MOB) {
+            this.isLittleMob = true;
+        } else {
+            this.isLittleMob = false;
+
+        }
+    }
+
+    ngOnInit() {
+
+        console.log("JEBEMU: " + window.screen.width);
+
+        this.innerWidth = window.innerWidth;
+        //document.getElementById("allToShow").remove();
+        if (window.screen.width < this.MOBILE_WIDTH) {
+            document.getElementById("allToShow").style.visibility = 'hidden';
+            document.getElementById("allToShow").style.display = 'none';
+            //document.getElementById("allToShow").remove();
+            this.isMobile = true;
+        } else {
+            this.isMobile = false;
+        }
+
+        if (window.screen.width > this.MOBILE_WIDTH_HORIZONTAL_MIN && window.screen.width < this.MOBILE_WIDTH_HORIZONTAL_MAX) {
+            this.isMobileHrizontal = true;
+        }
+        if (window.screen.width > this.MOBILE_WIDTH_HORIZONTAL_MAX) {
+            this.isMobileHrizontal = false;
+            this.isMobile = false;
+        }
+        if (window.screen.width < this.LITTLE_MOB) {
+            this.isLittleMob = true;
+        } else {
+            this.isLittleMob = false;
+        }
     }
 
     constructor(private articleService: ArticleService, private authService: AuthService, private router: Router, private route: ActivatedRoute) {
@@ -68,7 +105,7 @@ export class ArticlesComponent {
             if (!this.route.snapshot.paramMap.get('id')?.toString() !== null) {
                 this.categoryName = this.route.snapshot.paramMap.get('categoryName')?.toString().trim();
                 this.articleService.loadArticles(this.categoryName);
-                
+
                 //console.log("DJOKICAAA")
             }
             this.userSub = this.authService.user.subscribe(user => {
@@ -89,14 +126,14 @@ export class ArticlesComponent {
     searchArticleInCategory(searchValue) {
         this.isLoading = true;
         let articlesTMP = [];
-        console.log("SEARCH VALUE: "+searchValue);
+        console.log("SEARCH VALUE: " + searchValue);
 
         this.articleService.setArticles([]);
-        this.articleService.loadArticles(this.categoryName).then( respone => {
-            console.log("RESPONSE: "+this.articles);
+        this.articleService.loadArticles(this.categoryName).then(respone => {
+            console.log("RESPONSE: " + this.articles);
 
-            for(let i = 0; i < this.articles.length; i++) {
-                if(this.articles[i].articleName.toString().toLowerCase().startsWith(searchValue.toString().toLowerCase())) {
+            for (let i = 0; i < this.articles.length; i++) {
+                if (this.articles[i].articleName.toString().toLowerCase().startsWith(searchValue.toString().toLowerCase())) {
                     console.log("DA");
                     articlesTMP.push(this.articles[i]);
                 }

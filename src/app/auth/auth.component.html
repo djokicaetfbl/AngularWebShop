@@ -4,23 +4,31 @@
 
     <!-- <form #authForm="ngForm" (ngSubmit)="onSubmit(authForm)" *ngIf="!isLoading" > -->
     <form #authForm="ngForm" (ngSubmit)="onSubmit(authForm)">
-        <div class="form-group">
+        <div class="form-group" *ngIf="!isMobile; else mobileBlock1">
             <label for="email" class="labelEmail">E-mail</label>
             <input type="email" id="email" class="form-control" ngModel name="email" required email>
         </div>
-        <div class="form-group">
+        <ng-template #mobileBlock1>
+            <label for="email" class="labelEmail" style="font-size: 12px;">E-mail</label>
+            <input type="email" id="email" class="form-control" ngModel name="email" required email style="font-size: 12px;">
+        </ng-template>
+        <div class="form-group" *ngIf="!isMobile; else mobileBlock2">
             <!-- to wrap label i input together -->
             <label for="password" class="labelPassword">Lozinka</label>
             <input type="password" id="password" class="form-control" ngModel name="password" required minlength="6">
         </div>
+        <ng-template #mobileBlock2>
+            <label for="password" class="labelPassword" style="font-size: 12px;">Lozinka</label>
+            <input type="password" id="password" class="form-control" ngModel name="password" required minlength="6" style="font-size: 12px;">
+        </ng-template>
         <br>
-        <div *ngIf="!isMobile; else mobileBlock" > <!-- kada su button-i u istom divu idu jedan pored drugog, a ako su u raz. divovima onda jedan ispod drugog -->
+        <div *ngIf="!isMobile; else mobileBlock3" > <!-- kada su button-i u istom divu idu jedan pored drugog, a ako su u raz. divovima onda jedan ispod drugog -->
             <button class="btn btn-primary" type="submit" [disabled]="!authForm.valid" >{{ isLoginMode ? 'Prijava' : 'Registracija' }}</button> |
             <button class="btn btn-primary" type="button" (click)="onSwitchMode()">Promjeni na {{ isLoginMode ? 'Registracija': 'Prijava'}}</button><!-- obavezno type button , inace ce da posalje suvisan http request , kao da je submit -->
         </div>
-        <ng-template #mobileBlock>
-            <button class="btn btn-primary" type="submit" id="loginMobile" [disabled]="!authForm.valid" >{{ isLoginMode ? 'Prijava' : 'Registracija' }}</button> |
-            <button class="btn btn-primary" type="button" id="registerMobile" (click)="onSwitchMode()">Promjeni na {{ isLoginMode ? 'Registracija': 'Prijava'}}</button>
+        <ng-template #mobileBlock3>
+            <button class="btn btn-primary" style="font-size: 12px;" type="submit" id="loginMobile" [disabled]="!authForm.valid" >{{ isLoginMode ? 'Prijava' : 'Registracija' }}</button> |
+            <button class="btn btn-primary" style="font-size: 12px;" type="button" id="registerMobile" (click)="onSwitchMode()">Promjeni na {{ isLoginMode ? 'Registracija': 'Prijava'}}</button>
         </ng-template>
 
     </form>

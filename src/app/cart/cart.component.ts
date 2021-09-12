@@ -1,11 +1,12 @@
-import { Component, OnDestroy, OnInit } from "@angular/core";
+import { Component, HostListener, OnDestroy, OnInit } from "@angular/core";
 import { Store } from "@ngrx/store";
 import { Observable, Subscription } from "rxjs";
 import { Article } from "src/articles/articles.model";
 import * as fromApp from '../store/app.reducer';
 import * as CartActions from './store/cart-actions';
+import { faTrash } from '@fortawesome/free-solid-svg-icons';
 
-import {NgbModal, ModalDismissReasons} from '@ng-bootstrap/ng-bootstrap';
+import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
 
 
 @Component({
@@ -20,13 +21,37 @@ export class Cart implements OnInit, OnDestroy {
   summaryPriceXQuantity = 0.0;
 
   private subscription: Subscription;
+  faTrash = faTrash;
 
-  
   closeResult: string = '';
+
+  isMobileVeryLittle = false;
+  //MOBILE_WIDTH = 500;
+  MOBILE_WIDTH = 375; // DJUKA
+
+  @HostListener('window:resize', ['$event']) //If you wanna keep it updated on resize:
+  onResize(event) {
+    //this.innerWidth = window.innerWidth;
+
+    if (window.screen.width < this.MOBILE_WIDTH) {
+      console.log("DADADA VERY LITLE!!!");
+      this.isMobileVeryLittle = true;
+    } else {
+      this.isMobileVeryLittle = false;
+    }
+  }
 
   constructor(private store: Store<fromApp.AppState>, private modalService: NgbModal) { }
 
   ngOnInit(): void {
+
+    if (window.screen.width < this.MOBILE_WIDTH) {
+      console.log("DADADA VERY LITLE!!!");
+      this.isMobileVeryLittle = true;
+    } else {
+      this.isMobileVeryLittle = false;
+    }
+
     this.articles = this.store.select('cart'); // BITNO ZA NGRX STORE ! 
     this.store.select('cart').subscribe();
     /* suma za placanje */
@@ -41,11 +66,11 @@ export class Cart implements OnInit, OnDestroy {
     /* */
   }
 
-  open(content:any) {
+  open(content: any) {
     let tmpArticles: Article[];
-    this.articles.subscribe(x => tmpArticles = x.articles); 
+    this.articles.subscribe(x => tmpArticles = x.articles);
 
-    this.modalService.open(content, {ariaLabelledBy: 'modal-basic-title'}).result.then((result) => {
+    this.modalService.open(content, { ariaLabelledBy: 'modal-basic-title' }).result.then((result) => {
       this.closeResult = `Closed with: ${result}`;
       this.store.dispatch(new CartActions.DeleteAllArticlesFromCart());
       this.summaryPriceXQuantity = 0.0;
@@ -55,14 +80,14 @@ export class Cart implements OnInit, OnDestroy {
       this.summaryPriceXQuantity = 0.0;
     });
   }
-  
+
   private getDismissReason(reason: any): string {
     if (reason === ModalDismissReasons.ESC) {
       return 'by pressing ESC';
     } else if (reason === ModalDismissReasons.BACKDROP_CLICK) {
       return 'by clicking on a backdrop';
     } else {
-      return  `with: ${reason}`;
+      return `with: ${reason}`;
     }
   }
 
@@ -81,5 +106,5 @@ export class Cart implements OnInit, OnDestroy {
     this.summaryPriceXQuantity = 0.0;
     this.ngOnInit();
   }
-  
+
 }

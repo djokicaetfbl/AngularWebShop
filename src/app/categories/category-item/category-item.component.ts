@@ -23,9 +23,12 @@ export class CategoryItemComponent implements OnInit {
 
   isMobile = false;
   isMobileHrizontal = false;
-  MOBILE_WIDTH = 500;
-  MOBILE_WIDTH_HORIZONTAL_MIN = 700;
-  MOBILE_WIDTH_HORIZONTAL_MAX = 920;
+  //MOBILE_WIDTH = 500;
+  MOBILE_WIDTH = 707; // DJUKA
+  //MOBILE_WIDTH_HORIZONTAL_MIN = 700;
+  MOBILE_WIDTH_HORIZONTAL_MIN = 706; // DJUKA
+  //MOBILE_WIDTH_HORIZONTAL_MAX = 920;
+  MOBILE_WIDTH_HORIZONTAL_MAX = 1450; // DJUKA
 
   @HostListener('window:resize', ['$event']) //If you wanna keep it updated on resize:
   onResize(event) {

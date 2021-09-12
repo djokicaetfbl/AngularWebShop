@@ -1,4 +1,4 @@
-import { Component, ComponentFactoryResolver, OnDestroy, ViewChild } from "@angular/core";
+import { Component, ComponentFactoryResolver, HostListener, OnDestroy, ViewChild } from "@angular/core";
 import { NgForm } from "@angular/forms";
 import { Router } from "@angular/router";
 import { Observable, Subscription } from "rxjs";
@@ -17,9 +17,16 @@ export class AuthComponent implements OnDestroy {
     error: any = null; // mozda type string
     isMobile = false;
     MOBILE_WIDTH = 500;
-    /*
-    @ViewChild(PlaceHolderDirective) alertHost; // pronaci ce prvi PlaceHolderDirective element koji koristimo :D
-  */
+
+    @HostListener('window:resize', ['$event']) //If you wanna keep it updated on resize:
+    onResize(event) {
+        if (window.screen.width < this.MOBILE_WIDTH) {
+            this.isMobile = true;
+        } else {
+            this.isMobile = false;
+        }
+
+    }
 
     ngOnInit() {
         if (window.screen.width < this.MOBILE_WIDTH) {

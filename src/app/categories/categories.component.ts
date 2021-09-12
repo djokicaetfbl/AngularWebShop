@@ -20,9 +20,12 @@ export class CategoriesComponent implements OnInit { // nisam koristio ngOnInit 
   isAdmin = false;
   isMobile = false;
   isMobileHrizontal = false;
-  MOBILE_WIDTH = 500;
-  MOBILE_WIDTH_HORIZONTAL_MIN = 700;
-  MOBILE_WIDTH_HORIZONTAL_MAX = 920;
+  //MOBILE_WIDTH = 500;
+  MOBILE_WIDTH = 707; // DJUKA
+  //MOBILE_WIDTH_HORIZONTAL_MIN = 700;
+  MOBILE_WIDTH_HORIZONTAL_MIN = 706; // DJUKA
+  //MOBILE_WIDTH_HORIZONTAL_MAX = 920;
+  MOBILE_WIDTH_HORIZONTAL_MAX = 1450; // DJUKA
   isLoading = true;
 
   //@Input() category!: Category;
