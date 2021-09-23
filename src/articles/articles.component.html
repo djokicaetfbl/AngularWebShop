@@ -45,27 +45,19 @@
                 <h2>Kategorije</h2>
             </span>
         </a>
-        <!-- <div>
-            {{ categoryName }}
-        </div>  -->
+
         <div class="row">
             <div class=" leftLeftMobile">
                 <div class="searchDiv">
                     <div class="input-group mb-3" id="test" >
-                        <!-- <div class="input-group-prepend">  -->
                             <input class="form-control mr-sm-2" id="searchCategoryMobile" [value]="categoryName"
                             style="font-size: 11px;" readonly>
                             <input [(ngModel)]="searchValue" class="form-control mr-sm-2" id="searchCategoryMobileInput" *ngIf="!isLittleMob"
                                 type="search" placeholder="Unesite naziv artikala" aria-label="Search">
                                 <input [(ngModel)]="searchValue" class="form-control mr-sm-2" id="searchCategoryMobileInput" *ngIf="isLittleMob"
                                 type="search" placeholder="Unesite naziv artikala" aria-label="Search" style="font-size: 10px;">
-                        <!-- </div> &nbsp;&nbsp;&nbsp; -->
                         <button class="btn btn-outline-success my-2 my-sm-0" id="searchCategoryButtonMobile" type="submit"
                         (click)="searchArticleInCategory(searchValue)" style="width: 100%;">Pretraga</button>
-                        <!-- <input class="form-control mr-sm-2" id="searchCategoryMobile" [value]="categoryName"
-                            style="font-size: 20px;" readonly>  -->
-                            
-
                     </div>
 
                 </div>

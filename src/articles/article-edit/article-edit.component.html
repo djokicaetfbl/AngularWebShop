@@ -79,9 +79,14 @@
             <br>
             
             <div class="row">
-                <div class="col-xs-12">  
+                <div class="col-xs-12" *ngIf="!isLittleMobile">  
                     <button type="submit" id="cancelArticle"  class="btn btn-danger" style="margin-right: 5px;" (click)="onCancel()" ><fa-icon [icon]="faArrowLeft"> </fa-icon>&nbsp;Nazad</button>
                     <button type="submit" id="saveArticle" class="btn btn-success" style="margin-right: 5px;" [disabled]='!articleForm.valid'><fa-icon [icon]="faSave"> </fa-icon>&nbsp;Sačuvaj</button>
+                </div>                
+                <div class="col-xs-12" *ngIf="isLittleMobile">  
+                    <button type="submit" id="cancelArticle"  class="btn btn-danger" style="margin-right: 5px;" (click)="onCancel()" style="font-size: 16px;"><fa-icon [icon]="faArrowLeft"> </fa-icon>&nbsp;Nazad</button>
+                    &nbsp;
+                    <button type="submit" id="saveArticle" class="btn btn-success" style="margin-right: 5px;" [disabled]='!articleForm.valid' style="font-size: 16px;"><fa-icon [icon]="faSave"> </fa-icon>&nbsp;Sačuvaj</button>
                 </div>
             </div>
         </form>

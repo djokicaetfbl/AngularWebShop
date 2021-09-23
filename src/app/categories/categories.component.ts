@@ -56,7 +56,7 @@ export class CategoriesComponent implements OnInit { // nisam koristio ngOnInit 
   ngOnInit() {
     //this.innerWidth = window.innerWidth;
     //console.log("DJOLE: "+this.innerWidth);
-    if (window.screen.width < this.MOBILE_WIDTH) {
+   /* if (window.screen.width < this.MOBILE_WIDTH) {
       this.isMobile = true;
     } else {
       this.isMobile = false;
@@ -65,6 +65,21 @@ export class CategoriesComponent implements OnInit { // nisam koristio ngOnInit 
     if (window.screen.width > this.MOBILE_WIDTH_HORIZONTAL_MIN && window.screen.width < this.MOBILE_WIDTH_HORIZONTAL_MAX) {
       console.log("DADADA!!!");
       this.isMobileHrizontal = true;
+    }*/
+
+    if (window.screen.width > this.MOBILE_WIDTH_HORIZONTAL_MIN && window.screen.width < this.MOBILE_WIDTH_HORIZONTAL_MAX) {
+      console.log("DADADA!!!");
+      this.isMobileHrizontal = true;
+    }
+    if (window.screen.width < this.MOBILE_WIDTH) {
+      this.isMobile = true;
+    } else {
+      this.isMobile = false;
+    }
+
+    if (window.screen.width > this.MOBILE_WIDTH_HORIZONTAL_MAX) {
+      this.isMobile = false;
+      this.isMobileHrizontal = false;
     }
   }
 

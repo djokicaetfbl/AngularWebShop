@@ -29,7 +29,7 @@
       <div class="row" id="addToCartRow">
         <p class="priceH2">Cijena {{ price }} KM</p>
         <div class="row">
-          <button class="btn btn-success" id="btnAddToCart" (click)="addArticleToCart(); open(mymodal)" [disabled]="isLoading" >
+          <button class="btn btn-success" id="btnAddToCart" (click)="addArticleToCart(); open(mymodal)" [disabled]="isLoading">
             <fa-icon [icon]="faPlus"> </fa-icon>&nbsp;Dodajte u korpu
           </button>
         </div>
@@ -65,20 +65,29 @@
       </div>
       <div class="column right">
         <div class="row" id="counterRowMobile">
-          <div class="row"><button class="btn btn-success" id="btnPlusArticleMobile" (click)="plusArticleToCart()">+</button>
+          <div class="row">
+            <button class="btn btn-success" id="btnPlusArticleMobile" (click)="plusArticleToCart()" *ngIf="!isVeryLittle">+</button>
+            <button class="btn btn-success" id="btnPlusArticleMobile" (click)="plusArticleToCart()" *ngIf="isVeryLittle" style="font-size: 9px;">+</button>
           </div>
-           <div class="row"><input [(ngModel)]="articleCounterState" class="form-control form-control-lg" id="inputCounterMobile"
-              type="text" readonly></div>
-          <div class="row"><button class="btn btn-danger" id="btnMinusArticleMobile" (click)="minusArticleToCart()">-</button>
+           <div class="row">
+             <input [(ngModel)]="articleCounterState" class="form-control form-control-lg" id="inputCounterMobile" type="text" readonly *ngIf="!isVeryLittle">
+             <input [(ngModel)]="articleCounterState" class="form-control form-control-lg" id="inputCounterMobile" type="text" readonly  *ngIf="isVeryLittle" style="font-size: 9px;">
+            </div>
+          <div class="row">
+            <button class="btn btn-danger" id="btnMinusArticleMobile" (click)="minusArticleToCart()" *ngIf="!isVeryLittle">-</button>
+            <button class="btn btn-danger" id="btnMinusArticleMobile" (click)="minusArticleToCart()" *ngIf="isVeryLittle" style="font-size: 9px;">-</button>
           </div> 
         </div>
         <br><br><br>
 
         <div class="row" id="addToCartRowMobile">
           
-           <div class="row" >  
-            <button class="btn btn-success" id="btnAddToCartMobile" (click)="addArticleToCart(); open(mymodal)">
-              <fa-icon [icon]="faPlus"> </fa-icon>&nbsp;Dodajte u korpu
+           <div class="row">  
+            <button class="btn btn-success" id="btnAddToCartMobile" (click)="addArticleToCart(); open(mymodal)" *ngIf="!isVeryLittle">
+              <fa-icon [icon]="faPlus" > </fa-icon>&nbsp;Dodajte u korpu
+            </button>
+            <button class="btn btn-success" id="btnAddToCartMobile" (click)="addArticleToCart(); open(mymodal)" *ngIf="isVeryLittle" style="font-size: 9px; margin-left: 10%;">
+              <fa-icon [icon]="faPlus" > </fa-icon>&nbsp;Dodajte u korpu
             </button>
           </div>  
         </div>

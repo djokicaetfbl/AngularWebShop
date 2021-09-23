@@ -56,12 +56,14 @@ export class ArticleDetailComponent implements OnInit {
 
   isMobile = false;
   isMobileHrizontal = false;
+  isVeryLittle = false;
   //MOBILE_WIDTH = 500;
   MOBILE_WIDTH = 707; // DJUKA
   //MOBILE_WIDTH_HORIZONTAL_MIN = 700;
   MOBILE_WIDTH_HORIZONTAL_MIN = 706; // DJUKA
   //MOBILE_WIDTH_HORIZONTAL_MAX = 920;
   MOBILE_WIDTH_HORIZONTAL_MAX = 1450; // DJUKA
+  VERY_LITTLE = 301;
 
   /*
   @ViewChild(PlaceHolderDirective) alertHost; // pronaci ce prvi PlaceHolderDirective element koji koristimo :D
@@ -69,7 +71,7 @@ export class ArticleDetailComponent implements OnInit {
   @HostListener('window:resize', ['$event']) //If you wanna keep it updated on resize:
   onResize(event) {
     //this.innerWidth = window.innerWidth;
-    
+
     if (window.screen.width > this.MOBILE_WIDTH_HORIZONTAL_MIN && window.screen.width < this.MOBILE_WIDTH_HORIZONTAL_MAX) {
       this.isMobileHrizontal = true;
       this.isMobile = false;
@@ -85,6 +87,13 @@ export class ArticleDetailComponent implements OnInit {
       this.isMobile = false;
       this.isMobileHrizontal = false;
     }
+    if (window.screen.width < this.VERY_LITTLE) {
+      this.isVeryLittle = true;
+      console.log("FAKKKK");
+    } else {
+      this.isVeryLittle = false;
+    }
+
   }
 
   constructor(private articleService: ArticleService, private route: ActivatedRoute, private router: Router, private store: Store<fromApp.AppState>, private modalService: NgbModal) {
@@ -97,7 +106,7 @@ export class ArticleDetailComponent implements OnInit {
         this.initForm();
         this.isLoading = false;
       });
-      
+
       /*setTimeout(() => {
         this.article = this.articleService.getArticle(this.articleId);
         this.initForm();
@@ -131,6 +140,11 @@ export class ArticleDetailComponent implements OnInit {
     if (window.screen.width > this.MOBILE_WIDTH_HORIZONTAL_MAX) {
       this.isMobile = false;
       this.isMobileHrizontal = false;
+    }
+    if (window.screen.width < this.VERY_LITTLE) {
+      this.isVeryLittle = true;
+    } else {
+      this.isVeryLittle = false;
     }
   }
 

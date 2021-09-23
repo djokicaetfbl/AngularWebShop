@@ -1,5 +1,5 @@
 import { HttpClient } from '@angular/common/http';
-import { Component, Injectable, OnInit } from '@angular/core';
+import { Component, HostListener, Injectable, OnInit } from '@angular/core';
 import { FormArray, FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Params, Router } from '@angular/router';
 import { CategoryService } from '../category.service';
@@ -34,6 +34,10 @@ export class CategoryEditComponent implements OnInit {
   editMode = false;
   categoryForm!: FormGroup;  // ovo  sam ja dodao uzvicnik pa da vidimo sta ce da bude :D, jer uzvicnik kaze da cu kasnije da izrvsim inicijalizacuj pa sad tu komapjelr kao to nesto zna
   private articles: Article[] = [];
+
+  isLittleMobile = false;
+  LITTLE_MOBILE_WIDTH = 361;
+
   /*
   2
 
@@ -45,42 +49,56 @@ apply the best practice of initializing the properties, either inline or in the 
 disable the strictPropertyInitialization flag in your tsconfig file (not recommended)
    */
 
-  constructor(private route: ActivatedRoute, private categoryService: CategoryService, private router: Router, private httpClient: HttpClient, private articleService: ArticleService) { }
+  @HostListener('window:resize', ['$event']) //If you wanna keep it updated on resize:
+  onResize(event) {
+    //this.innerWidth = window.innerWidth;
+    if (window.screen.width < this.LITTLE_MOBILE_WIDTH) {
+      this.isLittleMobile = true;
+    } else {
+      this.isLittleMobile = false;
+    }
+  }
 
+  constructor(private route: ActivatedRoute, private categoryService: CategoryService, private router: Router, private httpClient: HttpClient, private articleService: ArticleService) { }
 
   ngOnInit(): void {
     this.initForm(); //https://stackoverflow.com/questions/44864303/send-data-through-routing-paths-in-angular
+    if (window.screen.width < this.LITTLE_MOBILE_WIDTH) {
+      this.isLittleMobile = true;
+    } else {
+      this.isLittleMobile = false;
+    }
   }
 
   onSubmit() {
     //if (!this.route.snapshot.paramMap.get('id')?.toString() !== null) {
-      if (this.route.snapshot.paramMap.get('id') !== null) {
-        this.categoryNameNEW = JSON.stringify(this.categoryForm.value.categoryName);
+    if (this.route.snapshot.paramMap.get('id') !== null) {
+      this.categoryNameNEW = JSON.stringify(this.categoryForm.value.categoryName);
 
-        let tmpCategoryName = this.categoryNameNEW.replace(/['"]+/g, '');
-        this.articleService.loadArticles(this.categoryNameOLD).then( response => {
-          this.articles = this.articleService.getArticles();
-          for(let i = 0; i < this.articles.length; i++){   
-            /*console.log("HHN: "+this.articles[i].articleName);      
-            console.log("HHC: "+this.articles[i].categoryName);
-            console.log("HHID: "+this.articles[i].id);*/
-            this.articles[i].categoryName = tmpCategoryName;
-            this.articleService.updateArticle(this.articles[i]);
-          }
-        });
+      let tmpCategoryName = this.categoryNameNEW.replace(/['"]+/g, '');
+      this.articleService.loadArticles(this.categoryNameOLD).then(response => {
+        this.articles = this.articleService.getArticles();
+        for (let i = 0; i < this.articles.length; i++) {
+          /*console.log("HHN: "+this.articles[i].articleName);      
+          console.log("HHC: "+this.articles[i].categoryName);
+          console.log("HHID: "+this.articles[i].id);*/
+          this.articles[i].categoryName = tmpCategoryName;
+          this.articleService.updateArticle(this.articles[i]);
+        }
+      });
 
-         /* updateuj kategoriju za sve artikle :D */
-        /*setTimeout(() => {
-          this.articles = this.articleService.getArticles();
-          for(let i = 0; i < this.articles.length; i++){         
-            console.log("HH: "+this.articles[i].categoryName);
-            this.articles[i].categoryName = tmpCategoryName;
-            this.articleService.updateArticle(this.articles[i]);
-          }
-      }, 2000);*/
-      
-     // }
-     console.log("POZVAO UPDATE CATEGORY");
+      /* updateuj kategoriju za sve artikle :D */
+      /*setTimeout(() => {
+        this.articles = this.articleService.getArticles();
+        for(let i = 0; i < this.articles.length; i++){         
+          console.log("HH: "+this.articles[i].categoryName);
+          this.articles[i].categoryName = tmpCategoryName;
+          this.articleService.updateArticle(this.articles[i]);
+        }
+    }, 2000);*/
+
+      // }
+      console.log("POZVAO UPDATE CATEGORY");
       this.categoryService.updateCategory(this.categoryForm.value);
     } else {
       console.log("POZVAO CREATE CATEGORY");
@@ -118,7 +136,7 @@ disable the strictPropertyInitialization flag in your tsconfig file (not recomme
 
   private initForm() {
 
-    console.log("DJOKAS:: "+this.route.snapshot.paramMap.get('id') );
+    console.log("DJOKAS:: " + this.route.snapshot.paramMap.get('id'));
 
     let categoryName = '';
     let file = '';
@@ -138,11 +156,11 @@ disable the strictPropertyInitialization flag in your tsconfig file (not recomme
       var tmpID = this.route.snapshot.paramMap.get('id')?.toString()!; // ovaj ! u slucajnu da nije assignabile ili null :D
       //console.log("TMPID RUTA: "+tmpID);
       var category = new Category('', '', '', false, '');
-      this.categoryService.loadCategories().then( response => {
+      this.categoryService.loadCategories().then(response => {
         category = this.categoryService.getCategory(tmpID);
         this.initUpdateForm(category);
       });
-      
+
       /*setTimeout(() => {
         category = this.categoryService.getCategory(tmpID);
         this.initUpdateForm(category);

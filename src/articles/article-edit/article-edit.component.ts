@@ -1,5 +1,5 @@
 import { HttpClient } from "@angular/common/http";
-import { Component, Injectable, Input, OnInit } from "@angular/core";
+import { Component, HostListener, Injectable, Input, OnInit } from "@angular/core";
 import { ActivatedRoute, Router } from "@angular/router";
 import { ArticleService } from "../article.service";
 import { faUpload } from '@fortawesome/free-solid-svg-icons';
@@ -37,8 +37,26 @@ export class ArticleEditComponent implements OnInit {
   categoryNameNAME: any;
   isLoading = true;
 
+  isLittleMobile = false;
+  LITTLE_MOBILE_WIDTH = 361;
+
+  @HostListener('window:resize', ['$event']) //If you wanna keep it updated on resize:
+  onResize(event) {
+    //this.innerWidth = window.innerWidth;
+    if (window.screen.width < this.LITTLE_MOBILE_WIDTH) {
+      this.isLittleMobile = true;
+    } else {
+      this.isLittleMobile = false;
+    }
+  }
+
   ngOnInit(): void {
     //this.initForm();
+    if (window.screen.width < this.LITTLE_MOBILE_WIDTH) {
+      this.isLittleMobile = true;
+    } else {
+      this.isLittleMobile = false;
+    }
   }
 
   constructor(private route: ActivatedRoute, private articleService: ArticleService, private categoryService: CategoryService, private router: Router, private httpClient: HttpClient) {

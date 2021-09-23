@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from "@angular/core";
+import { Component, HostListener, Input, OnInit } from "@angular/core";
 import { ArticleService } from "../article.service";
 import { faPencilAlt } from '@fortawesome/free-solid-svg-icons';
 import { faTrash } from '@fortawesome/free-solid-svg-icons';
@@ -19,6 +19,7 @@ export class ArticleItemComponent implements OnInit {
   faPencilAlt = faPencilAlt;
   faTrash = faTrash;
   faInfo = faInfo;
+  isLittleMob = false;
 
   isMobileHrizontal = false;
   //MOBILE_WIDTH = 500;
@@ -27,6 +28,8 @@ export class ArticleItemComponent implements OnInit {
   MOBILE_WIDTH_HORIZONTAL_MIN = 706; // DJUKA
   //MOBILE_WIDTH_HORIZONTAL_MAX = 920;
   MOBILE_WIDTH_HORIZONTAL_MAX = 1450; // DJUKA
+  LITTLE_MOB = 340;
+
 
   constructor(private authService: AuthService, private articleService: ArticleService, private route: ActivatedRoute, private router: Router) { }
 
@@ -42,12 +45,35 @@ export class ArticleItemComponent implements OnInit {
   subscription!: Subscription;
   isAdmin = false;
 
+  @HostListener('window:resize', ['$event']) //If you wanna keep it updated on resize:
+  onResize(event) {
+    if (window.screen.width > this.MOBILE_WIDTH_HORIZONTAL_MIN && window.screen.width < this.MOBILE_WIDTH_HORIZONTAL_MAX) {
+      this.isMobileHrizontal = true;
+    } else {
+      this.isMobileHrizontal = false;
+    }
+
+    if (window.screen.width < this.LITTLE_MOB) {
+      this.isLittleMob = true;
+    } else {
+      this.isLittleMob = false;
+
+    }
+   }
+
   ngOnInit(): void {
 
     if (window.screen.width > this.MOBILE_WIDTH_HORIZONTAL_MIN && window.screen.width < this.MOBILE_WIDTH_HORIZONTAL_MAX) {
       this.isMobileHrizontal = true;
     } else {
       this.isMobileHrizontal = false;
+    }
+
+    if (window.screen.width < this.LITTLE_MOB) {
+      this.isLittleMob = true;
+    } else {
+      this.isLittleMob = false;
+
     }
 
     this.userSub = this.authService.user.subscribe(user => {
