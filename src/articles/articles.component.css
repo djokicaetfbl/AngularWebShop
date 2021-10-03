@@ -50,10 +50,16 @@
 
 #searchCategory {
     font-size: 20px;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
 }
 
 #searchCategoryMobile {
   font-size: 13px;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
 }
 
 #searchCategoryButton {

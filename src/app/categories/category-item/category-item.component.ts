@@ -29,6 +29,8 @@ export class CategoryItemComponent implements OnInit {
   MOBILE_WIDTH_HORIZONTAL_MIN = 706; // DJUKA
   //MOBILE_WIDTH_HORIZONTAL_MAX = 920;
   MOBILE_WIDTH_HORIZONTAL_MAX = 1450; // DJUKA
+  MOBILE_MIDDLE_WIDTH = 831;
+  isMiddleWidth = false;
 
   @HostListener('window:resize', ['$event']) //If you wanna keep it updated on resize:
   onResize(event) {
@@ -44,6 +46,12 @@ export class CategoryItemComponent implements OnInit {
     if (window.screen.width > this.MOBILE_WIDTH_HORIZONTAL_MAX) {
       this.isMobile = false;
       this.isMobileHrizontal = false;
+    }
+
+    if (window.screen.width >= this.MOBILE_WIDTH_HORIZONTAL_MIN && window.screen.width < this.MOBILE_MIDDLE_WIDTH) {
+      this.isMiddleWidth = true;
+    } else {
+      this.isMiddleWidth = false;
     }
   }
 

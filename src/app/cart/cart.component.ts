@@ -27,18 +27,25 @@ export class Cart implements OnInit, OnDestroy {
 
   isMobileVeryLittle = false;
   //MOBILE_WIDTH = 500;
-  MOBILE_WIDTH = 375; // DJUKA
+  MOBILE_WIDTH = 431; // DJUKA
+  //MIDDLE_MOBILE_WIDTH = 431;
+  //isMiddleMobile = false;
 
   @HostListener('window:resize', ['$event']) //If you wanna keep it updated on resize:
   onResize(event) {
     //this.innerWidth = window.innerWidth;
 
     if (window.screen.width < this.MOBILE_WIDTH) {
-      console.log("DADADA VERY LITLE!!!");
       this.isMobileVeryLittle = true;
     } else {
       this.isMobileVeryLittle = false;
     }
+   /* if (window.screen.width >= this.MOBILE_WIDTH && window.screen.width < this.MIDDLE_MOBILE_WIDTH ) {
+      this.isMiddleMobile = true;
+    } else {
+      this.isMiddleMobile = false;
+    }*/
+
   }
 
   constructor(private store: Store<fromApp.AppState>, private modalService: NgbModal) { }
